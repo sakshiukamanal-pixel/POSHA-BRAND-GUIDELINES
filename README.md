@@ -109,7 +109,7 @@ never put secrets in `code/` or `database/`, since everything there is public on
 
 ## Hosting
 
-Live on Vercel: **https://posha-guidelines.vercel.app** (project `posha-guidelines`, linked to GitHub
+Live on Vercel: **https://posha-brand-guidelines.vercel.app** (project `posha-brand-guidelines`, linked to GitHub
 `sakshiukamanal-pixel/POSHA-BRAND-GUIDELINES`).
 
 - **To publish: commit and push to `main`.** Vercel builds and goes live automatically (about a minute).

@@ -231,7 +231,11 @@ p + p { margin-top: 1em; }
 .loading { color: var(--faint); }
 
 /* Hero — page title is H1 (Epika 6rem / 1.0) */
-.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 480px); gap: 32px 64px; align-items: start; }
+.hero { display: flex; flex-wrap: wrap; gap: 32px 64px; align-items: flex-start; }
+/* The title never shrinks below its longest word; once it and the summary can't share a row,
+   the summary wraps underneath instead of overlapping the title. */
+.hero-head { flex: 1 1 0; min-width: min-content; }
+.hero > .hero-summary { flex: 0 1 480px; min-width: 0; }
 .hero .display {
   font: 400 var(--fs-h1)/var(--lh-h1) var(--font-display);
   letter-spacing: -0.005em;
@@ -241,7 +245,7 @@ p + p { margin-top: 1em; }
 .hero-summary a { color: var(--ink); }
 .hero .crumb { color: var(--faint); }
 
-.hero--stacked { grid-template-columns: minmax(0, 1fr); }
+.hero--stacked > .hero-head, .hero--stacked > .hero-summary { flex-basis: 100%; }
 .hero--stacked .hero-summary { color: var(--ink-2); font-size: var(--fs-lead); line-height: var(--lh-lead); max-width: 460px; margin-top: 18px; }
 
 /* Table of contents */
@@ -1086,7 +1090,7 @@ figcaption { margin-top: 12px; font-size: var(--fs-small); line-height: var(--lh
   .appbar { margin: 60px 0 0; top: 60px; padding: 12px var(--gutter); }
   .site-search-box kbd { display: none; }
   .search-trigger { display: flex; }
-  .hero { grid-template-columns: minmax(0, 1fr); }
+  .hero > .hero-head, .hero > .hero-summary { flex-basis: 100%; }
   .toc { margin-top: 56px; }
   .sub { scroll-margin-top: 72px; margin-top: 64px; }
   .part { scroll-margin-top: 140px; margin-top: 64px; }

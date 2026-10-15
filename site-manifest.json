@@ -1,0 +1,90 @@
+{
+    "base":  "https://pub-61f336f5041247d4bd3e51e5fd3a1ffb.r2.dev",
+    "files":  [
+                  {
+                      "path":  "code/css/styles.css",
+                      "sha1":  "4a6f6f4ce3555b338847abebe5461a001fcaed5b",
+                      "size":  71227
+                  },
+                  {
+                      "path":  "code/index.html",
+                      "sha1":  "bd7bd80fa32a0846dcc5261672975844c6199cfd",
+                      "size":  3511
+                  },
+                  {
+                      "path":  "code/js/app.js",
+                      "sha1":  "ed25d10539258543e12e17552730ed48d532e5af",
+                      "size":  107940
+                  },
+                  {
+                      "path":  "database/media.js",
+                      "sha1":  "256062d0b22842e245d09994177ea877f472aa8b",
+                      "size":  8411
+                  },
+                  {
+                      "path":  "database/sections/01-philosophy.js",
+                      "sha1":  "82b8a99f2f0f684ce573d9163ef6780a5916b7b0",
+                      "size":  1391
+                  },
+                  {
+                      "path":  "database/sections/02-logo.js",
+                      "sha1":  "dd802d140ab8a105ba679d5593c7730d3995232b",
+                      "size":  6248
+                  },
+                  {
+                      "path":  "database/sections/03-color.js",
+                      "sha1":  "08d08706bc967fc04edee1422746f65087462129",
+                      "size":  4191
+                  },
+                  {
+                      "path":  "database/sections/04-typography.js",
+                      "sha1":  "80e72222dce0e01623448b62aeb40afed0a5ec34",
+                      "size":  5090
+                  },
+                  {
+                      "path":  "database/sections/05-iconography.js",
+                      "sha1":  "bc8f74be2653fc23495553613f01bea54b41afa4",
+                      "size":  12484
+                  },
+                  {
+                      "path":  "database/sections/06-ui-system.js",
+                      "sha1":  "0bff094fa4b1020a049bb5a67380e7e3cc59d7a8",
+                      "size":  353
+                  },
+                  {
+                      "path":  "database/sections/07-gallery.js",
+                      "sha1":  "a433f9d1055d4466defeb2d3ac39c91a26763d3d",
+                      "size":  29029
+                  },
+                  {
+                      "path":  "database/sections/08-motion.js",
+                      "sha1":  "2c21bcc6a897e6ef95d505e369249966ea9b59a3",
+                      "size":  460
+                  },
+                  {
+                      "path":  "database/sections/09-data-visualization.js",
+                      "sha1":  "7abbbafa01b79e80bac4fef8ccb6d03c0266e6d8",
+                      "size":  303
+                  },
+                  {
+                      "path":  "database/sections/10-brand-expression.js",
+                      "sha1":  "98b369e2815ab1ecfe022292d5f194eeb60cd128",
+                      "size":  534
+                  },
+                  {
+                      "path":  "database/sections/11-ai.js",
+                      "sha1":  "88c32f4a1b8e2e98f3674c1e67e2ffa67f52c416",
+                      "size":  323
+                  },
+                  {
+                      "path":  "database/site.js",
+                      "sha1":  "59eab1f48116a486e92c419901af55c7ce2ca927",
+                      "size":  3557
+                  },
+                  {
+                      "path":  "database/wordmark.js",
+                      "sha1":  "2715320b64443b44dabb77388e5d931225cede50",
+                      "size":  1961
+                  }
+              ]
+}

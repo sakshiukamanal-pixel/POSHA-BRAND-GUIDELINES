@@ -1,0 +1,14 @@
+# private local settings (Cloudflare keys) — share .env privately, never commit it
+.env
+.env.local
+
+# Media lives on Cloudflare R2 (see README → Hosting). Keep only the fonts in git so the
+# local preview renders correctly; upload new media with code/tools/upload-r2.ps1.
+assets/*
+!assets/fonts/
+
+# OS / editor clutter
+.DS_Store
+._*
+Thumbs.db
+desktop.ini

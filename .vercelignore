@@ -1,0 +1,11 @@
+# Never deploy secrets or local-only files
+.env
+.env.*
+!.env.example
+.claude
+code/tools
+asset-urls.csv
+asset-urls.txt
+
+# Media lives on Cloudflare R2; /assets/* is proxied there by vercel.json
+assets

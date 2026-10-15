@@ -546,6 +546,52 @@
         </div>`;
       }).join('')}</div>`,
 
+    // Design tokens with a visual: { type: 'tokens', kind: 'space' | 'radius' | 'border' | 'size' | 'shadow' | 'color',
+    //   prefix: '--cui-space-', columns: ['Companion', 'Device'], items: [{ name: 'md', values: ['16px', '17.06px'], note }] }
+    // The first value drives the visual (for colours, every value gets a chip). Click a name to copy var(--token).
+    tokens: (b) => {
+      const cols = b.columns || ['Companion', 'Device'];
+      const vis = (vals) => {
+        const v = esc(vals[0]);
+        switch (b.kind) {
+          case 'space': return `<span class="tk-bar" style="width:min(${v}, 100%)"></span>`;
+          case 'radius': return `<span class="tk-radius" style="border-top-left-radius:min(${v}, 64px)"></span>`;
+          case 'border': return `<span class="tk-border" style="border-top-width:${v}"></span>`;
+          case 'size': return `<span class="tk-size" style="width:${v};height:${v}"></span>`;
+          case 'shadow': return `<span class="tk-shadow" style="box-shadow:${esc(b.css ? b.css[vals[0]] || vals[0] : vals[0])}"></span>`;
+          case 'color': return vals.map((c) => `<span class="tk-chip" style="background:${esc(c)}"></span>`).join('');
+          default: return '';
+        }
+      };
+      return `<div class="tokens tokens--${esc(b.kind || 'plain')}" style="--n:${cols.length}">
+        <div class="tk-row tk-head"><span>Token</span><span></span>${cols.map((c) => `<span>${esc(c)}</span>`).join('')}</div>
+        ${b.items.map((t) => {
+          const name = `${b.prefix || ''}${t.name}`;
+          return `<div class="tk-row">
+            <span class="tk-id"><button class="tk-name" type="button" data-copy="var(${esc(name)})" title="Click to copy var(${esc(name)})">${esc(name)}</button>${t.note ? `<span class="tk-note">${inline(t.note)}</span>` : ''}</span>
+            <span class="tk-vis">${vis(t.values)}</span>
+            ${t.values.map((v) => `<span class="tk-val">${esc(v)}</span>`).join('')}
+          </div>`;
+        }).join('')}
+      </div>`;
+    },
+
+    // Live Culinary UI component, rendered by code/cui-preview.html from the live playground:
+    // { type: 'cui', component: 'button', variants: ['Primary', 'Secondary'] (default: all), min: 240 (card width, px) }
+    // The Companion / Device and Light / Dark switches reload the preview in that app and theme.
+    cui: (b) => {
+      const qs = (app, theme) => `cui-preview.html?c=${encodeURIComponent(b.component)}${b.variants ? `&v=${encodeURIComponent(b.variants.join(','))}` : ''}${b.min ? `&min=${b.min}` : ''}&app=${app}&theme=${theme}`;
+      const seg = (key, opts) => `<div class="cui-seg" role="group">${opts.map(([v, l], i) => `<button type="button" data-cui-${key}="${v}" aria-pressed="${i === 0}">${l}</button>`).join('')}</div>`;
+      return `<div class="cui-embed" data-cui-src="${esc(qs('{app}', '{theme}'))}">
+        <div class="cui-bar">${seg('app', [['companion', 'Companion'], ['device', 'Device']])}${seg('theme', [['light', 'Light'], ['dark', 'Dark']])}
+          <a class="cui-open" href="https://culinary-ui-playground.pages.dev/playground/#/${esc(b.component)}" target="_blank" rel="noopener">Open in playground &#8599;</a></div>
+        <iframe class="cui-frame" src="${esc(qs('companion', 'light'))}" title="Culinary UI ${esc(b.component)} variants" loading="lazy"></iframe>
+      </div>`;
+    },
+
+    // Code sample: { type: 'code', body: '…' }
+    code: (b) => `<pre class="code-sample"><code>${esc([].concat(b.body).join('\n'))}</code></pre>`,
+
     // Do / Don't boxes: { do: [...], dont: [...] }
     rules: (b) => `<div class="rules">
         <div class="rule-box"><span class="rule-label">Do</span><ul>${b.do.map((t) => `<li>${inline(t)}</li>`).join('')}</ul></div>
@@ -1327,14 +1373,39 @@
           <a class="nav-title" href="#/${s.id}">${esc(s.navTitle || s.title)}</a>
           ${s.pages.length ? `<button class="nav-toggle" type="button" aria-label="Toggle ${esc(s.title)}" aria-expanded="${openSet.has(s.id)}">${chevron}</button>` : ''}
         </div>
-        ${s.pages.length ? `<div class="nav-sub-wrap"><ul class="nav-sub">${s.pages.map((p) => {
-          // Pages with `parts` get a third level that opens while you're on that page
-          const kids = (p.parts || []).filter((pt) => pt.title);
-          return `<li${kids.length ? ' class="has-kids"' : ''} data-pid="${p.id}"><a href="#/${s.id}/${p.id}" data-pid="${p.id}">${esc(p.navTitle || p.title)}</a>${kids.length
-            ? `<div class="nav-sub2-wrap"><ul class="nav-sub2">${kids.map((pt) =>
-              `<li><a href="#/${s.id}/${p.id}/${pt.id}" data-part="${pt.id}">${esc(pt.navTitle || pt.title)}</a></li>`).join('')}</ul></div>` : ''}</li>`;
-        }).join('')}</ul></div>` : ''}
+        ${s.pages.length ? `<div class="nav-sub-wrap"><ul class="nav-sub">${navPages(s)}</ul></div>` : ''}
       </div>`).join('');
+  }
+
+  // A section's page links. Pages with `parts` get a third level that opens while you're on that page.
+  // Consecutive pages with the same `group` are nested under a collapsible group heading.
+  function navPages(s) {
+    const item = (p) => {
+      const kids = (p.parts || []).filter((pt) => pt.title);
+      return `<li${kids.length ? ' class="has-kids"' : ''} data-pid="${p.id}"><a href="#/${s.id}/${p.id}" data-pid="${p.id}">${esc(p.navTitle || p.title)}</a>${kids.length
+        ? `<div class="nav-sub2-wrap"><ul class="nav-sub2">${kids.map((pt) =>
+          `<li><a href="#/${s.id}/${p.id}/${pt.id}" data-part="${pt.id}">${esc(pt.navTitle || pt.title)}</a></li>`).join('')}</ul></div>` : ''}</li>`;
+    };
+    const runs = [];
+    s.pages.forEach((p) => {
+      const last = runs[runs.length - 1];
+      if (p.group && last && last.group === p.group) last.pages.push(p);
+      else runs.push({ group: p.group, pages: [p] });
+    });
+    return runs.map((r) => {
+      if (!r.group) return r.pages.map(item).join('');
+      const key = `${s.id}:${r.group}`;
+      return `<li class="nav-grp${openSet.has(key) ? ' is-open' : ''}" data-grp="${esc(key)}">
+        <button class="nav-grp-head" type="button" aria-expanded="${openSet.has(key)}">${esc(r.group)}</button>
+        <div class="nav-grp-wrap"><ul class="nav-sub">${r.pages.map(item).join('')}</ul></div></li>`;
+    }).join('');
+  }
+
+  function setGroupOpen(li, on) {
+    li.classList.toggle('is-open', on);
+    $('.nav-grp-head', li).setAttribute('aria-expanded', on);
+    on ? openSet.add(li.dataset.grp) : openSet.delete(li.dataset.grp);
+    store.set('open', Array.from(openSet));
   }
 
   function setOpen(sid, on) {
@@ -1353,6 +1424,9 @@
     $$('.nav-sub > li.has-kids').forEach((li) => li.classList.toggle('is-open', li.closest('.nav-group').dataset.sid === sid && li.dataset.pid === pid));
     markPart(part);
     if (sid) setOpen(sid, true);
+    const cur = $('.nav-sub > li > a.active');
+    const grp = cur && cur.closest('.nav-grp');
+    if (grp && !grp.classList.contains('is-open')) setGroupOpen(grp, true);
     const active = $('.nav-sub2 a.active') || $('.nav-sub > li > a.active') || $('.nav-group.current');
     if (active) {
       const r = active.getBoundingClientRect();
@@ -1418,7 +1492,7 @@
 
   function renderPage(s, p) {
     return `<article class="view">
-      ${hero(s.number, `${s.title} / ${p.title}`, p.heading || p.title, p.summary != null ? p.summary : s.summary, p.heroStyle || s.heroStyle)}
+      ${hero(s.number, `${s.title} / ${p.group ? p.group + ' / ' : ''}${p.title}`, p.heading || p.title, p.summary != null ? p.summary : s.summary, p.heroStyle || s.heroStyle)}
       ${assetHint(p._dir)}
       ${p.blocks && p.blocks.length ? `<div class="blocks page-blocks">${blocks(p.blocks, { dir: p._dir })}</div>` : ''}
       ${(p.parts || []).map((pt, i) => `
@@ -1874,8 +1948,26 @@
   function bindEvents() {
     addEventListener('hashchange', () => route());
 
+    // Live Culinary UI previews report their height so the iframe fits its content.
+    addEventListener('message', (e) => {
+      if (!e.data || !e.data.cuiPreview) return;
+      document.querySelectorAll('.cui-frame').forEach((f) => {
+        if (f.contentWindow === e.source) f.style.height = `${Math.ceil(e.data.height)}px`;
+      });
+    });
+
     document.addEventListener('click', (e) => {
       const t = e.target;
+
+      // Culinary UI preview: switch app (Companion / Device) or theme (Light / Dark)
+      const cuiBtn = t.closest('[data-cui-app], [data-cui-theme]');
+      if (cuiBtn) {
+        const wrap = cuiBtn.closest('.cui-embed');
+        cuiBtn.parentElement.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', b === cuiBtn));
+        const pick = (k) => wrap.querySelector(`[data-cui-${k}][aria-pressed="true"]`).dataset[k === 'app' ? 'cuiApp' : 'cuiTheme'];
+        wrap.querySelector('.cui-frame').src = wrap.dataset.cuiSrc.replace('{app}', pick('app')).replace('{theme}', pick('theme'));
+        return;
+      }
 
       // Icon cards: click anywhere on a card to open its download menu
       const card = t.closest('[data-icon]');
@@ -1902,6 +1994,9 @@
         return;
       }
       closeIconMenus();
+
+      const grpHead = t.closest('.nav-grp-head');
+      if (grpHead) { const li = grpHead.closest('.nav-grp'); setGroupOpen(li, !li.classList.contains('is-open')); return; }
 
       const toggle = t.closest('.nav-toggle');
       if (toggle) {

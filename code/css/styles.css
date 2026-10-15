@@ -190,6 +190,24 @@ p + p { margin-top: 1em; }
 }
 .nav-sub > li > a:hover { background: var(--hover); color: var(--ink); }
 .nav-sub > li > a.active { background: var(--active); color: var(--ink); font-weight: 600; }
+/* grouped pages (page.group): a collapsible heading with its pages nested underneath */
+.nav-grp-head {
+  position: relative; display: block; width: 100%; padding: 9px 30px 9px 12px; border: 0; border-radius: 10px;
+  background: none; text-align: left; font: 500 var(--fs-small)/var(--lh-small) var(--font-ui); color: var(--ink); cursor: pointer;
+}
+.nav-grp-head:hover { background: var(--hover); }
+.nav-grp-head::after {
+  content: ''; position: absolute; right: 14px; top: 50%;
+  width: 6px; height: 6px; margin-top: -4px;
+  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg); opacity: .55; transition: transform .25s;
+}
+.nav-grp.is-open > .nav-grp-head::after { transform: rotate(45deg); margin-top: -5px; }
+.nav-grp-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .28s ease; }
+.nav-grp.is-open > .nav-grp-wrap { grid-template-rows: 1fr; }
+.nav-grp .nav-sub { margin: 0 0 0 18px; padding: 0 0 0 8px; border-left: 1px solid var(--line); }
+.nav-grp .nav-sub > li:first-child { margin-top: 2px; }
+
 /* pages with a third level get a small caret that turns down when open */
 .nav-sub > li.has-kids > a { padding-right: 30px; }
 .nav-sub > li.has-kids > a::after {
@@ -851,6 +869,35 @@ figcaption { margin-top: 12px; font-size: var(--fs-small); line-height: var(--lh
 .ts-stats dd { margin: 2px 0 0; font: var(--fs-caption)/var(--lh-caption) var(--font-mono); letter-spacing: .03em; text-transform: uppercase; color: var(--ink); }
 .ts-sample { color: var(--ink); overflow-wrap: anywhere; }
 
+/* Design tokens table (UI System): name · visual · one column per app or theme */
+.tokens { border-top: 1px solid var(--line); }
+.tk-row { display: grid; grid-template-columns: minmax(200px, 1.3fr) minmax(0, 2fr) repeat(var(--n), minmax(84px, .5fr)); align-items: center; gap: 12px 24px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.tk-head { padding: 12px 0; font: var(--fs-micro)/var(--lh-micro) var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--mid-grey); }
+.tk-id { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; }
+.tk-name { padding: 0; border: 0; background: none; text-align: left; font: var(--fs-caption)/var(--lh-caption) var(--font-mono); letter-spacing: .03em; color: var(--ink); overflow-wrap: anywhere; cursor: copy; }
+.tk-name:hover { text-decoration: underline; }
+.tk-note { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--muted); }
+.tk-val { font: var(--fs-caption)/var(--lh-caption) var(--font-mono); letter-spacing: .03em; color: var(--ink-2); }
+.tk-vis { display: flex; align-items: center; gap: 8px; min-height: 28px; }
+.tk-bar { display: block; height: 20px; min-width: 1px; background: var(--posha-yellow); border-radius: 2px; }
+.tk-radius { display: block; width: 64px; height: 64px; background: var(--card); border: solid var(--ink); border-width: 1.5px 0 0 1.5px; }
+.tk-border { display: block; width: 100%; max-width: 160px; border-top: 0 solid var(--ink); }
+.tk-size { display: block; background: var(--ink); border-radius: 3px; }
+.tk-shadow { display: block; width: 88px; height: 56px; margin: 8px 0; background: #fff; border-radius: 12px; }
+.tk-chip { display: block; width: 44px; height: 28px; border-radius: 6px; border: 1px solid rgba(35, 31, 32, .12); }
+
+/* Live Culinary UI component previews (UI System) */
+.cui-embed { border: 1px solid var(--line); border-radius: var(--r-card); overflow: hidden; background: var(--card); }
+.cui-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.cui-seg { display: inline-flex; padding: 3px; border-radius: var(--r-pill); background: var(--track); }
+.cui-seg button { padding: 6px 14px; border: 0; border-radius: var(--r-pill); background: none; font: var(--fs-caption)/var(--lh-caption) var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--ink-2); cursor: pointer; }
+.cui-seg button[aria-pressed="true"] { background: var(--paper); color: var(--ink); box-shadow: var(--lift); }
+.cui-open { margin-left: auto; font: var(--fs-caption)/var(--lh-caption) var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--ink); text-decoration: none; }
+.cui-open:hover { text-decoration: underline; }
+.cui-frame { display: block; width: 100%; height: 320px; border: 0; background: var(--paper); }
+.code-sample { margin: 0; padding: 20px 24px; overflow-x: auto; max-width: 900px; background: var(--jet-black); color: var(--posha-white); border-radius: var(--r-inner); font: var(--fs-small)/1.6 ui-monospace, Menlo, Consolas, monospace; }
+.code-sample code { all: unset; white-space: pre; }
+
 /* Do / Don't rule boxes — Do = the app's sage "Prep tip", Don't = the orange "alert" card */
 .rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .rule-box { padding: 28px 32px 32px; background: var(--tip); border: 1px solid var(--tip-line); border-radius: var(--r-card); }
@@ -1111,6 +1158,9 @@ figcaption { margin-top: 12px; font-size: var(--fs-small); line-height: var(--lh
 }
 
 @media (max-width: 600px) {
+  .tk-row { grid-template-columns: minmax(0, 1fr) repeat(var(--n), auto); }
+  .tk-head > span:nth-child(2) { display: none; }
+  .tk-vis { grid-column: 1 / -1; grid-row: 2; }
   :root { --fs-h1: 3.5rem; --fs-h2: 2.75rem; --fs-h3: 2.1rem; --fs-h4: 1.75rem; --fs-h5: 1.5rem; }
   .grid, .swatches, .dodont, .principles { grid-template-columns: repeat(var(--cols-sm, 2), minmax(0, 1fr)); }
   .principles { grid-template-columns: 1fr; }

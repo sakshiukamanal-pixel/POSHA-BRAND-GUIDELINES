@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" data-app="companion" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Culinary UI preview</title>
+  <!--
+    Live Culinary UI component preview, embedded by the `cui` block on the UI System pages.
+    Loads the Culinary UI package and the playground's stories from the live playground (Cloudflare Pages),
+    so it always shows the latest published components. URL params:
+      c      story id, e.g. button
+      v      optional comma-separated variant names to show (default: all of the story's variants)
+      app    companion | device        theme  light | dark
+  -->
+  <style>
+    html, body { margin: 0; }
+    body { background: var(--cui-color-surface-bg-canvas, #fffcf8); color: var(--cui-color-text-default, #232222); font-family: 'Roobert', system-ui, sans-serif; }
+    .pv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--min, 240px), 1fr)); gap: 16px; padding: 16px; }
+    .pv-card { display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--cui-color-border-subtle, #f1ece4); border-radius: 14px; overflow: hidden; background: var(--cui-color-surface-bg-sunken, #f9f5f0); }
+    .pv-stage { flex: 1; display: flex; align-items: center; justify-content: center; padding: 24px 16px; min-height: 88px; overflow: hidden; }
+    .pv-stage > * { max-width: 100%; }
+    .pv-name { padding: 10px 14px; border-top: 1px solid var(--cui-color-border-subtle, #f1ece4); font: 500 11px/1.3 ui-monospace, Menlo, monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--cui-color-text-muted, #7a7777); background: var(--cui-color-surface-bg-default, #fff); }
+    .pv-msg { padding: 24px; font: 14px/1.4 system-ui, sans-serif; color: #7a7777; }
+  </style>
+</head>
+<body class="cui-root">
+  <div id="out" class="pv-msg">Loading components…</div>
+  <script>
+  (function () {
+    var BASE = 'https://culinary-ui-playground.pages.dev/';
+    var COMPONENTS = ['accordion', 'action_card', 'app_bar', 'bottom_sheet', 'button', 'celebration', 'dim', 'divider', 'glow', 'highlight',
+      'image_card', 'ingredient_tile', 'justified_tile_grid', 'nudge_card', 'popover', 'recipe_card', 'rolling_text', 'slider', 'snackbar',
+      'staggered_reveal', 'story_bar', 'summary_card', 'tab_bar', 'tag', 'text_field', 'tile_motion', 'toggle', 'wiggle', 'word_reveal_text'];
+    var q = new URLSearchParams(location.search);
+    var id = q.get('c') || 'button';
+    var only = (q.get('v') || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+    var root = document.documentElement;
+    root.setAttribute('data-app', q.get('app') === 'device' ? 'device' : 'companion');
+    root.setAttribute('data-theme', q.get('theme') === 'dark' ? 'dark' : 'light');
+    var out = document.getElementById('out');
+
+    function css(href) { var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = BASE + href; document.head.appendChild(l); }
+    // Download in parallel but run in order (async = false), like the playground's own script tags.
+    function js(src) { return new Promise(function (ok, fail) { var s = document.createElement('script'); s.src = BASE + src; s.async = false; s.onload = ok; s.onerror = function () { fail(new Error(src)); }; document.body.appendChild(s); }); }
+    function chain(list) { return Promise.all(list.map(js)); }
+    function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+    // Tell the portal how tall we are, so the iframe fits its content.
+    function report() { parent.postMessage({ cuiPreview: true, id: id, height: document.documentElement.scrollHeight }, '*'); }
+    if ('ResizeObserver' in window) new ResizeObserver(report).observe(document.body);
+
+    // Capture the story instead of running the playground shell.
+    var story = null;
+    window.CUIPlayground = { register: function (s) { if (s.id === id) story = s; }, registerPage: function () {} };
+
+    css('culinary-ui/tokens.css'); css('culinary-ui/core.css');
+    COMPONENTS.forEach(function (c) { css('culinary-ui/components/' + c + '/' + c + '.css'); });
+    chain(['culinary-ui/core.js', 'culinary-ui/icons/icons.js']
+      .concat(COMPONENTS.map(function (c) { return 'culinary-ui/components/' + c + '/' + c + '.js'; }))
+      .concat(['playground/components/' + id + '.story.js']))
+      .then(function () {
+        if (!story) throw new Error('No story for ' + id);
+        var defaults = {};
+        Object.keys(story.controls || {}).forEach(function (k) { defaults[k] = story.controls[k].default; });
+        var vs = story.variants && story.variants.length ? story.variants : [{ name: story.title || id, props: {} }];
+        if (only.length) vs = vs.filter(function (v) { return only.indexOf(v.name) !== -1; });
+        out.className = 'pv-grid';
+        if (q.get('min')) out.style.setProperty('--min', parseInt(q.get('min'), 10) + 'px');
+        out.innerHTML = vs.map(function (v, i) {
+          return '<figure class="pv-card" style="margin:0"><div class="pv-stage" id="v' + i + '"></div><figcaption class="pv-name">' + esc(v.name) + '</figcaption></figure>';
+        }).join('');
+        vs.forEach(function (v, i) {
+          var el = document.getElementById('v' + i);
+          el.innerHTML = story.render(Object.assign({}, defaults, v.props));
+          if (window.CUI && CUI.mount) CUI.mount(el);
+        });
+        report();
+        setTimeout(report, 600);
+      })
+      .catch(function (e) {
+        out.className = 'pv-msg';
+        out.textContent = 'Could not load the live Culinary UI components (' + e.message + '). Open the playground instead: ' + BASE;
+        report();
+      });
+  })();
+  </script>
+</body>
+</html>

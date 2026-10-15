@@ -109,14 +109,13 @@ never put secrets in `code/` or `database/`, since everything there is public on
 
 ## Hosting
 
-Live on Vercel: **https://posha-brand-guidelines.vercel.app** (project `posha-brand-guidelines`).
+Live on Vercel: **https://posha-guidelines.vercel.app** (project `posha-guidelines`, linked to GitHub
+`sakshiukamanal-pixel/POSHA-BRAND-GUIDELINES`).
 
-- Media and fonts live on Cloudflare R2. `vercel.json` proxies `/assets/*` there, so the deploy only carries the site code.
-- New or changed media: `code/tools/upload-r2.ps1 -Changed` — live immediately, no redeploy.
-- Changed code or `database/` content: run `code/tools/publish-site.ps1` (copies the site files to R2 and refreshes
-  `site-manifest.json`), then press **Redeploy** on the latest deployment in the Vercel dashboard — `build.mjs`
-  pulls the newest published files and checks each one's checksum.
-  With the Vercel CLI you can instead run `vercel --prod` from this folder; `build.mjs` then uses the local files
-  and `.vercelignore` keeps `.env`, `assets/` and the tools out of the upload.
+- **To publish: commit and push to `main`.** Vercel builds and goes live automatically (about a minute).
+  Pushes to any other branch get their own preview link, without touching the live site.
+- Media and fonts live on Cloudflare R2. `vercel.json` proxies `/assets/*` there, so the repo and deploy only carry the site code.
+- New or changed media: `code/tools/upload-r2.ps1 -Changed` (needs `.env`) — live immediately, no deploy needed.
+- `build.mjs` copies `code/` and `database/` into `public/`; `code/tools` stays out of the site.
 
 Mac teammates can't run the `.bat` — run `pwsh code/tools/scan-media.ps1` instead, or ask whoever's on Windows.

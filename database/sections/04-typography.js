@@ -25,24 +25,24 @@ POSHA.section({
       blocks: [
         {
           type: 'typetester',
-          size: 72,
+          size: 96, // the headline size; each font below shows at size × its `scale`, so the rows read by role
           sample: 'Dinner, done.',
           placeholder: 'Type here to preview Epika, Roobert and Roobert Mono…',
           samples: ['Dinner, done.', 'Good food, shared moments.', 'Aa Bb Cc Dd Ee Ff Gg', '0123456789 · ₹ $ % &'],
           fonts: [
             {
-              name: 'Epika Serif Extra Condensed', role: 'H1 · H2 · Accents', family: "'Epika Condensed', serif", lineHeight: 1.02,
+              name: 'Epika Serif Extra Condensed', role: 'H1 · H2 · Accents', family: "'Epika Condensed', serif", lineHeight: 1.02, scale: 1,
               styles: [{ label: 'Light', weight: 400 }, { label: 'Light Italic', weight: 400, style: 'italic' }],
             },
             {
-              name: 'Roobert', role: 'Headings · Body', family: "'Roobert', sans-serif", lineHeight: 1.15,
+              name: 'Roobert', role: 'Headings · Body', family: "'Roobert', sans-serif", lineHeight: 1.15, scale: 0.5,
               styles: [
                 { label: 'Regular', weight: 400 }, { label: 'Regular Italic', weight: 400, style: 'italic' },
                 { label: 'Bold', weight: 700 }, { label: 'Bold Italic', weight: 700, style: 'italic' },
               ],
             },
             {
-              name: 'Roobert Mono', role: 'Labels · Data', family: "'Roobert Mono', monospace", upper: true, tracking: '0.06em', lineHeight: 1.2,
+              name: 'Roobert Mono', role: 'Labels · Data', family: "'Roobert Mono', monospace", upper: true, tracking: '0.06em', lineHeight: 1.2, scale: 0.25,
               styles: [{ label: 'Medium', weight: 500 }],
             },
           ],

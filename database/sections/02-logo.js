@@ -16,7 +16,7 @@ POSHA.section({
           // click a box → Download as PNG / SVG
           type: 'logoset', columns: 2,
           items: [
-            { name: 'Black', bg: '#FFF9F5', svg: './posha-wordmark-black.svg', png: './posha-wordmark-black.png' },
+            { name: 'Black', bg: '#FFFCF8', svg: './posha-wordmark-black.svg', png: './posha-wordmark-black.png' },
             { name: 'White', bg: '#231F20', svg: './posha-wordmark-white.svg', png: './posha-wordmark-white.png' },
             { name: 'Black · Transparent', bg: 'checker-light', svg: './posha-wordmark-black.svg', png: './posha-wordmark-black.png' },
             { name: 'White · Transparent', bg: 'checker-dark', svg: './posha-wordmark-white.svg', png: './posha-wordmark-white.png' },
@@ -109,9 +109,9 @@ POSHA.section({
         {
           type: 'logoset', columns: 2, label: 'Posha Circle',
           items: [
-            { name: 'Lockup · Black', bg: '#FFF9F5', svg: './posha-circle-lockup-black.svg', png: './posha-circle-lockup-black.png', display: './preview-lockup-black.png' },
+            { name: 'Lockup · Black', bg: '#FFFCF8', svg: './posha-circle-lockup-black.svg', png: './posha-circle-lockup-black.png', display: './preview-lockup-black.png' },
             { name: 'Lockup · White', bg: '#231F20', svg: './posha-circle-lockup-white.svg', png: './posha-circle-lockup-white.png', display: './preview-lockup-white.png' },
-            { name: 'Symbol', bg: '#FFF9F5', svg: './posha-circle-symbol.svg', png: './posha-circle-symbol.png', display: './preview-symbol.png' },
+            { name: 'Symbol', bg: '#FFFCF8', svg: './posha-circle-symbol.svg', png: './posha-circle-symbol.png', display: './preview-symbol.png' },
             { name: 'Symbol · Dark', bg: '#231F20', svg: './posha-circle-symbol.svg', png: './posha-circle-symbol.png', display: './preview-symbol.png' },
           ],
         },
@@ -130,7 +130,7 @@ POSHA.section({
           // compact symbol for UI: thicker ring, less negative space — click for PNG / SVG
           type: 'logoset', columns: 1, size: 'small', label: 'Posha Circle',
           items: [
-            { name: 'Symbol · Compact', note: 'UI · tiny sizes only', bg: '#FFF9F5', svg: './posha-circle-symbol-compact.svg', png: './posha-circle-symbol-compact.png', display: './preview-symbol-compact.png' },
+            { name: 'Symbol · Compact', note: 'UI · tiny sizes only', bg: '#FFFCF8', svg: './posha-circle-symbol-compact.svg', png: './posha-circle-symbol-compact.png', display: './preview-symbol-compact.png' },
           ],
         },
         { type: 'heading', text: 'Key visual' },

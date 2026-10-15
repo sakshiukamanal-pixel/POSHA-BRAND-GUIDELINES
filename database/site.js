@@ -29,7 +29,7 @@ POSHA.site = {
     ],
     copyright: '© 2026 Posha',
     playground: {
-      logo: 'brand/posha-wordmark-black.svg',
+      logo: 'brand/posha-wordmark-off-white.svg', // off-white wordmark on the black playground
       icons: [
         '05-iconography/01-icons/01-gradient-icons/01-allergens/10-eggs.png',
         '05-iconography/01-icons/01-gradient-icons/04-modify-icons/06-spicy-heat.png',

@@ -500,7 +500,7 @@
           <div class="tt-controls">
             <div class="tt-size">
               ${btn('data-tt="smaller"', '−', 'Smaller')}
-              <input type="range" min="16" max="160" step="1" value="${size}" aria-label="Font size">
+              <input type="range" min="32" max="160" step="1" value="${size}" aria-label="Font size">
               ${btn('data-tt="bigger"', '+', 'Bigger')}
               <output>${size}px</output>
             </div>
@@ -522,7 +522,7 @@
                 ? `<select class="tt-style" aria-label="${esc(f.name)} style">${f.styles.map((st) => `<option value="${st.weight}|${st.style || 'normal'}">${esc(st.label)}</option>`).join('')}</select>`
                 : `<span class="tt-style tt-style--fixed">${esc(f.styles[0].label)}</span>`}
             </header>
-            <div class="tt-preview" style="font-family:${esc(f.family)};font-weight:${f.styles[0].weight};font-style:${f.styles[0].style || 'normal'};font-size:${size}px;${f.upper ? 'text-transform:uppercase;' : ''}${f.tracking ? `letter-spacing:${esc(f.tracking)};` : ''}${f.lineHeight ? `line-height:${f.lineHeight};` : ''}"></div>
+            <div class="tt-preview" data-scale="${f.scale || 1}" style="font-family:${esc(f.family)};font-weight:${f.styles[0].weight};font-style:${f.styles[0].style || 'normal'};font-size:${Math.round(size * (f.scale || 1))}px;${f.upper ? 'text-transform:uppercase;' : ''}${f.tracking ? `letter-spacing:${esc(f.tracking)};` : ''}${f.lineHeight ? `line-height:${f.lineHeight};` : ''}"></div>
           </section>`).join('')}
         </div>
       </div>`;
@@ -586,6 +586,45 @@
         <div class="cui-bar">${seg('app', [['companion', 'Companion'], ['device', 'Device']])}${seg('theme', [['light', 'Light'], ['dark', 'Dark']])}
           <a class="cui-open" href="https://culinary-ui-playground.pages.dev/playground/#/${esc(b.component)}" target="_blank" rel="noopener">Open in playground &#8599;</a></div>
         <iframe class="cui-frame" src="${esc(qs('companion', 'light'))}" title="Culinary UI ${esc(b.component)} variants" loading="lazy"></iframe>
+      </div>`;
+    },
+
+    // How a Posha gradient is built in Illustrator: Freeform gradient, Points mode.
+    // { type: 'gradientbuild', name, points: [{ hex, name, x, y, spread }] } — x / y in % of the shape, spread in % (Illustrator's Spread).
+    gradientbuild: (b) => {
+      // a CSS stand-in for Illustrator's freeform blend: one soft radial wash per point over a diagonal base
+      const fill = `${b.points.map((p) => `radial-gradient(circle at ${p.x}% ${p.y}%, ${p.hex} 0%, ${p.hex}00 ${p.spread || 60}%)`).join(', ')}, linear-gradient(135deg, ${b.points.map((p) => p.hex).join(', ')})`;
+      const sel = b.points.length - 1; // the "selected" point, whose Spread shows in the panel
+      const icon = {
+        linear: '<svg viewBox="0 0 20 14"><defs><linearGradient id="gbl"><stop offset="0" stop-color="currentColor" stop-opacity=".15"/><stop offset="1" stop-color="currentColor"/></linearGradient></defs><rect x="1" y="1" width="18" height="12" rx="1.5" fill="url(#gbl)"/></svg>',
+        radial: '<svg viewBox="0 0 20 14"><defs><radialGradient id="gbr"><stop offset="0" stop-color="currentColor" stop-opacity=".15"/><stop offset="1" stop-color="currentColor"/></radialGradient></defs><rect x="1" y="1" width="18" height="12" rx="1.5" fill="url(#gbr)"/></svg>',
+        freeform: '<svg viewBox="0 0 20 14"><rect x="1" y="1" width="18" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="5" cy="4.5" r="1.8" fill="currentColor"/><circle cx="11" cy="8" r="1.8" fill="currentColor"/><circle cx="15.5" cy="10" r="1.8" fill="currentColor"/></svg>',
+      };
+      return `<div class="gb">
+        <figure class="gb-step">
+          <figcaption><span class="num">01</span>Pick three palette colours</figcaption>
+          <div class="gb-anchors">${b.points.map((p) => `<div class="gb-anchor"><span class="gb-chip" style="background:${esc(p.hex)}"></span><strong>${esc(p.name)}</strong><span class="num">${esc(p.hex)}</span></div>`).join('')}</div>
+        </figure>
+        <figure class="gb-step gb-step--panel">
+          <figcaption><span class="num">02</span>Freeform gradient · place the points</figcaption>
+          <div class="gb-panel">
+            <div class="gb-panel-head"><span>Gradient</span>
+              <span class="gb-field"><em>Type</em><span class="gb-types"><i title="Linear">${icon.linear}</i><i title="Radial">${icon.radial}</i><i class="is-on" title="Freeform">${icon.freeform}</i></span></span>
+              <span class="gb-field"><em>Draw</em><span class="gb-radio is-on">Points</span><span class="gb-radio">Lines</span></span>
+            </div>
+            <div class="gb-canvas" style="background:${esc(fill)}">
+              ${b.points.map((p, i) => `<span class="gb-point${i === sel ? ' is-sel' : ''}" style="left:${p.x}%;top:${p.y}%;background:${esc(p.hex)}" title="${esc(p.name)}"></span>`).join('')}
+              <span class="gb-spread" style="left:${b.points[sel].x}%;top:${b.points[sel].y}%;--r:${b.points[sel].spread || 60}%"></span>
+            </div>
+            <div class="gb-panel-foot"><span class="gb-field"><em>Spread</em>${b.points[sel].spread || 60}%</span><span class="gb-field"><em>Points</em>${b.points.length}</span></div>
+          </div>
+          <p class="gb-note">Select the shape, set Type to Freeform and Draw to Points, then click on the shape to drop a point. Double-click a point to give it a palette colour.</p>
+        </figure>
+        <figure class="gb-step">
+          <figcaption><span class="num">03</span>Adjust and apply</figcaption>
+          <div class="gb-result" style="background:${esc(fill)}"><span>${esc(b.name)}</span></div>
+          <p class="gb-note">Drag points to move the light; Spread widens a point’s reach. Darkest colour top left, lightest bottom right.</p>
+        </figure>
       </div>`;
     },
 
@@ -1143,7 +1182,8 @@
       v = Math.max(+range.min, Math.min(+range.max, v));
       range.value = v;
       output.textContent = v + 'px';
-      rows.forEach((r) => (r.el.style.fontSize = v + 'px'));
+      // each font keeps its role's proportion: `scale` on the font (headline 1, body 0.5, caption 0.25…)
+      rows.forEach((r) => (r.el.style.fontSize = Math.round(v * (+r.el.dataset.scale || 1)) + 'px'));
     };
 
     input.addEventListener('input', render);
@@ -1195,26 +1235,34 @@
     const m = POSHA.wordmark;
     return m ? `<path d="${m.d}" ${attrs}/>` : '';
   }
-  const C = { ink: '#231F20', grey: '#484848', paper: '#FFF9F5', light: '#F1F2ED', warm: '#F1E9DE', yellow: '#FFBD00', red: '#FF2E20', navy: '#232D4C' };
+  const C = { ink: '#231F20', grey: '#484848', paper: '#FFFCF8', light: '#F1F2ED', warm: '#F1E9DE', yellow: '#FFBD00', red: '#FF2E20', navy: '#232D4C' };
 
   function clearspaceSvg() {
-    const W = 1920, H = 373.3, x = H / 2, pad = x * 0.12;
-    const L = -x, T = -x, R = W + x, B = H + x;
-    const line = (x1, y1, x2, y2, extra = '') => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" ${extra}/>`;
-    const sq = (sx, sy) => `<rect x="${sx}" y="${sy}" width="${x}" height="${x}" fill="${C.grey}"/>
-      <text x="${sx + x / 2}" y="${sy + x / 2}" class="dg-x" fill="${C.paper}">x</text>`;
-    // the protected zone is tinted so the space around the wordmark reads as clearspace, not as a gap
-    return `<svg class="diagram" viewBox="${L - pad} ${T - pad} ${R - L + 2 * pad} ${B - T + 2 * pad}" role="img" aria-label="Clearspace: x on every side of the wordmark, where x is half its height">
-      <rect x="${L - pad}" y="${T - pad}" width="${R - L + 2 * pad}" height="${B - T + 2 * pad}" fill="${C.paper}"/>
-      <path d="M${L} ${T}H${R}V${B}H${L}Z M0 0V${H}H${W}V0Z" fill="${C.warm}" fill-rule="evenodd"/>
-      <g stroke="${C.ink}" stroke-width="1.5" vector-effect="non-scaling-stroke" fill="none">
-        <rect x="${L}" y="${T}" width="${R - L}" height="${B - T}" vector-effect="non-scaling-stroke"/>
-        ${line(L, 0, R, 0, 'vector-effect="non-scaling-stroke"')}${line(L, H, R, H, 'vector-effect="non-scaling-stroke"')}
-        ${line(0, T, 0, B, 'vector-effect="non-scaling-stroke"')}${line(W, T, W, B, 'vector-effect="non-scaling-stroke"')}
-      </g>
-      ${line(L, H / 2, R, H / 2, `stroke="${C.ink}" stroke-width="1.2" stroke-dasharray="5 5" vector-effect="non-scaling-stroke"`)}
-      ${sq(L, T)}${sq(W, T)}${sq(L, H)}${sq(W, H)}
+    const W = 1920, H = 373.3, x = H / 2;
+    const L = -x, T = -x, R = W + x, B = H + x;           // the clearspace zone
+    const m = x * 0.9, mr = x * 1.45;                      // canvas margin (more on the right for the 2x bracket)
+    const vx = L - m, vy = T - m, vw = R + mr - vx, vh = B + m - vy;
+    const nss = 'vector-effect="non-scaling-stroke"';
+    const r = x * 0.2;                                     // yellow "x" marker radius
+    // a dimension line with end ticks and a Posha Yellow "x" marker at its middle
+    const dim = (x1, y1, x2, y2) => {
+      const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, v = x1 === x2, t = x * 0.09;
+      const ticks = v
+        ? `<line x1="${x1 - t}" y1="${y1}" x2="${x1 + t}" y2="${y1}" ${nss}/><line x1="${x2 - t}" y1="${y2}" x2="${x2 + t}" y2="${y2}" ${nss}/>`
+        : `<line x1="${x1}" y1="${y1 - t}" x2="${x1}" y2="${y1 + t}" ${nss}/><line x1="${x2}" y1="${y2 - t}" x2="${x2}" y2="${y2 + t}" ${nss}/>`;
+      return `<g stroke="${C.ink}" stroke-width="1.2"><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" ${nss}/>${ticks}</g>
+        <circle cx="${mx}" cy="${my}" r="${r}" fill="${C.yellow}"/>
+        <text x="${mx}" y="${my}" class="dg-x" style="text-transform:none;font-size:${r * 1.25}px" fill="${C.ink}">x</text>`;
+    };
+    const bx = R + x * 0.55, t = x * 0.09;                 // "2x" height bracket, outside the zone
+    return `<svg class="diagram" viewBox="${vx} ${vy} ${vw} ${vh}" role="img" aria-label="Clearspace: keep x clear on every side of the wordmark, where x is half its height">
+      <rect x="${vx}" y="${vy}" width="${vw}" height="${vh}" rx="${x * 0.1}" fill="#F1ECE4"/>
+      <rect x="${L}" y="${T}" width="${R - L}" height="${B - T}" fill="${C.paper}" stroke="${C.ink}" stroke-width="1" stroke-dasharray="6 5" ${nss}/>
+      <rect x="0" y="0" width="${W}" height="${H}" fill="none" stroke="${C.ink}" stroke-opacity=".22" stroke-width="1" ${nss}/>
       ${wm(`fill="${C.ink}"`)}
+      ${dim(W * 0.5, T, W * 0.5, 0)}${dim(W * 0.5, H, W * 0.5, B)}${dim(L, H / 2, 0, H / 2)}${dim(W, H / 2, R, H / 2)}
+      <g stroke="${C.ink}" stroke-width="1.2"><line x1="${bx}" y1="0" x2="${bx}" y2="${H}" ${nss}/><line x1="${bx - t}" y1="0" x2="${bx + t}" y2="0" ${nss}/><line x1="${bx - t}" y1="${H}" x2="${bx + t}" y2="${H}" ${nss}/></g>
+      <text x="${bx + x * 0.22}" y="${H / 2}" style="text-transform:none;text-anchor:start;font-size:${r * 1.25}px" fill="${C.ink}">2x</text>
     </svg>`;
   }
 
@@ -1280,7 +1328,7 @@
     // callouts: [y on the icon, x where the line starts, label]
     const calls = [[4.6, 17.3, labels[0]], [10.6, 22.6, labels[1]], [18.7, 12.9, labels[2]]];
     return `<svg class="diagram construct" viewBox="${-pad} ${-pad} ${L + pad * 2} ${U + pad * 2}" role="img" aria-label="Line icon construction on a 24 unit grid">
-      <rect x="0" y="0" width="${U}" height="${U}" fill="#FFF9F5"/>
+      <rect x="0" y="0" width="${U}" height="${U}" fill="#FFFCF8"/>
       ${px}
       <rect x="0" y="0" width="${U}" height="${U}" ${g}/>
       <rect x="1.5" y="1.5" width="21" height="21" rx="4.5" ${g}/>

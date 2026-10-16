@@ -11,7 +11,9 @@ POSHA.section({
       blocks: [
         // Official files from client snt/Brand Assets/Basics/Logos/01_Digital → assets/02-logo/01-wordmark/
         // padding 8.1% of the width = clearspace x (half the wordmark's height) on every side
-        { type: 'image', src: './posha-wordmark-black.svg', alt: 'Posha wordmark', bg: 'var(--card)', padding: '8.1%' },
+        { type: 'image', src: './posha-wordmark-black.svg', alt: 'Posha wordmark', bg: 'transparent', padding: '8.1%' },
+        // Anatomy, drawn in code from the official wordmark (database/wordmark.js)
+        { type: 'logodiagram', variant: 'anatomy' },
         {
           // click a box → Download as PNG / SVG
           type: 'logoset', columns: 2,

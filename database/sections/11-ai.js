@@ -1,7 +1,7 @@
 POSHA.section({
   id: 'ai',
   title: 'AI',
-  navTitle: 'Ai',
+  navTitle: 'AI',
   summary: 'Guidelines for AI-generated imagery and copy.',
 
   pages: [

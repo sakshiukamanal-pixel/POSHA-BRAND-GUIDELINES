@@ -404,7 +404,7 @@
     },
 
     // { type: 'logodiagram', variant: 'clearspace' | 'lockup', caption }
-    logodiagram: (b) => `<figure class="figure diagram-figure">${b.variant === 'lockup' ? lockupSvg() : clearspaceSvg()}${cap(b.caption)}</figure>`,
+    logodiagram: (b) => `<figure class="figure diagram-figure${b.variant === 'anatomy' ? ' diagram-figure--wide' : ''}">${b.variant === 'lockup' ? lockupSvg() : b.variant === 'anatomy' ? anatomySvg() : clearspaceSvg()}${cap(b.caption)}</figure>`,
 
     // { type: 'misuse', items: [{ art: 'rotate' | 'outline' | 'stroke' | 'pattern', caption }] }
     misuse: (b) => `<div class="misuse" style="--cols:${b.columns || 2}">${b.items.map((it) => `
@@ -627,6 +627,14 @@
         </figure>
       </div>`;
     },
+
+    // A big brand line set straight on the page: { type: 'statement', label, text, sub, font: 'display' | 'ui', align: 'center' | 'left' }
+    // text supports **bold** (use with font: 'ui'); an array of lines sets one line each.
+    statement: (b) => `<figure class="statement statement--${b.font || 'display'} statement--${b.align || 'left'} statement--${b.tone || 'cream'}">
+        ${b.label ? `<figcaption class="statement-label">${esc(b.label)}</figcaption>` : ''}
+        <p class="statement-text">${[].concat(b.text).map(inline).join('<br>')}</p>
+        ${b.sub ? `<p class="statement-sub">${inline(b.sub)}</p>` : ''}
+      </figure>`,
 
     // Code sample: { type: 'code', body: '…' }
     code: (b) => `<pre class="code-sample"><code>${esc([].concat(b.body).join('\n'))}</code></pre>`,
@@ -1266,6 +1274,31 @@
     </svg>`;
   }
 
+  // Anatomy: why the wordmark looks the way it does — guides, alignment and the extended O
+  function anatomySvg() {
+    const W = 1920, H = 373.3;
+    const bg = '#232222', fg = C.paper, line = 'rgba(255, 252, 248, .55)';
+    const nss = 'vector-effect="non-scaling-stroke"';
+    const L = -300, R = W + 300;                         // guide lines run past the wordmark
+    const vx = -620, vw = W + 1900, vy = -560, vh = H + 1260;  // generous margins so the callouts breathe
+    const t = (x, y, lines, size = 58) => `<text x="${x}" y="${y}" fill="${fg}" style="text-transform:none;text-anchor:start;dominant-baseline:auto;font-family:var(--font-ui);font-size:${size}px;letter-spacing:0">${lines.map((l, i) => `<tspan x="${x}" dy="${i ? size * 1.3 : 0}">${esc(l)}</tspan>`).join('')}</text>`;
+    const d1 = H * 0.463, d2 = H * 0.633;                // the two alignment guides (crossbars and counters)
+    const sx = 1063, ox = 648;                           // callout positions: top of the S, foot of the O
+    return `<svg class="diagram" viewBox="${vx} ${vy} ${vw} ${vh}" role="img" aria-label="Wordmark anatomy: consistent letterform thickness, precise alignment, and an extended O inspired by the product's rounded corners">
+      <rect x="${vx}" y="${vy}" width="${vw}" height="${vh}" rx="44" fill="${bg}"/>
+      <g stroke="${line}" stroke-width="1">
+        <line x1="${L}" y1="0" x2="${R}" y2="0" ${nss}/><line x1="${L}" y1="${H}" x2="${R}" y2="${H}" ${nss}/>
+        <line x1="${L}" y1="${d1}" x2="${R}" y2="${d1}" stroke-dasharray="2 4" ${nss}/><line x1="${L}" y1="${d2}" x2="${R}" y2="${d2}" stroke-dasharray="2 4" ${nss}/>
+        <line x1="${sx}" y1="${H * 0.06}" x2="${sx}" y2="-300" ${nss}/>
+        <line x1="${ox}" y1="${H * 0.97}" x2="${ox}" y2="${H + 590}" ${nss}/>
+      </g>
+      ${wm(`fill="${fg}"`)}
+      ${t(sx + 40, -270, ['Visually consistent', 'letterform thickness'])}
+      ${t(R + 60, (d1 + d2) / 2 + 15, ['Precise alignment'])}
+      ${t(ox + 40, H + 200, ['•  The ‘O’ is intentionally extended to aid pronunciation,', '    as this is a new word for people.', '•  Its shape is inspired by the robot’s rounded corners —', '    a detail carried through the whole identity,', '    including UI cards and other elements.'])}
+    </svg>`;
+  }
+
   function lockupSvg() {
     const W = 1920, H = 373.3, x = H / 2, D = H + x, gap = 2 * x;
     const px = W + gap, cx = px + D / 2, cy = H / 2;
@@ -1853,7 +1886,7 @@
     photo: 'gallery', photos: 'gallery', image: 'gallery', images: 'gallery', picture: 'gallery', pictures: 'gallery', pics: 'gallery', shoot: 'gallery',
     render: 'renders', video: 'videos', film: 'videos', animation: 'motion', animate: 'motion',
     chart: 'data visualization', charts: 'data visualization', graph: 'data visualization', graphs: 'data visualization',
-    wordmark: 'logo', mission: 'philosophy', values: 'philosophy', tone: 'voice', ui: 'ui system', button: 'components',
+    wordmark: 'logo', mission: 'philosophy', values: 'philosophy', tone: 'voice', ui: 'culinary ui', cui: 'culinary ui', cai: 'culinary ai', button: 'components',
   };
 
   function textOf(node) {

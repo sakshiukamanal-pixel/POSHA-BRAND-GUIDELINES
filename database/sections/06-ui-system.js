@@ -15,8 +15,8 @@ const cuiBuild = (id, title, flutter, web) => [
 
 POSHA.section({
   id: 'ui-system',
-  title: 'UI System',
-  navTitle: 'UI System',
+  title: 'Culinary UI',
+  navTitle: 'Culinary UI',
   layout: 'pages',
   heroStyle: 'stacked',
   summary: 'Culinary UI — the tokens and components behind the Posha app and the Posha device screen.',
@@ -26,8 +26,8 @@ POSHA.section({
     {
       id: 'overview',
       title: 'Overview',
-      heading: 'UI System',
-      summary: 'Culinary UI is the design system behind every Posha screen. Start here, then pick a foundation or a component.',
+      heading: 'Culinary UI',
+      summary: 'Culinary UI (cUI) is the design system behind every Posha screen. Start here, then pick a foundation or a component.',
       blocks: [
         {
           type: 'text',

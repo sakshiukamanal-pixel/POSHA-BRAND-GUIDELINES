@@ -1723,7 +1723,7 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
   --active: rgba(255, 252, 248, .1);
   --surface: #2E2D2C;
   --card: #2B2A29;
-  --track: #3A3837;
+  --track: #1C1B1B;   /* recessed, like Warm Neutral in light mode: chips and tracks sit below the raised pills */
   --tabbar: #2B2A29;
   --tip: #262B1E;
   --tip-line: #3D4A2B;

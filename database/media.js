@@ -22,9 +22,9 @@ POSHA.media = {
   "07-gallery/04-others/01-feature-infographics": ["psh-ig-01-computer-vision.png", "psh-ig-02-customization.png", "psh-ig-03-key-features.png"],
   "07-gallery/04-others/02-old-models": ["psh-om-01-2017-beginning.png", "psh-om-02-2018-nymble-ver01.png", "psh-om-03-2020-julia.png", "psh-om-04-2021-nymble-alpha.png", "psh-om-05-2023-nymble-beta.png", "psh-om-06-2025-posha.png"],
   "07-gallery/04-others/03-behind-the-scenes": ["psh-bts-01-holi-in-the-office.jpg", "psh-bts-02-induction-coil.jpg", "psh-bts-03-the-hardware-team.jpg", "psh-bts-04-the-founders.jpg", "psh-bts-05-community-event.jpg", "psh-bts-06-the-whole-team.jpg", "psh-bts-07-electronics-bench.jpg", "psh-bts-08-wiring-harnesses.jpg", "psh-bts-09-steel-prototype.jpg", "psh-bts-10-first-curry-test.jpg", "psh-bts-11-black-prototype.jpg", "psh-bts-12-building-the-electronics.jpg", "psh-bts-13-desk-life.jpg", "psh-bts-14-power-board.jpg"],
-  "07-gallery/05-faro-films/a-cam": ["preview-01.jpg", "preview-02.jpg", "preview-03.jpg", "preview-04.jpg", "preview-05.jpg", "preview-06.jpg"],
-  "07-gallery/05-faro-films/b-cam": ["preview-01.jpg", "preview-02.jpg", "preview-03.jpg", "preview-04.jpg", "preview-05.jpg", "preview-06.jpg"],
-  "07-gallery/05-faro-films/killian-selects": ["preview-01.jpg", "preview-02.jpg", "preview-03.jpg", "preview-04.jpg", "preview-05.jpg", "preview-06.jpg"],
-  "07-gallery/05-faro-films/lifestyle-photos": ["preview-01.jpg", "preview-02.jpg", "preview-03.jpg", "preview-04.jpg", "preview-05.jpg", "preview-06.jpg"],
+  "07-gallery/05-faro-films/a-cam": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg", "frame-06.jpg"],
+  "07-gallery/05-faro-films/b-cam": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg", "frame-06.jpg"],
+  "07-gallery/05-faro-films/killian-selects": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg", "frame-06.jpg"],
+  "07-gallery/05-faro-films/lifestyle-photos": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg", "frame-06.jpg"],
   "brand": ["posha-wordmark-black.svg", "posha-wordmark-off-white.svg", "posha-wordmark-white.svg"],
 };

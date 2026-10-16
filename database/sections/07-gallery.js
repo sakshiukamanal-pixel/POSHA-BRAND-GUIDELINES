@@ -93,7 +93,7 @@ POSHA.section({
             type: 'collection', alt: 'Faro Films lifestyle photo',
             tags: ['Photos', 'Full set', { label: 'Main photo source', tone: 'key' }],
             link: { href: 'https://drive.google.com/drive/folders/1SvA3j4BVMhAdDoaNXh1gx_T1sSlWRZKU', label: 'Open in Google Drive' },
-            items: [1, 2, 3, 4, 5, 6].map((n) => `./lifestyle-photos/preview-0${n}.jpg`),
+            items: [1, 2, 3, 4, 5, 6].map((n) => `./lifestyle-photos/frame-0${n}.jpg`),
           }],
         },
         {
@@ -104,7 +104,7 @@ POSHA.section({
             type: 'collection', alt: 'Faro Films A Cam frame',
             tags: ['Video', 'Straight angle', 'Testimonials', { label: 'Main footage', tone: 'key' }],
             link: { href: 'https://drive.google.com/drive/folders/1zIsvF2lRbJjlYFFIAkw5wHLA7pNmfNEb', label: 'Open in Google Drive' },
-            items: [1, 2, 3, 4, 5, 6].map((n) => `./a-cam/preview-0${n}.jpg`),
+            items: [1, 2, 3, 4, 5, 6].map((n) => `./a-cam/frame-0${n}.jpg`),
           }],
         },
         {
@@ -115,7 +115,7 @@ POSHA.section({
             type: 'collection', alt: 'Faro Films B Cam frame',
             tags: ['Video', '3/4 angle', 'B-roll'],
             link: { href: 'https://drive.google.com/drive/folders/1W0bhP197HBA-DsMN9PtwXESxg97cQSAQ', label: 'Open in Google Drive' },
-            items: [1, 2, 3, 4, 5, 6].map((n) => `./b-cam/preview-0${n}.jpg`),
+            items: [1, 2, 3, 4, 5, 6].map((n) => `./b-cam/frame-0${n}.jpg`),
           }],
         },
         {
@@ -126,7 +126,7 @@ POSHA.section({
             type: 'collection', alt: 'Killian Selects photo',
             tags: ['Photos', 'Unedited', { label: 'Lower priority', tone: 'low' }],
             link: { href: 'https://drive.google.com/drive/folders/1dPVWehsY4kB_W--9xglro5CC3bLy4mpl', label: 'Open in Google Drive' },
-            items: [1, 2, 3, 4, 5, 6].map((n) => `./killian-selects/preview-0${n}.jpg`),
+            items: [1, 2, 3, 4, 5, 6].map((n) => `./killian-selects/frame-0${n}.jpg`),
           }],
         },
       ],

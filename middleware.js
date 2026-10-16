@@ -18,8 +18,8 @@ const TOKEN_SHA = '6b15e2f03ce7642d730c889c9d7527547930abb2246ae744c58ef18fc7824
 const COOKIE = 'posha_gate';
 const MAX_AGE = 60 * 60 * 24 * 30; // stay unlocked for 30 days
 
-// Reachable without the Poshword: the gate itself, the fonts it uses, and the link-preview image
-const OPEN = [/^\/code\/gate\//, /^\/assets\/fonts\//, /^\/code\/og-image\.png$/, /^\/favicon\.ico$/, /^\/robots\.txt$/];
+// Reachable without the Poshword: the gate itself, the fonts and line icons it uses, and the link-preview image
+const OPEN = [/^\/code\/gate\//, /^\/assets\/fonts\//, /^\/code\/img\/line-icons\//, /^\/code\/og-image\.png$/, /^\/favicon\.ico$/, /^\/robots\.txt$/];
 
 export const config = { matcher: '/:path*' };
 

@@ -78,13 +78,18 @@
         <button type="button" class="fb-x" data-fb-close aria-label="Close">×</button>
       </div>
       <h2 class="fb-title" id="fbTitle">Help us cook this up.</h2>
-      <p class="fb-intro">These guidelines are a very early draft. Tell us what you’re trying to make and what would help you make it, or suggest something to add, like a missing asset, rule or example. If it’s about something specific, include a link to it. Every note goes straight to the brand team.</p>
+      <p class="fb-intro">This is a very early draft. Tell us what would help you, or what we should add. It goes straight to the brand team.</p>
       <div class="fb-row">
         <label class="fb-field"><span>Name</span><input name="name" autocomplete="name" required maxlength="120"></label>
         <label class="fb-field"><span>Email</span><input name="email" type="email" autocomplete="email" required maxlength="200"></label>
       </div>
       <label class="fb-field"><span>Your note</span><textarea name="feedback" rows="5" required maxlength="5000" aria-describedby="fbHint"></textarea></label>
-      <p class="fb-hint" id="fbHint">Fill in the blanks: <b>I want to ____,</b> and <b>____ will help me do it.</b></p>
+      <div class="fb-hint" id="fbHint">Suggested inputs:
+        <ul>
+          <li><b>I want to ____,</b> and <b>____ will help me do it.</b></li>
+          <li><b>I want you to include ____,</b> and <b>here’s the link: ____</b></li>
+        </ul>
+      </div>
       <label class="fb-hp" aria-hidden="true">Website <input name="website" tabindex="-1" autocomplete="off"></label>
       <p class="fb-status" role="status" aria-live="polite"></p>
       <div class="fb-actions">

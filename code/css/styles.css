@@ -1780,3 +1780,7 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 [data-theme="dark"] .minsize-cell { --ink: #231F20; --mid-grey: #484848; --line: #F1E9DE; background: var(--posha-white); color: var(--ink); }
 [data-theme="dark"] .rw-say .rw-label { color: var(--mint); }
 [data-theme="dark"] .rule-box:not(.rule-box--dont) .rule-label, [data-theme="dark"] .coll-tag--key { color: var(--mint); }
+
+.fb-hint ul { margin: 6px 0 0; padding-left: 18px; }
+.fb-hint li + li { margin-top: 4px; }
+.fb-hint li::marker { color: var(--mid-grey); }

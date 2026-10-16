@@ -28,7 +28,7 @@ body { font-family: 'Roobert', system-ui, sans-serif; -webkit-font-smoothing: an
 .entry button:hover { transform: scale(1.06); }
 .arrow { width: 18px; height: 18px; background: currentColor;
   -webkit-mask: url('/code/img/line-icons/back-right.png') center / contain no-repeat; mask: url('/code/img/line-icons/back-right.png') center / contain no-repeat; }
-.entry-msg { position: absolute; left: 22px; right: 0; top: calc(100% + 10px); margin: 0; font-size: 14px; line-height: 1.3; color: rgba(255, 252, 248, .7); pointer-events: none; }
+.entry-msg { position: absolute; left: 4px; right: 0; top: calc(100% + 12px); margin: 0; font-size: 14px; line-height: 1.3; color: rgba(255, 252, 248, .7); pointer-events: none; }
 .entry-msg.is-error { color: var(--berry); }
 .entry.shake .entry-box { animation: shake .45s; }
 @keyframes shake { 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
@@ -42,3 +42,15 @@ body { font-family: 'Roobert', system-ui, sans-serif; -webkit-font-smoothing: an
 /* lets gate.js notice when the browser autofills a saved Poshword */
 @keyframes autofilled { from { opacity: 1; } to { opacity: 1; } }
 .entry input:-webkit-autofill { animation: autofilled .01s; -webkit-text-fill-color: var(--off-white); transition: background-color 9999s; }
+
+/* Acknowledgment: a promise to judge it as a work in progress */
+.ack { display: flex; align-items: flex-start; gap: 12px; margin: 16px 4px 0; cursor: pointer; user-select: none; -webkit-user-select: none; }
+.ack input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.ack-box { flex: none; position: relative; width: 20px; height: 20px; margin-top: 1px; border-radius: 6px; box-shadow: inset 0 0 0 1.5px rgba(255, 252, 248, .45); transition: background .15s, box-shadow .15s; }
+.ack:hover .ack-box { box-shadow: inset 0 0 0 1.5px var(--off-white); }
+.ack input:focus-visible + .ack-box { outline: 2px solid var(--off-white); outline-offset: 3px; }
+.ack input:checked + .ack-box { background: var(--yellow); box-shadow: none; }
+.ack input:checked + .ack-box::after { content: ''; position: absolute; left: 7px; top: 3px; width: 5px; height: 10px; border: solid var(--black); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.ack-text { font-size: 14px; line-height: 1.4; color: rgba(255, 252, 248, .72); }
+.ack.shake { animation: shake .45s; }
+.ack.shake .ack-box { box-shadow: inset 0 0 0 1.5px var(--berry); }

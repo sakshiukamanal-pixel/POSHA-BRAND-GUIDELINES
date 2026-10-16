@@ -18,6 +18,13 @@
   const form = document.getElementById('entry');
   const input = document.getElementById('word');
   const msg = document.getElementById('msg');
+  const ack = document.getElementById('ack');
+  // the promise is remembered on this browser, so it's ticked next time
+  try { ack.checked = localStorage.getItem('posha:gate-ack') === '1'; } catch (e) { /* private mode */ }
+  ack.addEventListener('change', () => {
+    try { localStorage.setItem('posha:gate-ack', ack.checked ? '1' : '0'); } catch (e) { /* private mode */ }
+    if (ack.checked) { say('', ''); if (input.value && !typed) autoSend(); }
+  });
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const FRICTION = 0.12;  // cloth: share of speed lost per second
@@ -43,7 +50,7 @@
     W = innerWidth; H = innerHeight; small = W < 700;
     bodies.forEach((b, i) => {
       if (b === logo) { b.w = Math.min(W * (small ? 0.78 : 0.52), 760); b.h = b.w * (373.3 / 1920); b.el.style.width = b.w + 'px'; }
-      else if (b === entry) { b.w = Math.min(W - 40, 440); b.el.style.width = b.w + 'px'; b.h = b.el.querySelector('.entry-box').offsetHeight; }
+      else if (b === entry) { b.w = Math.min(W - 40, 440); b.el.style.width = b.w + 'px'; b.h = b.el.offsetHeight; } // entry box + promise
       else {
         b.size = (small ? 64 : 96) * b.base; b.r = b.size * 0.44; b.m = b.base * b.base;
         b.el.style.width = b.size + 'px';
@@ -195,6 +202,12 @@
     e.preventDefault();
     const word = input.value.trim();
     if (!word) return say('Enter the Poshword first.', 'error');
+    if (!ack.checked) {
+      const box = ack.closest('.ack');
+      box.classList.remove('shake'); void box.offsetWidth; box.classList.add('shake');
+      sent = false;
+      return say('Tick the promise first. It’s part of the recipe.', 'error');
+    }
     say('Checking…');
     try {
       const r = await fetch('/__unlock', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ word }), credentials: 'same-origin' });
@@ -223,7 +236,7 @@
   input.addEventListener('input', (e) => { if (!typed || e.inputType === 'insertReplacementText' || !e.inputType) autoSend(); });
   input.addEventListener('animationstart', (e) => { if (e.animationName === 'autofilled') autoSend(); }); // Chrome's autofill hook
   let sent = false;
-  function autoSend() { if (sent || !input.value || typed) return; sent = true; form.requestSubmit(); }
+  function autoSend() { if (sent || !input.value || typed || !ack.checked) return; sent = true; form.requestSubmit(); }
   let polls = 0; const poll = setInterval(() => { if (input.value && !typed) autoSend(); if (++polls > 20 || sent) clearInterval(poll); }, 150);
 
   addEventListener('resize', layout);

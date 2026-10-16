@@ -1788,3 +1788,7 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 /* Colour's tint slider is fixed to the side of the screen, so its wrapper takes no room: the gap above the
    contents pills then matches every other section */
 .view > .section-intro:has(> .trail:only-child) { display: contents; }
+
+/* Shoot headers: same type as the rest of the guide (Roobert, not Epika italic), number as a chip */
+.shoot-head .display-heading { font: 500 var(--fs-h5)/var(--lh-h5) var(--font-ui); letter-spacing: -0.01em; font-style: normal; }
+.shoot-num { justify-self: start; padding: 5px 10px; border-radius: var(--r-pill); background: var(--track); font-size: var(--fs-micro); line-height: 1; color: var(--ink-2); }

@@ -369,7 +369,7 @@
     facts: (b) => `<dl class="facts">${b.items.map((f) => `<div><dt>${esc(f.k)}</dt><dd>${inline(f.v)}</dd></div>`).join('')}</dl>`,
 
     // A shared folder (Drive / zip) with tags, a button to open it and a strip of preview frames.
-    // { type: 'collection', tags: ['Photos', { label: 'Main source', tone: 'key' | 'low' }], link: { href, label }, items: ['./a/preview-01.jpg', …] }
+    // { type: 'collection', tags: ['Photos', { label: 'Main source', tone: 'key' | 'low' | 'warn' }], link: { href, label }, items: ['./a/frame-01.jpg', …], columns: 4 (optional; default = one row), footnote }
     collection: (b, c) => {
       const tag = (t) => (typeof t === 'string' ? { label: t } : t);
       const link = b.link || {};
@@ -380,7 +380,7 @@
           ${link.href ? `<a class="coll-link" href="${esc(href(resolve(link.href, c)))}"${ext ? ' target="_blank" rel="noopener"' : ' download'}>
             <span>${esc(link.label || 'Open in Google Drive')}</span><span class="coll-arrow" aria-hidden="true">${licon('right')}</span></a>` : ''}
         </div>
-        <div class="coll-grid" data-gallery style="--n:${Math.min((b.items || []).length, 6) || 6}">${(b.items || []).map((it) => {
+        <div class="coll-grid" data-gallery style="--n:${b.columns || Math.min((b.items || []).length, 6) || 6};--n-sm:${b.columns && b.columns % 3 ? 2 : 3}">${(b.items || []).map((it) => {
           const src = resolve(typeof it === 'string' ? it : it.src, c);
           return `<figure class="tile coll-item" data-search="${esc((b.search || '') + ' ' + prettyName(src))}"><div class="tile-media">${mediaEl(src, { alt: it.alt || b.alt || '' })}</div></figure>`;
         }).join('')}</div>

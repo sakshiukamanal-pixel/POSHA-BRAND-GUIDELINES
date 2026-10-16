@@ -233,6 +233,125 @@ POSHA.section({
       ],
     },
     {
+      // Previews in assets/07-gallery/07-china-assembly/<folder>/
+      id: 'china-assembly',
+      title: 'China Assembly Footage',
+      navTitle: 'China Assembly',
+      assets: '07-china-assembly',
+      summary: 'Two weeks on the factory floor, assembling the first 50 Posha units.',
+      blocks: [
+        {
+          type: 'text',
+          body: [
+            'Footage from the two weeks we spent assembling the first 50 Posha units in China: general assembly footage, people working on the manufacturing floor, and phone time-lapses of the line. It shows that Posha is a real product, built carefully by real people — use it for brand films, investor and press decks, and behind-the-scenes content.',
+            'The short 2–3 second clips make the best cutaways.',
+          ],
+        },
+        {
+          type: 'facts',
+          items: [
+            { k: 'Content', v: 'Assembly + factory floor' },
+            { k: 'Shot over', v: '2 weeks · first 50 units' },
+            { k: 'Device', v: '~90% current' },
+            { k: 'State', v: 'Needs sorting' },
+          ],
+        },
+        {
+          type: 'note', tone: 'warn', title: 'Avoid the old screen and the old logo',
+          body: 'The product here is about 90% current, but the screen is the older power-button shape rather than today’s horizontal oval O, and some shots show older branding. Skip any shot where the old screen or the old logo can be seen.',
+        },
+        {
+          type: 'rules',
+          do: [
+            'Work from the folders below',
+            'Cut the short 2–3 second clips in as cutaways',
+            'Use wide shots of the line to show real, careful manufacturing at scale',
+            'Use hands-at-work close-ups (wiring, panels, packing) for detail and pace',
+          ],
+          dont: [
+            'Don’t use the loose files at the top level of the Drive folder',
+            'Don’t use shots showing the old screen or the old logo',
+            'Don’t use the separate China lifestyle footage (colleagues, etc.)',
+            'Don’t import the .XML sidecar files — they’re camera metadata',
+          ],
+        },
+        {
+          type: 'note', title: 'Not well organised yet',
+          body: 'This library still needs sorting, so expect to dig a little. If you sort a folder, tell the brand team so the links here can be updated.',
+        },
+      ],
+      parts: [
+        {
+          id: 'travel-assembly', title: 'Travel & Assembly',
+          summary: 'General assembly footage from the two weeks on site — machines, components and the line at work.',
+          keywords: ['travel', 'assembly', 'factory', 'line', 'machines', 'components', 'units'],
+          sections: [
+            {
+              id: 'folder-1', title: 'Folder 1', navTitle: '1',
+              summary: 'Machines and materials up close — the production line, cable reels, electronics and parts in motion.',
+              blocks: [{
+                type: 'collection', alt: 'China assembly footage', columns: 4,
+                tags: ['Video', 'MP4', 'Machines + components'],
+                link: { href: 'https://drive.google.com/drive/folders/1Gn8qevBW7BDHcri1N12CbGwOCuhkYg4A', label: 'Open in Google Drive' },
+                items: [1, 2, 3, 4, 5, 6, 7, 8].map((n) => `./travel-1/frame-0${n}.jpg`),
+                footnote: 'Use the **.MP4** files — the matching **.XML** files are camera metadata.',
+              }],
+            },
+            {
+              id: 'folder-2', title: 'Folder 2', navTitle: '2',
+              summary: 'The assembly line in action — workers on the floor, finished units in rows, spice pods and screens.',
+              blocks: [{
+                type: 'collection', alt: 'China assembly footage', columns: 4,
+                tags: ['Video', 'MP4', 'People + finished units'],
+                link: { href: 'https://drive.google.com/drive/folders/1qXzjcnIFmlTzDcLQTxNHlZUBei2vM267', label: 'Open in Google Drive' },
+                items: [1, 2, 3, 4, 5, 6, 7, 8].map((n) => `./travel-2/frame-0${n}.jpg`),
+                footnote: 'Use the **.MP4** files — the matching **.XML** files are camera metadata. Check screens for the old power-button shape before using a shot.',
+              }],
+            },
+          ],
+        },
+        {
+          id: 'factory-shots', title: 'Factory Shots',
+          summary: 'Hand-held footage on the factory floor, with a thumbnail for every clip.',
+          keywords: ['factory', 'floor', 'clips', 'thumbnails', 'hands'],
+          sections: [
+            {
+              id: 'clips', title: 'Clips',
+              summary: 'Hands at work — screens, wiring, panels and packing. Ideal as quick 2–3 second cutaways.',
+              blocks: [{
+                type: 'collection', alt: 'Factory clip frame',
+                tags: ['Video', 'MP4', 'Close-ups'],
+                link: { href: 'https://drive.google.com/drive/folders/1B0Q0aelYPRIzg71JWA8--GC4c3EMveIq', label: 'Open in Google Drive' },
+                items: [1, 2, 3, 4, 5].map((n) => `./factory-clips/frame-0${n}.jpg`),
+              }],
+            },
+            {
+              id: 'thumbnails', title: 'Thumbnails',
+              summary: 'A still from each clip — browse here to find the shot you need, then pull the matching clip.',
+              blocks: [{
+                type: 'collection', alt: 'Factory clip thumbnail',
+                tags: ['Stills', 'JPG', 'Clip index'],
+                link: { href: 'https://drive.google.com/drive/folders/1xcM8OndKCQigYYKtVa7KHIe3dGvb7DlI', label: 'Open in Google Drive' },
+                items: [1, 2, 3, 4, 5, 6].map((n) => `./factory-thumbnails/frame-0${n}.jpg`),
+                footnote: 'Some thumbnails show the device screen — check it’s not the older power-button shape before using the clip.',
+              }],
+            },
+          ],
+        },
+        {
+          id: 'timelapse', title: 'Timelapse',
+          summary: 'Phone footage and time-lapses of the assembly floor — wide views of the line, plus close-ups of the induction base and wiring.',
+          keywords: ['timelapse', 'time-lapse', 'phone', 'floor', 'wide'],
+          blocks: [{
+            type: 'collection', alt: 'Assembly floor timelapse frame',
+            tags: ['Phone', 'MOV + JPG', 'Time-lapse'],
+            link: { href: 'https://drive.google.com/drive/folders/1a2XvEOvtd8xtiF_lOxqAVetTne8GrVxp', label: 'Open in Google Drive' },
+            items: [1, 2, 3, 4, 5, 6].map((n) => `./timelapse/frame-0${n}.jpg`),
+          }],
+        },
+      ],
+    },
+    {
       id: 'essentials',
       title: 'Essentials',
       assets: '01-essentials', // folder names are pinned so reordering pages never breaks media paths

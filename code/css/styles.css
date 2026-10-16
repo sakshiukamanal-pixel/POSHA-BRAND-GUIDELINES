@@ -1051,7 +1051,7 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 .coll-item .tile-media { aspect-ratio: 5 / 4; }
 .coll-item .tile-media img { object-fit: cover; }
 .coll-foot { margin-top: 12px; font-size: var(--fs-small); color: var(--mid-grey); }
-@media (max-width: 900px) { .coll-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .coll-grid { grid-template-columns: repeat(var(--n-sm, 3), minmax(0, 1fr)); } } /* 2 when a set is laid out in rows of 4, so rows stay full */
 
 /* Minimum size, at actual size */
 .minsize { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 760px; }

@@ -1633,3 +1633,55 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 .bullets li { padding-left: 4px; }
 .rule-box li { line-height: 1.45; }
 .rule-box ul { gap: 12px; }
+
+/* Feedback: a pill beside the search bar, and a dialog in the app's card style */
+.appbar { display: flex; align-items: center; gap: 16px; }
+.appbar .site-search { flex: 1; min-width: 0; }
+.fb-open { flex: none; margin-left: auto; padding: 11px 18px; border: 1px solid var(--line); border-radius: var(--r-pill); background: var(--card); font: var(--fs-small)/1 var(--font-ui); color: var(--ink); cursor: pointer; transition: background .15s; }
+.fb-open:hover { background: var(--track); }
+.fb { width: min(520px, calc(100vw - 32px)); max-height: calc(100vh - 32px); padding: 0; border: 0; border-radius: var(--r-card); background: var(--paper); color: var(--ink); box-shadow: 0 30px 80px rgba(35, 34, 34, .25); }
+.fb::backdrop { background: rgba(35, 34, 34, .45); backdrop-filter: blur(2px); }
+.fb-form { display: flex; flex-direction: column; gap: 16px; padding: 28px; }
+.fb-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.fb-head h2 { margin: 0; font: 500 1.5rem/1.2 var(--font-ui); }
+.fb-x { width: 36px; height: 36px; border: 0; border-radius: 50%; background: var(--card); font-size: 22px; line-height: 1; color: var(--ink-2); cursor: pointer; }
+.fb-x:hover { background: var(--track); }
+.fb-intro { margin: -4px 0 4px; font-size: var(--fs-small); line-height: 1.45; color: var(--muted); }
+.fb-field { display: flex; flex-direction: column; gap: 6px; }
+.fb-field span { font: var(--fs-micro)/1 var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--mid-grey); }
+.fb-field input, .fb-field textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-inner); background: var(--card); font: var(--fs-small)/1.45 var(--font-ui); color: var(--ink); resize: vertical; }
+.fb-field input:focus, .fb-field textarea:focus { outline: none; border-color: var(--ink); background: var(--paper); }
+.fb-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.fb-status { margin: 0; min-height: 1.2em; font-size: var(--fs-small); color: var(--muted); }
+.fb-status.is-error { color: #8C003A; }
+.fb-status.is-ok { color: var(--dark-olive, #2F3600); }
+.fb-actions { display: flex; justify-content: flex-end; gap: 10px; }
+.fb-actions button { padding: 12px 20px; border: 0; border-radius: var(--r-pill); font: 500 var(--fs-small)/1 var(--font-ui); cursor: pointer; }
+.fb-cancel { background: var(--card); color: var(--ink); }
+.fb-send { background: var(--ink); color: var(--paper); }
+.fb-send:disabled { opacity: .5; cursor: default; }
+@media (max-width: 900px) { .fb-open { padding: 10px 14px; } }
+
+/* Work-in-progress sections and pages read lighter in the menu */
+.nav .is-wip, .nav .nav-group.current > .nav-head .nav-title.is-wip { color: rgba(35, 34, 34, .4); }
+.nav .is-wip .nav-num { opacity: .55; }
+.nav .is-wip:hover, .nav .nav-sub a.is-wip.active { color: var(--ink-2); }
+
+/* Feedback dialog, in the brand's own type and colour: Epika headline, Roobert body, Roobert Mono caps labels,
+   Off-White paper, Cream fields, Black pill to send, line-icon arrow */
+.fb { width: min(560px, calc(100vw - 32px)); }
+.fb-form { gap: 18px; padding: 28px 32px 32px; }
+.fb-chip { display: inline-flex; padding: 6px 12px; border-radius: var(--r-pill); background: var(--posha-yellow); font: var(--fs-micro)/1 var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--ink); }
+.fb-title { margin: 4px 0 0; font: 400 clamp(2.4rem, 6vw, 3.2rem)/1 var(--font-display); color: var(--ink); text-wrap: balance; }
+.fb-intro { margin: 0; font-size: var(--fs-base); line-height: 1.45; color: var(--ink-2); text-wrap: pretty; }
+.fb-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.fb-field input, .fb-field textarea { background: var(--cream); border-color: transparent; }
+.fb-field textarea { min-height: 132px; line-height: 1.5; }
+.fb-field textarea::placeholder { color: rgba(35, 34, 34, .45); }
+.fb-hint { margin: -8px 0 0; font-size: var(--fs-small); line-height: 1.45; color: var(--mid-grey); }
+.fb-hint b { font-weight: 500; color: var(--ink); }
+.fb-send { display: inline-flex; align-items: center; gap: 8px; }
+.fb-send .licon { font-size: 1.1em; }
+.fb-cancel { background: transparent; }
+.fb-cancel:hover { background: var(--card); }
+@media (max-width: 520px) { .fb-row { grid-template-columns: 1fr; } .fb-form { padding: 22px 20px 24px; } }

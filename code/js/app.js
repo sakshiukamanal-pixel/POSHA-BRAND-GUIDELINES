@@ -922,6 +922,7 @@
           : `<span class="sf-todo" title="Link to be added">${esc(l.label)} ${licon('right')}</span>`).join('')}</nav>
         <div class="sf-meta">
           <button type="button" class="sf-top-btn" data-scroll-top>Back to top ${licon('up')}</button>
+          <button type="button" class="sf-top-btn" data-feedback>Send feedback</button>
           ${f.copyright ? `<span>${esc(f.copyright)}</span>` : ''}
         </div>
       </div>
@@ -1457,6 +1458,8 @@
   const chevron = '<span class="licon licon--down" aria-hidden="true"></span>';
   let openSet;
 
+  const wip = (t) => /\(WIP\)/i.test(t || '') ? ' is-wip' : '';
+
   function renderShell() {
     const site = POSHA.site;
     $$('[data-brand]').forEach((el) => {
@@ -1471,7 +1474,7 @@
     $('#nav').innerHTML = sections.map((s) => `
       <div class="nav-group${openSet.has(s.id) ? ' open' : ''}" data-sid="${s.id}">
         <div class="nav-head">
-          <a class="nav-title" href="#/${s.id}"><span class="num nav-num">${esc(s.number)}</span>${esc(s.navTitle || s.title)}</a>
+          <a class="nav-title${wip(s.navTitle || s.title)}" href="#/${s.id}"><span class="num nav-num">${esc(s.number)}</span>${esc(s.navTitle || s.title)}</a>
           ${s.pages.length ? `<button class="nav-toggle" type="button" aria-label="Toggle ${esc(s.title)}" aria-expanded="${openSet.has(s.id)}">${chevron}</button>` : ''}
         </div>
         ${s.pages.length ? `<div class="nav-sub-wrap"><ul class="nav-sub">${navPages(s)}</ul></div>` : ''}
@@ -1483,7 +1486,7 @@
   function navPages(s) {
     const item = (p) => {
       const kids = (p.parts || []).filter((pt) => pt.title);
-      return `<li${kids.length ? ' class="has-kids"' : ''} data-pid="${p.id}"><a href="#/${s.id}/${p.id}" data-pid="${p.id}">${esc(p.navTitle || p.title)}</a>${kids.length
+      return `<li${kids.length ? ' class="has-kids"' : ''} data-pid="${p.id}"><a href="#/${s.id}/${p.id}" data-pid="${p.id}"${wip(p.navTitle || p.title) ? ' class="is-wip"' : ''}>${esc(p.navTitle || p.title)}</a>${kids.length
         ? `<div class="nav-sub2-wrap"><ul class="nav-sub2">${kids.map((pt) =>
           `<li><a href="#/${s.id}/${p.id}/${pt.id}" data-part="${pt.id}">${esc(pt.navTitle || pt.title)}</a></li>`).join('')}</ul></div>` : ''}</li>`;
     };
@@ -1892,6 +1895,70 @@
   }
 
   /* ---- Interactions ------------------------------------------------------ */
+  // Feedback dialog → Google Sheet (Apps Script web app). Sent as a plain form post, so no CORS setup is needed;
+  // the reply can't be read (no-cors), so a finished request counts as sent.
+  // Example notes typed into the empty feedback box, one after another, until someone starts writing their own
+  const FB_EXAMPLES = [
+    'I want to post a new recipe on Instagram, and food shots with transparent backgrounds will help me do it.',
+    'I want to design a new app screen, and Culinary UI spacing tokens in Figma will help me do it.',
+    'I want to brief an agency on how we sound, and more “say this, not that” examples will help me do it.',
+    'I want to put the logo on packaging, and print-ready files with CMYK values will help me do it.',
+    'I want to pick a gradient for a campaign, and seeing each one on a real layout will help me do it.',
+    'I want to write a push notification, and a list of words we never use will help me do it.',
+  ];
+  let fbTimer = null;
+  function stopExamples() { clearTimeout(fbTimer); fbTimer = null; }
+  function playExamples(box) {
+    stopExamples();
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let i = Math.floor(Math.random() * FB_EXAMPLES.length), n = 0, dir = 1;
+    const tick = () => {
+      if (box.value || document.activeElement === box) { box.placeholder = FB_EXAMPLES[i]; return stopExamples(); }
+      const ex = FB_EXAMPLES[i];
+      if (still) { box.placeholder = ex; i = (i + 1) % FB_EXAMPLES.length; fbTimer = setTimeout(tick, 4500); return; }
+      n += dir * (dir > 0 ? 1 : 4);
+      if (n >= ex.length) { n = ex.length; dir = -1; box.placeholder = ex; fbTimer = setTimeout(tick, 2600); return; }
+      if (n <= 0) { n = 0; dir = 1; i = (i + 1) % FB_EXAMPLES.length; box.placeholder = ''; fbTimer = setTimeout(tick, 350); return; }
+      box.placeholder = ex.slice(0, n) + '▍';
+      fbTimer = setTimeout(tick, dir > 0 ? 28 : 12);
+    };
+    tick();
+  }
+  function openFeedback() {
+    const d = $('#feedback');
+    if (!d) return;
+    const f = $('#fbForm');
+    $('.fb-status', f).textContent = '';
+    $('.fb-status', f).className = 'fb-status';
+    d.showModal();
+    $('[name="name"]', f).focus();
+    playExamples($('textarea', f));
+  }
+  function closeFeedback() { stopExamples(); const d = $('#feedback'); if (d && d.open) d.close(); }
+  async function sendFeedback(e) {
+    e.preventDefault();
+    const f = e.target, status = $('.fb-status', f), btn = $('.fb-send', f);
+    const say = (msg, kind) => { status.textContent = msg; status.className = 'fb-status' + (kind ? ' is-' + kind : ''); };
+    const endpoint = ((POSHA.site.feedback || {}).endpoint || '').trim();
+    const data = new FormData(f);
+    const name = String(data.get('name') || '').trim(), email = String(data.get('email') || '').trim(), text = String(data.get('feedback') || '').trim();
+    if (!name || !text || !/^\S+@\S+\.\S+$/.test(email)) return say('Almost there. Add your name, your email and a note.', 'error');
+    if (!endpoint) return say('Feedback isn’t connected yet. Add the Google Sheet link in database/site.js → feedback.endpoint.', 'error');
+    btn.disabled = true;
+    say('Sending…');
+    try {
+      const body = new URLSearchParams({ name, email, feedback: text, website: String(data.get('website') || ''), page: location.href });
+      await fetch(endpoint, { method: 'POST', mode: 'no-cors', body });
+      f.reset();
+      say('Thank you. Your note is on its way to the brand team.', 'ok');
+      setTimeout(closeFeedback, 1800);
+    } catch (err) {
+      say('That didn’t go through. Check your connection and try again.', 'error');
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
   function toast(msg) {
     const t = $('#toast');
     t.textContent = msg;
@@ -2241,6 +2308,8 @@
         return;
       }
 
+      if (t.closest('[data-feedback]')) { openFeedback(); return; }
+      if (t.closest('[data-fb-close]') || t.id === 'feedback') { closeFeedback(); return; }
       const sf = t.closest('[data-sfilter]');
       if (sf) { filterSearch(sf.dataset.sfilter); return; }
       if (t.closest('[data-search-go]')) { const v = $('#searchInput').value; if (v.trim()) goToResult(searchHref(v), v); return; }
@@ -2260,6 +2329,13 @@
       if (v && !v.contains(e.relatedTarget)) v.pause();
     });
 
+    if ($('#fbForm')) {
+      const box = $('#fbForm textarea');
+      $('#fbForm').addEventListener('submit', sendFeedback);
+      box.addEventListener('focus', stopExamples);
+      box.addEventListener('blur', () => { if (!box.value && $('#feedback').open) playExamples(box); });
+      $('#feedback').addEventListener('close', stopExamples);
+    }
     $('#menuBtn').addEventListener('click', openMenu);
     $('#scrim').addEventListener('click', closeMenu);
     $('#searchBtn').addEventListener('click', openSearch);

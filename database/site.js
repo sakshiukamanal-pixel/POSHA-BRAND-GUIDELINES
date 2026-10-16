@@ -18,6 +18,12 @@ POSHA.site = {
   updated: 'Oct 2026',
   showAssetPaths: false,                // true shows each page's media folder under its title (handy while adding media)
 
+  // Feedback button (top bar + footer) → a Google Sheet via Apps Script (code/tools/feedback-apps-script.gs).
+  // Paste the Web app URL (…/exec) here. Left empty, the form still opens but says it isn't connected yet.
+  feedback: {
+    endpoint: 'https://script.google.com/macros/s/AKfycbxtpq4PYRX0HtVVyS-7GIyk-MD9siuSJnfkh3HBitYPx7eowNYA6p1KDc5_YJ8_Wkz7Lg/exec',
+  },
+
   // Footer at the end of every page + the icon playground (drag / throw / cursor pushes things away)
   footer: {
     note: 'The single source of truth for how Posha looks, sounds and moves.',

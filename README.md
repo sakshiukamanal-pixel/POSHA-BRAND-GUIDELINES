@@ -50,6 +50,24 @@ Every page ends with the footer set in `database/site.js` → `footer`: the note
 copyright, and the playground (`logo` + `icons` list). Physics tuning (gravity, drag, bounce, cursor push) lives at the
 top of `mountPlayground` in `code/js/app.js`.
 
+## Feedback form
+
+The **Feedback** button (top bar and footer) opens a form for name, email and feedback. Each one lands as a new row in a Google Sheet.
+
+One-time setup, signed in with your Posha Google account:
+1. Create a Google Sheet (e.g. "Brand Guidelines Feedback").
+2. **Extensions → Apps Script**, replace the sample code with `code/tools/feedback-apps-script.gs`, and save.
+3. **Deploy → New deployment → Web app**. Set *Execute as: Me* and *Who has access: Anyone*, then approve the permissions.
+4. Paste the Web app URL (ends in `/exec`) into `database/site.js` → `feedback.endpoint`, then deploy the site.
+
+Rows go to a tab called **Feedback** (created on the first submission) with the time, name, email, feedback and the page it was sent from.
+If you change the script later, use **Manage deployments → Edit → New version** so the URL stays the same.
+
+**Backup in the project.** Run `python3 code/tools/pull-feedback.py` to copy every entry into `feedback/feedback.csv` (and `.json`).
+Entries already saved are kept even if they're deleted from the sheet. It needs `FEEDBACK_EXPORT_KEY` in `.env`, with the same value
+saved as `EXPORT_KEY` under the Apps Script's **Project Settings → Script properties**. The `feedback/` folder is ignored by git
+because the repository is public and the rows hold names and emails.
+
 ## Page layouts
 
 - Default: all sub-pages on one long scrolling page; the sidebar follows as you scroll (Philosophy, Logo…).

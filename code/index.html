@@ -61,7 +61,32 @@
       </label>
       <ul class="search-results" id="searchResults" role="listbox" hidden></ul>
     </div>
+    <button type="button" class="fb-open" data-feedback>Feedback</button>
   </div>
+
+  <!-- Feedback form: sends to the Google Sheet set in database/site.js → feedback.endpoint -->
+  <dialog class="fb" id="feedback" aria-labelledby="fbTitle">
+    <form class="fb-form" id="fbForm" novalidate>
+      <div class="fb-head">
+        <span class="fb-chip">Early draft · Help shape it</span>
+        <button type="button" class="fb-x" data-fb-close aria-label="Close">×</button>
+      </div>
+      <h2 class="fb-title" id="fbTitle">Help us cook this up.</h2>
+      <p class="fb-intro">These guidelines are a very early draft. Tell us what you’re trying to make and what would help you make it. Every note goes straight to the brand team.</p>
+      <div class="fb-row">
+        <label class="fb-field"><span>Name</span><input name="name" autocomplete="name" required maxlength="120"></label>
+        <label class="fb-field"><span>Email</span><input name="email" type="email" autocomplete="email" required maxlength="200"></label>
+      </div>
+      <label class="fb-field"><span>Your note</span><textarea name="feedback" rows="5" required maxlength="5000" aria-describedby="fbHint"></textarea></label>
+      <p class="fb-hint" id="fbHint">Fill in the blanks: <b>I want to ____,</b> and <b>____ will help me do it.</b></p>
+      <label class="fb-hp" aria-hidden="true">Website <input name="website" tabindex="-1" autocomplete="off"></label>
+      <p class="fb-status" role="status" aria-live="polite"></p>
+      <div class="fb-actions">
+        <button type="button" class="fb-cancel" data-fb-close>Not now</button>
+        <button type="submit" class="fb-send">Send note <span class="licon licon--right" aria-hidden="true"></span></button>
+      </div>
+    </form>
+  </dialog>
 
   <!-- Content -->
   <main class="main" id="main">

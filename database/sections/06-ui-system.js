@@ -792,5 +792,13 @@ POSHA.section({
       summary: 'A short toast that celebrates a finished customisation.',
       blocks: [{ type: 'cui', component: 'celebration', min: 300 }, ...cuiBuild('celebration', 'Celebration', 'CUICelebration', 'CUI.celebration.html({ toastLabel, label, count })')],
     },
+
+    /* ------------------------------------------------------------ Vibe Cooking */
+    {
+      id: 'vibe-cooking',
+      title: 'Vibe Cooking (WIP)',
+      summary: 'Work in progress. This page is being written.',
+      blocks: [{ type: 'placeholder', style: 'box', body: 'Work in progress · Coming soon' }],
+    },
   ],
 });

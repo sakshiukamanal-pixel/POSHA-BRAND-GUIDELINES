@@ -1463,7 +1463,8 @@
   function renderShell() {
     const site = POSHA.site;
     $$('[data-brand]').forEach((el) => {
-      const logo = el.dataset.brand === 'on-dark' && site.logoOnDark ? site.logoOnDark : site.logo;
+      const dark = el.dataset.brand === 'on-dark' || document.documentElement.dataset.theme === 'dark';
+      const logo = dark && site.logoOnDark ? site.logoOnDark : site.logo;
       el.innerHTML = `<span class="logo-text">${esc(site.logoText || site.shortName || 'Brand')}</span>` +
         (logo ? `<img class="logo-img" src="${asset(logo)}" alt="${esc(site.logoText || '')}" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()">` : '') +
         `<span class="brand-sub">${esc(site.homeTitle || 'Brand Guidelines')}</span>`;
@@ -1844,6 +1845,7 @@
     const target = pid && document.getElementById(`${s.id}--${pid}`);
     if (target) scrollToPinned(target, same);
     else if (!same) scrollTo(0, 0);
+    else if (!q) scrollTo({ top: 0, behavior: 'smooth' }); // section title clicked while reading one of its sub-sections
     markNav(s.id, pid || null);
     if (q) applyPageState(null, q);
     setupSpy(s);
@@ -1907,6 +1909,19 @@
   }
 
   /* ---- Interactions ------------------------------------------------------ */
+  // Light / dark mode: light by default, the choice is remembered on this browser
+  function setTheme(theme) {
+    const dark = theme === 'dark';
+    if (dark) document.documentElement.dataset.theme = 'dark'; else delete document.documentElement.dataset.theme;
+    store.set('theme', theme);
+    $$('[data-theme-toggle]').forEach((b) => { b.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode'); b.title = dark ? 'Light mode' : 'Dark mode'; });
+    const site = POSHA.site;
+    $$('[data-brand] .logo-img').forEach((img) => {
+      const el = img.parentNode, logo = (dark || el.dataset.brand === 'on-dark') && site.logoOnDark ? site.logoOnDark : site.logo;
+      img.src = asset(logo);
+    });
+  }
+
   // Feedback dialog → Google Sheet (Apps Script web app). Sent as a plain form post, so no CORS setup is needed;
   // the reply can't be read (no-cors), so a finished request counts as sent.
   // Example notes typed into the empty feedback box, one after another, until someone starts writing their own
@@ -1917,6 +1932,8 @@
     'I want to put the logo on packaging, and print-ready files with CMYK values will help me do it.',
     'I want to pick a gradient for a campaign, and seeing each one on a real layout will help me do it.',
     'I want to write a push notification, and a list of words we never use will help me do it.',
+    'Please add the holiday campaign visuals to the Gallery. Here’s the folder: drive.google.com/…',
+    'The spacing on this page feels tight on my phone: posha-brand-guidelines.vercel.app/#/color',
   ];
   let fbTimer = null;
   function stopExamples() { clearTimeout(fbTimer); fbTimer = null; }
@@ -2321,6 +2338,9 @@
         return;
       }
 
+      const navTitle = t.closest('.nav-title');
+      if (navTitle && navTitle.getAttribute('href') === location.hash) { e.preventDefault(); closeMenu(); scrollTo({ top: 0, behavior: 'smooth' }); return; }
+      if (t.closest('[data-theme-toggle]')) { setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'); return; }
       if (t.closest('[data-feedback]')) { openFeedback(); return; }
       if (t.closest('[data-fb-close]') || t.id === 'feedback') { closeFeedback(); return; }
       const sf = t.closest('[data-sfilter]');
@@ -2414,6 +2434,7 @@
     buildIndex();
     bindEvents();
     if (store.get('menuHidden', false)) document.body.classList.add('menu-hidden');
+    if (store.get('theme', 'light') === 'dark') setTheme('dark');
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; // the router places the scroll itself
     route(true);
     // after the first page is in place, so the footer (and its icon rain) starts below the content

@@ -33,7 +33,7 @@ POSHA.section({
       title: 'Who We Are',
       blocks: [
         {
-          type: 'statement', align: 'center',
+          type: 'statement',
           text: 'Making dinner cook itself.',
           sub: 'We are an AI and robotics company building the future of autonomous cooking and setting the foundation for modern culinary artificial intelligence.',
         },
@@ -121,14 +121,14 @@ POSHA.section({
       title: 'Who It’s For',
       blocks: [
         {
-          type: 'statement', font: 'ui', align: 'center', label: 'Our ideal customer',
-          text: 'Busy, dual-income households in the US suburbs who love a home-cooked meal — and don’t have the evenings to make one.',
+          type: 'statement', font: 'ui', label: 'Our ideal customer',
+          text: 'Busy, dual-income households across the US — mostly in the suburbs — who love a home-cooked meal and don’t have the evenings to make one.',
         },
         {
           type: 'facts',
           items: [
             { k: 'Household income', v: '$150K+' },
-            { k: 'Where', v: 'The suburbs, USA' },
+            { k: 'Where', v: 'Mostly the suburbs, also cities — USA' },
             { k: 'Work', v: 'Dual income' },
             { k: 'Market', v: 'USA only, for now' },
           ],
@@ -149,7 +149,7 @@ POSHA.section({
       title: 'Culinary AI',
       blocks: [
         {
-          type: 'statement', align: 'center', label: 'Culinary AI',
+          type: 'statement', label: 'Culinary AI',
           text: 'To cook is to see.',
           sub: 'Culinary AI (cAI) is a new class of AI that doesn’t just read recipes, but sees, understands and reasons about food as it cooks.',
         },
@@ -193,7 +193,7 @@ POSHA.section({
       title: 'Tone of Voice',
       blocks: [
         {
-          type: 'statement', align: 'center', label: 'Our voice in one line',
+          type: 'statement', label: 'Our voice in one line',
           text: 'A friend who’s a great cook.',
           sub: 'Warm, sure of itself, a little cheeky — and always on your side at dinnertime. Posha talks about food and evenings, not features and specs.',
         },

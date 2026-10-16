@@ -33,12 +33,16 @@
 
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
-    <a class="brand" href="#/" data-brand="on-dark"></a>
+    <a class="brand" href="#/" data-brand></a>
     <button class="search-trigger" id="searchBtn" type="button">
-      <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span class="licon licon--search" aria-hidden="true"></span>
       <span>Search</span>
       <kbd>Ctrl K</kbd>
     </button>
+    <div class="nav-tools" role="group" aria-label="Menu">
+      <button type="button" class="nav-all" data-nav-all="open" title="Expand all" aria-label="Expand all"><span class="licon licon--down" aria-hidden="true"></span><span class="licon licon--down" aria-hidden="true"></span></button>
+      <button type="button" class="nav-all" data-nav-all="close" title="Collapse all" aria-label="Collapse all"><span class="licon licon--up" aria-hidden="true"></span><span class="licon licon--up" aria-hidden="true"></span></button>
+    </div>
     <nav class="nav" id="nav" aria-label="Guidelines"></nav>
     <div class="sidebar-foot" id="sidebarFoot"></div>
   </aside>
@@ -48,7 +52,7 @@
   <div class="appbar">
     <div class="site-search" id="siteSearch">
       <label class="site-search-box">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span class="licon licon--search" aria-hidden="true"></span>
         <input id="searchInput" type="search" placeholder="Search the guidelines — try “icons”, “posha yellow”, “renders”, “logo misuse”" autocomplete="off"
           role="combobox" aria-expanded="false" aria-controls="searchResults" aria-label="Search the guidelines">
         <kbd>Ctrl K</kbd>
@@ -71,7 +75,7 @@
     <button class="lb-btn lb-prev" data-lb="prev" aria-label="Previous">&#8592;</button>
     <div class="lb-stage" id="lbStage"></div>
     <button class="lb-btn lb-next" data-lb="next" aria-label="Next">&#8594;</button>
-    <div class="lb-bar"><span id="lbCaption"></span><a id="lbOpen" target="_blank" rel="noopener">Open original &#8599;</a></div>
+    <div class="lb-bar"><span id="lbCaption"></span><a id="lbOpen" target="_blank" rel="noopener">Open original <span class="licon" aria-hidden="true"></span></a></div>
   </div>
 
   <div class="toast" id="toast"></div>

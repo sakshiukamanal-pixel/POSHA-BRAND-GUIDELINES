@@ -37,6 +37,22 @@ POSHA.section({
       ],
       parts: [
         {
+          id: 'families',
+          title: 'Icon Families',
+          summary: 'Four families, each with its own job. Open a family to see and download every icon.',
+          blocks: [
+            {
+              type: 'list', columns: 4,
+              items: [
+                { title: 'Gradient Icons', icon: `${ICONS}/01-gradient-icons/02-collection-icons/08-pasta.png`, body: 'Food and preferences — allergens, collections, diets and recipe controls. [See all](#/iconography/gradient-icons)' },
+                { title: 'Container Icons', icon: `${ICONS}/02-container-icons/01-container-icons/01-container-a.png`, body: 'Map ingredients to Posha’s four containers, A to D. [See all](#/iconography/container-icons)' },
+                { title: 'Line Icons', icon: `${ICONS}/03-line-icons/01-line-icons/10-home.png`, body: 'Navigation and everyday actions in the app, with filled and tiny versions. [See all](#/iconography/line-icons)' },
+                { title: 'Illustrations', icon: `${ICONS}/04-illustrations/01-large-icons-illustrations/05-completed.png`, body: 'The bigger moments — confirmations, status and empty screens — plus debug diagrams. [See all](#/iconography/illustrations)' },
+              ],
+            },
+          ],
+        },
+        {
           id: 'stroke-style',
           title: 'Stroke & Style',
           summary: 'Three principles keep every gradient icon recognisably Posha.',
@@ -149,7 +165,17 @@ POSHA.section({
       ],
       parts: [
         { id: 'line', title: 'Line Icons', summary: 'Outline icons for navigation and everyday actions across the app.', blocks: [{ type: 'iconset', folder: './03-line-icons/01-line-icons', columns: 6 }] },
-        { id: 'line-filled', title: 'Line Filled Icons', summary: 'Filled versions of the line icons, for selected and active states.', blocks: [{ type: 'iconset', folder: './03-line-icons/02-line-filled-icons', columns: 6 }] },
+        { id: 'line-filled', title: 'Line Filled Icons', summary: 'Filled versions of the line icons, for selected and active states.', blocks: [{
+          type: 'iconset', folder: './03-line-icons/02-line-filled-icons', columns: 6,
+          // the exported files are named "artboard-…", so give each icon its real name (matches the line icon set)
+          names: {
+            'artboard-10-copy': 'Search', 'artboard-11-copy': 'Grocery', 'artboard-12-copy': 'My recipes', 'artboard-13-copy': 'Profile',
+            'artboard-14-copy': 'Dietary choices', 'artboard-15-copy': 'Allergens', 'artboard-16-copy': 'Cuisines', 'artboard-17-copy': 'Cooking',
+            'artboard-18-copy': 'Measurements', 'artboard-19-copy': 'FAQs', 'artboard-20-copy': 'Terms', 'artboard-21-copy': 'Privacy policy',
+            'artboard-22-copy': 'Log out', 'artboard-23-copy': 'Delete account', 'artboard-26': 'Prep', 'artboard-27': 'Information',
+            'artboard-9-copy': 'Home', 'favourite-filled': 'Favourite', 'notes': 'Notes', 'support-contact-filled': 'Support',
+          },
+        }] },
         { id: 'tiny', title: 'Tiny Icons', summary: 'Compact badges for dietary and nutrition labels, such as gluten-free or vegan, at the Tiny size (24px).', blocks: [{ type: 'iconset', folder: './03-line-icons/03-tiny-icons', columns: 6 }] },
         {
           id: 'grid-construction',

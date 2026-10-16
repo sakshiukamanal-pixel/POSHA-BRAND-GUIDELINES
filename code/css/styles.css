@@ -381,7 +381,7 @@ figcaption { margin-top: 12px; font-size: var(--fs-small); line-height: var(--lh
   border-radius: var(--r-pill);
   transition: box-shadow .15s;
 }
-.gsearch-box:focus-within { box-shadow: 0 0 0 3px var(--posha-yellow); }
+.gsearch-box:focus-within { box-shadow: 0 0 0 1.5px var(--ink); }
 .gsearch-box input { flex: 1; min-width: 0; padding: 13px 0; border: 0; outline: none; background: none; font: var(--fs-base) var(--font-ui); color: var(--ink); }
 .gsearch-box input::-webkit-search-cancel-button { display: none; }
 .gsearch-clear { width: 36px; height: 36px; border-radius: 50%; font-size: 22px; color: var(--mid-grey); }
@@ -429,7 +429,7 @@ figcaption { margin-top: 12px; font-size: var(--fs-small); line-height: var(--lh
 .palette--weighted .pitem:last-child .chip { border-right-width: 1px; border-radius: 0 var(--r-card) var(--r-card) 0; }
 /* grid palettes: separate tiles with a gap and small corners (overrides the single rounded card above) */
 /* up to --cols tiles per row, but never narrower than 150px — fewer columns instead of colliding values */
-.palette--grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(max(150px, calc((100% - (var(--cols) - 1) * 16px) / var(--cols))), 1fr)); gap: 16px; border-radius: 0; overflow: visible; }
+.palette--grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(max(150px, calc((100% - (var(--cols) - 1) * 16px) / var(--cols) - 1px)), 1fr)); gap: 16px; border-radius: 0; overflow: visible; }
 .palette--grid .chip { aspect-ratio: var(--ratio); border-radius: var(--r-tag); box-shadow: inset 0 0 0 1px rgba(35, 31, 32, .08); } /* hairline keeps White / Off-White visible */
 
 /* name + old name */
@@ -459,7 +459,7 @@ figcaption { margin-top: 12px; font-size: var(--fs-small); line-height: var(--lh
 .trail-mark em { font: normal var(--fs-micro)/18px var(--font-mono); letter-spacing: .02em; color: var(--mid-grey); transition: color .2s; }
 .trail-mark:hover em, .trail-mark.is-on em { color: var(--ink); }
 .trail-track { position: relative; width: 16px; background: var(--track); border-radius: 8px; overflow: hidden; cursor: ns-resize; touch-action: none; outline: none; }
-.trail-track:focus-visible { box-shadow: 0 0 0 3px var(--posha-yellow); }
+.trail-track:focus-visible { box-shadow: 0 0 0 2px var(--ink); }
 .trail-fill {
   position: absolute; left: 0; right: 0; bottom: 0;
   height: calc(var(--pad) * 2 + var(--t) * (100% - var(--pad) * 2));
@@ -547,7 +547,7 @@ figcaption { margin-top: 12px; font-size: var(--fs-small); line-height: var(--lh
   outline: none;
 }
 .icon-card:hover, .icon-card:focus-visible, .icon-card.is-open { background: var(--paper); box-shadow: 0 10px 28px var(--shadow); }
-.icon-card:focus-visible { box-shadow: 0 0 0 3px var(--posha-yellow); }
+.icon-card:focus-visible { box-shadow: 0 0 0 2px var(--ink); }
 .icon-card.is-open { z-index: 5; }
 .icon-name {
   position: absolute; top: 12px; left: 14px; right: 14px;
@@ -650,15 +650,15 @@ figcaption { margin-top: 12px; font-size: var(--fs-small); line-height: var(--lh
 .blocks > * + .display-heading { margin-top: 80px; }
 
 /* Scaling matrix */
-.smx-wrap { overflow-x: auto; padding-bottom: 8px; }
-.smx { display: grid; grid-template-rows: auto auto auto auto; min-width: 760px; max-width: 1180px; }
-.smx-icon { grid-row: 1; display: flex; align-items: flex-end; justify-content: center; padding: 0 12px 22px; }
-.smx-icon img { object-fit: contain; }
+.smx-wrap { container-type: inline-size; padding-bottom: 8px; }
+.smx { display: grid; grid-template-rows: auto auto auto auto; max-width: 1180px; --u: min(var(--scale), 100cqi / var(--units)); }
+.smx-icon { grid-row: 1; display: flex; align-items: flex-end; justify-content: center; padding: 0 4px 22px; min-width: 0; }
+.smx-icon img { width: calc(var(--sz) * var(--u)); height: auto; aspect-ratio: 1; object-fit: contain; }
 .smx-tick { grid-row: 2; position: relative; height: 1px; background: var(--mid-grey); opacity: .45; }
 .smx-tick::before, .smx-tick.is-last::after { content: ''; position: absolute; top: -6px; width: 1px; height: 13px; background: var(--mid-grey); }
 .smx-tick::before { left: 0; }
 .smx-tick.is-last::after { right: 0; }
-.smx-size { grid-row: 3; padding: 22px 0 0; text-align: center; font-size: var(--fs-lead); color: var(--mid-grey); }
+.smx-size { grid-row: 3; padding: 22px 0 0; text-align: center; font-size: clamp(11px, 2.4cqi, 22px); white-space: nowrap; color: var(--mid-grey); }
 .smx-group { grid-row: 4; position: relative; margin: 48px 6px 0; padding-bottom: 14px; text-align: center; font: var(--fs-caption) var(--font-mono); text-transform: uppercase; letter-spacing: var(--track-mono); color: var(--mid-grey); }
 .smx-group::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 7px; border: 1px solid var(--mid-grey); border-top: 0; opacity: .45; transform: scaleY(-1); }
 
@@ -716,7 +716,7 @@ figcaption { margin-top: 12px; font-size: var(--fs-small); line-height: var(--lh
   background: var(--track); border-radius: 18px; overflow: hidden;
   cursor: ns-resize; touch-action: none; outline: none;
 }
-.ssl-track:focus-visible { box-shadow: 0 0 0 3px var(--posha-yellow); }
+.ssl-track:focus-visible { box-shadow: 0 0 0 2px var(--ink); }
 .ssl-fill {
   position: absolute; left: 0; right: 0; bottom: 0;
   height: calc(var(--pad) * 2 + var(--t) * (100% - var(--pad) * 2));
@@ -815,7 +815,7 @@ figcaption { margin-top: 12px; font-size: var(--fs-small); line-height: var(--lh
 .tt-bar { position: sticky; top: 82px; /* sits just under the site search bar */ z-index: 5; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; padding: 16px 18px; background: var(--card); border-bottom: 1px solid var(--line); border-radius: var(--r-card) var(--r-card) 0 0; }
 .tt-input { flex: 1 1 340px; display: flex; align-items: center; padding: 0 6px 0 18px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-pill); transition: box-shadow .15s; }
 .tt-input input { flex: 1; min-width: 0; padding: 11px 0; border: 0; outline: none; background: none; font: var(--fs-base) var(--font-ui); color: var(--ink); }
-.tt-input:focus-within { box-shadow: 0 0 0 3px var(--posha-yellow); }
+.tt-input:focus-within { box-shadow: 0 0 0 1.5px var(--ink); }
 .tt-clear { width: 32px; height: 32px; border-radius: 50%; font-size: 20px; color: var(--mid-grey); }
 .tt-controls { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .tt-size { display: flex; align-items: center; gap: 8px; }
@@ -1064,10 +1064,13 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 .pager-next { text-align: right; align-items: flex-end; }
 
 /* Home — chapter titles are H4 Epika */
-.home-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0 40px; margin-top: 96px; }
-.home-card { display: flex; flex-direction: column; gap: 12px; padding: 28px 0 36px; border-top: 1px solid var(--line); text-decoration: none; }
-.home-card:hover .home-title { color: var(--muted); }
-.home-title { font: 400 var(--fs-h4)/1.1 var(--font-display); transition: color .15s; }
+/* chapter tiles: cream cards with a mono number chip, like the app's cards */
+.home-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 56px; }
+.home-card { display: flex; flex-direction: column; gap: 10px; padding: 20px 22px 22px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card); text-decoration: none; transition: box-shadow .2s, transform .2s, background .2s; }
+.home-card:hover { background: var(--posha-white); box-shadow: 0 10px 28px var(--shadow); transform: translateY(-2px); }
+.home-head { display: flex; margin-bottom: 18px; }
+.home-head .num { padding: 5px 10px; border-radius: var(--r-pill); background: var(--track); font-size: var(--fs-micro); line-height: 1; color: var(--ink); }
+.home-title { font: 600 var(--fs-lead)/var(--lh-lead) var(--font-ui); color: var(--ink); }
 .home-summary { color: var(--muted); font-size: var(--fs-small); line-height: var(--lh-small); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .home-meta { margin-top: auto; padding-top: 8px; }
 
@@ -1128,7 +1131,7 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
   color: var(--mid-grey);
   transition: box-shadow .15s, background .15s;
 }
-.site-search-box:focus-within { background: var(--paper); box-shadow: 0 0 0 3px var(--posha-yellow); color: var(--ink); }
+.site-search-box:focus-within { background: var(--paper); box-shadow: 0 0 0 1.5px var(--ink); color: var(--ink); }
 .site-search-box input { flex: 1; min-width: 0; padding: 11px 0; border: 0; outline: none; background: none; font: var(--fs-small) var(--font-ui); color: var(--ink); }
 .site-search-box input::-webkit-search-cancel-button { display: none; }
 .site-search-box kbd { font: var(--fs-micro) var(--font-mono); text-transform: uppercase; letter-spacing: var(--track-mono); color: var(--mid-grey); background: var(--posha-white); box-shadow: var(--lift); border-radius: var(--r-pill); padding: 4px 9px; white-space: nowrap; }
@@ -1268,4 +1271,181 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
   .tt-preview .ch.out { animation: none; display: none; }
   .ssl-icon.is-in, .ssl-read.is-swap .ssl-num, .ssl-read.is-swap .ssl-meta { animation: none; }
   .ssl-icon.is-out { display: none; }
+}
+
+/* ==========================================================================
+   App-inspired details (from the Posha app's cards, tags and stats rows),
+   used across the brand guide — everywhere except the Culinary UI chapter,
+   which mirrors the UI team's own system and stays as they supply it.
+   ========================================================================== */
+/* Numbered lists become cards: soft cream card, mono pill number, title, text */
+.view:not(.view--ui-system) .principles {
+  grid-template-columns: repeat(auto-fill, minmax(max(200px, calc((100% - (var(--cols) - 1) * 16px) / var(--cols) - 1px)), 1fr)); /* -1px: rounding never drops a column */
+  gap: 16px;
+}
+.view:not(.view--ui-system) .principles li {
+  display: flex; flex-direction: column; padding: 22px 24px 24px; border: 1px solid var(--line); border-top: 1px solid var(--line);
+  border-radius: var(--r-card); background: var(--card);
+}
+.view:not(.view--ui-system) .principles strong { margin: 16px 0 6px; font-size: var(--fs-base); line-height: var(--lh-base); font-weight: 600; }
+.view:not(.view--ui-system) .principles p strong { margin: 0; font-size: inherit; }
+
+/* Mono pill chips, like the app's "3 DAYS AGO" tags */
+.view:not(.view--ui-system) .principles .num,
+.view:not(.view--ui-system) .statement-label {
+  display: inline-flex; align-items: center; align-self: flex-start; width: fit-content; padding: 5px 10px; border-radius: var(--r-pill);
+  background: var(--track); font: var(--fs-micro)/1 var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--ink);
+}
+.view:not(.view--ui-system) .statement--center .statement-label { margin-left: auto; margin-right: auto; }
+
+/* Facts as small stat cards, like the app's stat chips: aligned to the content column, no floating dividers */
+.view:not(.view--ui-system) .facts {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; max-width: none;
+  padding: 0; border: 0;
+}
+.view:not(.view--ui-system) .facts div { padding: 14px 16px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-inner); }
+.view:not(.view--ui-system) .facts dd { margin-top: 6px; font-size: var(--fs-small); line-height: var(--lh-small); }
+
+/* Link cards lift off the page like the app's search pill */
+.view:not(.view--ui-system) .link-card { border-color: transparent; background: var(--posha-white); box-shadow: var(--lift); }
+.view:not(.view--ui-system) .link-card:hover { box-shadow: 0 10px 28px var(--shadow); }
+
+/* Card icons from our iconography, beside the number chip */
+.principles .p-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.principles .p-icon { width: 44px; height: 44px; object-fit: contain; }
+
+/* Previous / Next as tiles, matching the home chapter tiles (site navigation, so on every page) */
+.pager { gap: 16px; margin-top: 80px; padding-top: 0; border-top: 0; }
+.pager a {
+  gap: 8px; padding: 20px 22px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card);
+  font-size: var(--fs-base); line-height: var(--lh-base); font-weight: 600; transition: box-shadow .2s, transform .2s, background .2s;
+}
+.pager a:hover { background: var(--posha-white); box-shadow: 0 10px 28px var(--shadow); transform: translateY(-2px); }
+.pager a:hover span:last-child { text-decoration: none; }
+.pager .num { font-weight: 400; }
+
+/* Footer links as lifted pills, like the app's collection chips */
+.sf-links { flex-direction: row; flex-wrap: wrap; gap: 10px; }
+.sf-links a, .sf-todo { padding: 10px 18px; border-radius: var(--r-pill); background: var(--posha-white); box-shadow: var(--lift); font-size: var(--fs-base); line-height: 1.2; }
+.sf-links a:hover { text-decoration: none; box-shadow: 0 8px 20px var(--shadow); transform: translateY(-1px); }
+.sf-links a { transition: box-shadow .2s, transform .2s; }
+
+/* Icon grids: icon centred with its name underneath (like the app's collection chips), not a corner label */
+.icon-grid { max-width: 1100px; }
+.icon-grid .icon-card { flex-direction: column; justify-content: center; gap: 12px; padding: 20px 12px 16px; }
+.icon-grid .icon-art { width: 50%; height: auto; aspect-ratio: 1; flex: none; }
+.icon-grid .icon-name {
+  position: static; max-width: 100%; text-align: center; white-space: normal; overflow: visible;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; color: var(--ink-2); order: 2; /* name under the icon */
+}
+
+/* Line icons from our iconography (code/img/line-icons), recoloured to the text colour via a mask */
+.licon { display: inline-block; flex: none; width: 1em; height: 1em; vertical-align: -0.14em; background-color: currentColor;
+  -webkit-mask: url(../img/line-icons/back-right.png) center / contain no-repeat; mask: url(../img/line-icons/back-right.png) center / contain no-repeat; }
+.licon--left { -webkit-mask-image: url(../img/line-icons/back-left.png); mask-image: url(../img/line-icons/back-left.png); }
+.licon--up { transform: rotate(-90deg); }
+.licon--down { transform: rotate(90deg); }
+.licon--search { -webkit-mask-image: url(../img/line-icons/search.png); mask-image: url(../img/line-icons/search.png); }
+.nav-toggle .licon { font-size: 20px; }
+.search-trigger .licon { font-size: 18px; }
+.site-search-box .licon { font-size: 22px; color: var(--mid-grey); }
+.gsearch-box .licon { font-size: 20px; }
+.pager .licon { font-size: 1.3em; vertical-align: -0.3em; }
+.link-card .arrow .licon, .sf-links .licon, .coll-arrow .licon { font-size: 1.1em; }
+
+/* Menu carets use the same chevron (right when closed, down when open) */
+.nav-grp-head::after, .nav-sub > li.has-kids > a::after {
+  width: 14px; height: 14px; margin-top: -7px; border: 0; background-color: currentColor;
+  -webkit-mask: url(../img/line-icons/back-right.png) center / contain no-repeat; mask: url(../img/line-icons/back-right.png) center / contain no-repeat;
+  transform: none;
+}
+.nav-grp.is-open > .nav-grp-head::after, .nav-sub > li.is-open > a::after { transform: rotate(90deg); margin-top: -7px; }
+
+
+/* Focus: one neutral ring for keyboard users (no Posha Yellow outlines); none after a mouse click */
+:focus:not(:focus-visible) { outline: none; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.site-footer .pg-stage :focus-visible { outline-color: var(--posha-white); }
+
+/* ==========================================================================
+   Sidebar, app style: a light cream panel with one list. Chapters carry a
+   mono number chip; the active page is a raised white pill, like the app's
+   segmented controls (Kitchen view / Shelf view).
+   ========================================================================== */
+.sidebar { background: var(--cream); border-right: 1px solid var(--line); scrollbar-color: var(--line-strong) var(--cream); }
+.sidebar > .brand { color: var(--ink); margin-bottom: 40px; }
+
+.nav-group { background: none; border-radius: 0; overflow: visible; }
+.nav-group + .nav-group { margin-top: 2px; }
+.nav-head { min-height: 44px; border-radius: var(--r-inner); }
+.nav-head:hover { background: rgba(255, 252, 248, .6); }
+.nav-title { gap: 12px; padding-left: 10px; font-weight: 600; color: var(--ink); }
+.nav-num {
+  display: inline-flex; align-items: center; padding: 4px 8px; border-radius: var(--r-pill); background: rgba(35, 31, 32, .06);
+  font-size: var(--fs-micro); line-height: 1; color: var(--ink-2);
+}
+.nav-group.current > .nav-head .nav-num { background: var(--ink); color: var(--posha-white); }
+.nav-toggle { width: 40px; opacity: .7; }
+.nav-head:hover .nav-toggle { opacity: 1; }
+
+.nav-sub { padding: 0; } /* spacing lives on the items so a collapsed list closes fully */
+.nav-group > .nav-sub-wrap > .nav-sub > li:first-child { margin-top: 2px; }
+.nav-group > .nav-sub-wrap > .nav-sub > li:last-child { margin-bottom: 8px; }
+.nav-sub > li > a { padding: 8px 12px 8px 46px; border-radius: var(--r-pill); color: var(--ink-2); }
+.nav-sub > li > a:hover { background: rgba(255, 252, 248, .6); }
+.nav-sub > li > a.active { background: var(--posha-white); color: var(--ink); font-weight: 600; box-shadow: var(--lift); }
+.nav-grp-head { padding: 8px 34px 8px 46px; border-radius: var(--r-pill); }
+.nav-grp-head:hover { background: rgba(255, 252, 248, .6); }
+.nav-grp .nav-sub { margin: 0 0 0 46px; padding: 0 0 0 10px; border-left: 1px solid var(--line-strong); border-left-color: rgba(35, 31, 32, .15); }
+.nav-grp .nav-sub > li > a { padding-left: 12px; }
+.nav-sub2 { margin-left: 58px; border-left-color: rgba(35, 31, 32, .15); }
+.nav-sub2 a.active { background: var(--posha-white); box-shadow: var(--lift); color: var(--ink); }
+
+/* Expand all / collapse all — two stacked chevrons from our line icons */
+.nav-tools { display: flex; justify-content: flex-start; gap: 6px; margin: 0 0 12px 4px; }
+.nav-all {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center; width: 36px; height: 30px; padding: 0;
+  border: 0; border-radius: var(--r-pill); background: var(--posha-white); color: var(--ink); box-shadow: var(--lift); cursor: pointer;
+  transition: box-shadow .15s, transform .15s;
+}
+.nav-all:hover { box-shadow: 0 6px 16px var(--shadow); transform: translateY(-1px); }
+.nav-all .licon { font-size: 12px; margin: -3px 0; }
+
+.sidebar-foot .num { display: inline-flex; padding: 5px 10px; border-radius: var(--r-pill); background: rgba(35, 31, 32, .06); color: var(--ink-2); }
+
+/* Chapter contents as raised pills with a mono number chip, like the app's collection chips */
+.toc { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px; border-top: 0; }
+.toc li { border-bottom: 0; }
+.toc a {
+  gap: 10px; padding: 8px 18px 8px 8px; border-radius: var(--r-pill); background: var(--posha-white); box-shadow: var(--lift);
+  font-size: var(--fs-small); line-height: 1.2; font-weight: 500; color: var(--ink); transition: box-shadow .2s, transform .2s;
+}
+.toc a:hover { color: var(--ink); box-shadow: 0 8px 20px var(--shadow); transform: translateY(-1px); }
+.toc .num { width: auto; top: 0; padding: 5px 8px; border-radius: var(--r-pill); background: var(--track); font-size: var(--fs-micro); color: var(--ink-2); }
+
+/* Headers: one structured block — mono chip, title, summary, then contents, with tight even gaps */
+.hero { row-gap: 12px; }
+.hero-head > .num {
+  display: inline-flex; align-items: center; padding: 5px 10px; border-radius: var(--r-pill); background: var(--track);
+  font-size: var(--fs-micro); line-height: 1; color: var(--ink);
+}
+.hero-head > .num .crumb { color: var(--mid-grey); }
+.hero .display { margin-top: 14px; }
+.hero--stacked .hero-summary { margin-top: 0; }
+.toc { margin-top: 28px; }
+
+/* Sidebar hover/focus: quiet — no panel on chapter rows, round focus on the chevron button */
+.nav-head:hover { background: none; }
+.nav-head:hover .nav-title { color: var(--ink); }
+.nav-head .nav-title { color: var(--ink-2); }
+.nav-group.current > .nav-head .nav-title { color: var(--ink); }
+.nav-toggle { border-radius: var(--r-pill); width: 32px; height: 32px; align-self: center; margin-right: 4px; }
+.nav-toggle:hover { background: rgba(255, 252, 248, .7); }
+.nav-head .nav-title:focus-visible { outline-offset: -2px; border-radius: var(--r-inner); }
+
+/* Say what this is: "POSHA | Brand Guidelines" */
+.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand-sub {
+  padding-left: 12px; border-left: 1px solid rgba(35, 31, 32, .25);
+  font: 500 var(--fs-small)/1.1 var(--font-ui); color: var(--ink-2); white-space: nowrap;
 }

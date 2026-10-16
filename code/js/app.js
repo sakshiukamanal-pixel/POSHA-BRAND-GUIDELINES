@@ -184,6 +184,7 @@
   }
 
   /* ---- Media ------------------------------------------------------------- */
+  const licon = (k) => `<span class="licon licon--${k}" aria-hidden="true"></span>`; // our line icons (see .licon in styles.css)
   function placeholder(path) {
     return `<div class="ph"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.4"/></svg>
       <span class="ph-label">Add media</span>${path ? `<code>assets/${esc(path)}</code>` : ''}</div>`;
@@ -265,7 +266,7 @@
     // Search box for the tabs below it: category words switch tabs, anything else filters images by code/name/tags.
     gallerysearch: (b) => `<div class="gsearch" data-gsearch>
         <label class="gsearch-box">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.6"/></svg>
+          ${licon('search')}
           <input type="search" placeholder="${esc(b.placeholder || 'Search the gallery')}" aria-label="Search the gallery" autocomplete="off">
           <button type="button" class="gsearch-clear" aria-label="Clear search" hidden>&times;</button>
         </label>
@@ -343,7 +344,8 @@
       return keys.map((k) => {
         const slug = fileName(k);
         const title = keys.length > 1 && k !== base ? labels[slug] || sentence(prettyName(k)) : '';
-        const icons = pairIcons(k, POSHA.media[k]);
+        // optional `names`: { 'file-slug': 'Readable name' } for files whose names don't read well (e.g. artboard exports)
+        const icons = pairIcons(k, POSHA.media[k]).map((i) => (b.names && b.names[i.slug] ? { ...i, name: b.names[i.slug], file: 'posha-' + b.names[i.slug].toLowerCase().replace(/[^a-z0-9]+/g, '-') } : i));
         return `<section class="icon-group">
           ${title ? `<h3 class="icon-group-title">${esc(title)}</h3>` : ''}
           <div class="icon-grid" style="--cols:${b.columns || 4};--cols-md:${Math.min(b.columns || 4, 3)};--cols-sm:${Math.min(b.columns || 4, 2)}">${icons.map(iconCard).join('')}</div>
@@ -376,7 +378,7 @@
         <div class="coll-head">
           <div class="coll-tags">${(b.tags || []).map(tag).map((t) => `<span class="coll-tag${t.tone ? ' coll-tag--' + t.tone : ''}">${esc(t.label)}</span>`).join('')}</div>
           ${link.href ? `<a class="coll-link" href="${esc(href(resolve(link.href, c)))}"${ext ? ' target="_blank" rel="noopener"' : ' download'}>
-            <span>${esc(link.label || 'Open in Google Drive')}</span><span class="coll-arrow" aria-hidden="true">↗</span></a>` : ''}
+            <span>${esc(link.label || 'Open in Google Drive')}</span><span class="coll-arrow" aria-hidden="true">${licon('right')}</span></a>` : ''}
         </div>
         <div class="coll-grid" data-gallery>${(b.items || []).map((it) => {
           const src = resolve(typeof it === 'string' ? it : it.src, c);
@@ -422,11 +424,13 @@
     scalematrix: (b, c) => {
       const scale = b.scale || 2;
       const cols = b.items.map((it) => `${it.size + 44}fr`).join(' ');
-      const icons = b.items.map((it, i) => `<div class="smx-icon" style="grid-column:${i + 1}"><img src="${asset(resolve(it.src, c))}" alt="${esc(it.alt || '')}" style="width:${it.size * scale}px;height:${it.size * scale}px" loading="lazy"></div>`).join('');
+      // icons share one unit so they stay true to scale, and shrink together to fit the column (no sideways scroll)
+      const units = b.items.reduce((t, it) => t + it.size + 44, 0);
+      const icons = b.items.map((it, i) => `<div class="smx-icon" style="grid-column:${i + 1}"><img src="${asset(resolve(it.src, c))}" alt="${esc(it.alt || '')}" style="--sz:${it.size}" loading="lazy"></div>`).join('');
       const ticks = b.items.map((_, i) => `<div class="smx-tick${i === b.items.length - 1 ? ' is-last' : ''}" style="grid-column:${i + 1}"></div>`).join('');
       const sizes = b.items.map((it, i) => `<div class="smx-size" style="grid-column:${i + 1}">${it.size}×${it.size}</div>`).join('');
       const groups = (b.groups || []).map((g) => `<div class="smx-group" style="grid-column:${g.from} / ${g.to + 1}"><span>${esc(g.label)}</span></div>`).join('');
-      return `${b.slider ? sizeSlider(b, c) : ''}<div class="smx-wrap"><div class="smx" style="grid-template-columns:${cols}">${icons}${ticks}${sizes}${groups}</div></div>`;
+      return `${b.slider ? sizeSlider(b, c) : ''}<div class="smx-wrap"><div class="smx" style="grid-template-columns:${cols};--units:${units};--scale:${scale}px">${icons}${ticks}${sizes}${groups}</div></div>`;
     },
 
     // { type: 'iconconstruction', labels: [three callouts], caption }
@@ -657,14 +661,15 @@
           <figcaption><span class="dd-label">${it.kind === 'do' ? 'Do' : 'Don’t'}</span>${inline(it.caption || '')}</figcaption>
         </figure>`).join('')}</div>`,
 
+    // Numbered cards. Optional `icon`: a path inside /assets (e.g. one of the gradient icons), shown beside the number.
     list: (b) => `<ol class="principles" style="--cols:${b.columns || 3}">${b.items.map((it, i) => `
-        <li><span class="num">${pad(i + 1)}</span><strong>${inline(it.title)}</strong>${it.body ? `<p>${inline(it.body)}</p>` : ''}</li>`).join('')}</ol>`,
+        <li>${it.icon ? `<span class="p-head"><img class="p-icon" src="${asset(it.icon)}" alt="" loading="lazy"><span class="num">${pad(i + 1)}</span></span>` : `<span class="num">${pad(i + 1)}</span>`}<strong>${inline(it.title)}</strong>${it.body ? `<p>${inline(it.body)}</p>` : ''}</li>`).join('')}</ol>`,
 
     links: (b, c) => `<div class="links">${b.items.map((l) => {
         const u = href(resolve(l.href, c));
         const ext = /^https?:/.test(l.href) || !/^#/.test(l.href);
         return `<a class="link-card" href="${esc(u)}"${ext ? ' target="_blank" rel="noopener"' : ''}${l.download ? ' download' : ''}>
-          <span><strong>${esc(l.label)}</strong>${l.note ? `<em>${esc(l.note)}</em>` : ''}</span><span class="arrow">${l.download ? '&#8595;' : '&#8599;'}</span></a>`;
+          <span><strong>${esc(l.label)}</strong>${l.note ? `<em>${esc(l.note)}</em>` : ''}</span><span class="arrow">${l.download ? '&#8595;' : licon('right')}</span></a>`;
       }).join('')}</div>`,
 
     note: (b) => `<div class="note note--${b.tone || 'info'}">${b.title ? `<strong>${inline(b.title)}</strong>` : ''}${paras(b.body)}</div>`,
@@ -899,10 +904,10 @@
           ${f.note ? `<p>${inline(f.note)}</p>` : ''}
         </div>
         <nav class="sf-links" aria-label="Posha online">${(f.links || []).map((l) => l.href && l.href !== '#'
-          ? `<a href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)} <span aria-hidden="true">↗</span></a>`
-          : `<span class="sf-todo" title="Link to be added">${esc(l.label)} <span aria-hidden="true">↗</span></span>`).join('')}</nav>
+          ? `<a href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)} ${licon('right')}</a>`
+          : `<span class="sf-todo" title="Link to be added">${esc(l.label)} ${licon('right')}</span>`).join('')}</nav>
         <div class="sf-meta">
-          <button type="button" class="sf-top-btn" data-scroll-top>Back to top ↑</button>
+          <button type="button" class="sf-top-btn" data-scroll-top>Back to top ${licon('up')}</button>
           ${f.copyright ? `<span>${esc(f.copyright)}</span>` : ''}
         </div>
       </div>
@@ -1435,7 +1440,7 @@
   }
 
   /* ---- Shell ------------------------------------------------------------- */
-  const chevron = '<svg viewBox="0 0 24 24" width="18" height="18"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>';
+  const chevron = '<span class="licon licon--down" aria-hidden="true"></span>';
   let openSet;
 
   function renderShell() {
@@ -1443,7 +1448,8 @@
     $$('[data-brand]').forEach((el) => {
       const logo = el.dataset.brand === 'on-dark' && site.logoOnDark ? site.logoOnDark : site.logo;
       el.innerHTML = `<span class="logo-text">${esc(site.logoText || site.shortName || 'Brand')}</span>` +
-        (logo ? `<img class="logo-img" src="${asset(logo)}" alt="${esc(site.logoText || '')}" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()">` : '');
+        (logo ? `<img class="logo-img" src="${asset(logo)}" alt="${esc(site.logoText || '')}" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()">` : '') +
+        `<span class="brand-sub">${esc(site.homeTitle || 'Brand Guidelines')}</span>`;
     });
     $('#sidebarFoot').innerHTML = site.updated ? `<span class="num">Updated ${esc(site.updated)}</span>` : '';
 
@@ -1451,7 +1457,7 @@
     $('#nav').innerHTML = sections.map((s) => `
       <div class="nav-group${openSet.has(s.id) ? ' open' : ''}" data-sid="${s.id}">
         <div class="nav-head">
-          <a class="nav-title" href="#/${s.id}">${esc(s.navTitle || s.title)}</a>
+          <a class="nav-title" href="#/${s.id}"><span class="num nav-num">${esc(s.number)}</span>${esc(s.navTitle || s.title)}</a>
           ${s.pages.length ? `<button class="nav-toggle" type="button" aria-label="Toggle ${esc(s.title)}" aria-expanded="${openSet.has(s.id)}">${chevron}</button>` : ''}
         </div>
         ${s.pages.length ? `<div class="nav-sub-wrap"><ul class="nav-sub">${navPages(s)}</ul></div>` : ''}
@@ -1531,7 +1537,7 @@
   function pager(currentHref) {
     const i = routes.findIndex((r) => r.href === currentHref);
     const prev = routes[i - 1], next = routes[i + 1];
-    const cell = (r, dir) => r ? `<a class="pager-${dir}" href="${r.href}"><span class="num">${dir === 'prev' ? '← Previous' : 'Next →'}</span><span>${esc(r.label)}</span></a>` : '<span></span>';
+    const cell = (r, dir) => r ? `<a class="pager-${dir}" href="${r.href}"><span class="num">${dir === 'prev' ? `${licon('left')} Previous` : `Next ${licon('right')}`}</span><span>${esc(r.label)}</span></a>` : '<span></span>';
     return `<nav class="pager">${cell(prev, 'prev')}${cell(next, 'next')}</nav>`;
   }
 
@@ -1541,13 +1547,13 @@
 
   function renderHome() {
     const site = POSHA.site;
-    return `<article class="view">
+    return `<article class="view view--home">
       ${hero('00', '', site.homeTitle || 'Brand Guidelines', site.intro, 'split')}
       <div class="home-grid">${sections.map((s) => `
         <a class="home-card" href="#/${s.id}">
-          <span class="num">${esc(s.number)}</span>
+          <span class="home-head"><span class="num">${esc(s.number)}</span></span>
           <span class="home-title">${esc(s.title)}</span>
-          ${s.summary ? `<span class="home-summary">${inline(plain(s.summary).split(/\n/)[0])}</span>` : ''}
+          ${s.summary ? `<span class="home-summary">${esc(plain(s.summary).split(/\n/)[0].replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/\*\*|`/g, ''))}</span>` : ''}
           <span class="num home-meta">${s.pages.length} ${s.pages.length === 1 ? 'page' : 'pages'}${s.status ? ' · ' + esc(s.status) : ''}</span>
         </a>`).join('')}</div>
     </article>`;
@@ -1556,7 +1562,7 @@
   function renderSection(s) {
     const toc = s.pages.length > 1 && s.toc !== false
       ? `<ol class="toc">${s.pages.map((p) => `<li><a href="#/${s.id}/${p.id}"><span class="num">${p._num}</span>${esc(p.title)}</a></li>`).join('')}</ol>` : '';
-    return `<article class="view">
+    return `<article class="view view--${esc(s.id)}">
       ${hero(s.number, '', s.title, s.summary, s.heroStyle)}
       ${s.blocks ? `<div class="blocks section-intro">${blocks(s.blocks, { dir: s.assets })}</div>` : ''}
       ${toc}
@@ -1572,7 +1578,7 @@
   }
 
   function renderPage(s, p) {
-    return `<article class="view">
+    return `<article class="view view--${esc(s.id)}">
       ${hero(s.number, `${s.title} / ${p.group ? p.group + ' / ' : ''}${p.title}`, p.heading || p.title, p.summary != null ? p.summary : s.summary, p.heroStyle || s.heroStyle)}
       ${assetHint(p._dir)}
       ${p.blocks && p.blocks.length ? `<div class="blocks page-blocks">${blocks(p.blocks, { dir: p._dir })}</div>` : ''}
@@ -1936,7 +1942,7 @@
               Object.keys(POSHA.media).filter((k) => k === folder || k.startsWith(folder + '/')).forEach((k) => {
                 const group = (b.labels || {})[fileName(k)] || sentence(prettyName(k));
                 pairIcons(k, POSHA.media[k]).forEach((ic) => add({
-                  kind: 'Icon', label: sentence(ic.name), crumb: `Icons · ${p.title} · ${group}`,
+                  kind: 'Icon', label: sentence((b.names && b.names[ic.slug]) || ic.name), crumb: `Icons · ${p.title} · ${group}`,
                   href: `${where}?q=${encodeURIComponent(ic.slug)}`, text: `icon iconography ${group}`, thumb: ic.png || ic.svg,
                 }));
               });
@@ -2075,6 +2081,15 @@
         return;
       }
       closeIconMenus();
+
+      // Sidebar: expand or collapse every chapter (and nested page group) at once
+      const navAll = t.closest('[data-nav-all]');
+      if (navAll) {
+        const on = navAll.dataset.navAll === 'open';
+        $$('.nav-group').forEach((g) => { if ($('.nav-toggle', g)) setOpen(g.dataset.sid, on); });
+        $$('.nav-grp').forEach((li) => setGroupOpen(li, on));
+        return;
+      }
 
       const grpHead = t.closest('.nav-grp-head');
       if (grpHead) { const li = grpHead.closest('.nav-grp'); setGroupOpen(li, !li.classList.contains('is-open')); return; }

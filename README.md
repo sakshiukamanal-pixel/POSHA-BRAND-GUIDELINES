@@ -100,6 +100,7 @@ instead of new pixel values. Roobert Mono is always set in caps: every mono rule
 
 Opening `index.html` directly works. To preview exactly as it will behave when hosted, run
 `powershell -ExecutionPolicy Bypass -File code/tools/serve.ps1` and open http://localhost:8080.
+On a Mac, run `python3 code/tools/serve.py` instead — it also turns off browser caching, so every refresh shows your latest edits.
 
 ## Local settings (.env)
 

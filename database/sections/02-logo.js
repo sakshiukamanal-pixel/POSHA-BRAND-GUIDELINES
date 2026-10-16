@@ -126,7 +126,7 @@ POSHA.section({
         { type: 'heading', text: 'Compact symbol' },
         {
           type: 'note', tone: 'warn', title: 'For UI at tiny sizes only',
-          body: 'Use the compact symbol only in product UI where the symbol appears very small — app icons, tab bars, badges and small avatars. It has less negative space inside the ring, so the opening doesn’t close up at tiny sizes. Everywhere else, use the standard Posha Circle symbol or lockup above.',
+          body: 'Use the compact symbol only in product UI where the symbol appears very small: app icons, tab bars, badges and small avatars. It has less negative space inside the ring, so the opening doesn’t close up at tiny sizes. Everywhere else, use the standard Posha Circle symbol or lockup above.',
         },
         {
           // compact symbol for UI: thicker ring, less negative space — click for PNG / SVG
@@ -136,7 +136,7 @@ POSHA.section({
           ],
         },
         { type: 'heading', text: 'Key visual' },
-        { type: 'image', src: './posha-circle-key-visual.jpg', alt: 'Posha Circle key visual — hands sharing dishes around a table', caption: 'Posha Circle key visual', maxWidth: '640px' },
+        { type: 'image', src: './posha-circle-key-visual.jpg', alt: 'Posha Circle key visual: hands sharing dishes around a table', caption: 'Posha Circle key visual', maxWidth: '640px' },
       ],
     },
   ],

@@ -641,6 +641,18 @@
         ${b.sub ? `<p class="statement-sub">${inline(b.sub)}</p>` : ''}
       </figure>`,
 
+    // Lines in the wild: { type: 'quotes', items: [{ text, trait, source }] } — set large in Epika, with the trait as a chip
+    quotes: (b) => `<div class="quotes">${b.items.map((q) => `<figure class="quote">
+        <blockquote>${inline(q.text)}</blockquote>
+        <figcaption>${q.trait ? `<span class="quote-trait">${esc(q.trait)}</span>` : ''}${q.source ? `<span class="quote-source">${esc(q.source)}</span>` : ''}</figcaption>
+      </figure>`).join('')}</div>`,
+
+    // Say this, not that: { type: 'rewrites', items: [{ not, say, why }] }
+    rewrites: (b) => `<div class="rewrites">${b.items.map((r) => `<div class="rewrite">
+        <div class="rw-not"><span class="rw-label">Not</span><p>${inline(r.not)}</p></div>
+        <div class="rw-say"><span class="rw-label">Say</span><p>${inline(r.say)}</p>${r.why ? `<em>${inline(r.why)}</em>` : ''}</div>
+      </div>`).join('')}</div>`,
+
     // Code sample: { type: 'code', body: '…' }
     code: (b) => `<pre class="code-sample"><code>${esc([].concat(b.body).join('\n'))}</code></pre>`,
 
@@ -663,8 +675,9 @@
         </figure>`).join('')}</div>`,
 
     // Numbered cards. Optional `icon`: a path inside /assets (e.g. one of the gradient icons), shown beside the number.
+    // Optional `image`: a path inside /assets, shown at the top of the card (best for cut-out product shots).
     list: (b) => `<ol class="principles" style="--cols:${b.columns || 3}">${b.items.map((it, i) => `
-        <li>${it.icon ? `<span class="p-head"><img class="p-icon" src="${asset(it.icon)}" alt="" loading="lazy"><span class="num">${pad(i + 1)}</span></span>` : `<span class="num">${pad(i + 1)}</span>`}<strong>${inline(it.title)}</strong>${it.body ? `<p>${inline(it.body)}</p>` : ''}</li>`).join('')}</ol>`,
+        <li>${it.image ? `<span class="p-media"><img src="${asset(it.image)}" alt="${esc(it.alt || '')}" loading="lazy"></span>` : ''}${it.icon ? `<span class="p-head"><img class="p-icon" src="${asset(it.icon)}" alt="" loading="lazy"><span class="num">${pad(i + 1)}</span></span>` : `<span class="num">${pad(i + 1)}</span>`}<strong>${inline(it.title)}</strong>${it.body ? `<p>${inline(it.body)}</p>` : ''}</li>`).join('')}</ol>`,
 
     links: (b, c) => `<div class="links">${b.items.map((l) => {
         const u = href(resolve(l.href, c));
@@ -1429,7 +1442,7 @@
       s.pages = (s.pages || []).filter((p) => !p.hidden);
       s.pages.forEach((p, pi) => {
         p.assets = p.assets || pad(pi + 1) + '-' + p.id;
-        p._num = pad(pi + 1);
+        p._num = `${s.number}.${pi + 1}`; // sub-sections read 01.1, 01.2 …
         p._dir = s.assets + '/' + p.assets;
       });
     });
@@ -1581,12 +1594,12 @@
 
   function renderPage(s, p) {
     return `<article class="view view--${esc(s.id)}">
-      ${hero(s.number, `${s.title} / ${p.group ? p.group + ' / ' : ''}${p.title}`, p.heading || p.title, p.summary != null ? p.summary : s.summary, p.heroStyle || s.heroStyle)}
+      ${hero(p._num, `${s.title} / ${p.group ? p.group + ' / ' : ''}${p.title}`, p.heading || p.title, p.summary != null ? p.summary : s.summary, p.heroStyle || s.heroStyle)}
       ${assetHint(p._dir)}
       ${p.blocks && p.blocks.length ? `<div class="blocks page-blocks">${blocks(p.blocks, { dir: p._dir })}</div>` : ''}
       ${(p.parts || []).map((pt, i) => `
         <section class="part" id="part-${pt.id}" data-part="${pt.id}" data-label="${esc(pt.title || p.title)}" data-keywords="${esc([pt.title, (pt.keywords || []).join(' ')].join(' ').toLowerCase())}">
-          ${pt.title ? `<h2 class="sub-title"><span class="num">${pad(i + 1)}</span>${esc(pt.title)}</h2>` : ''}
+          ${pt.title ? `<h2 class="sub-title"><span class="num">${p._num}.${i + 1}</span>${esc(pt.title)}</h2>` : ''}
           ${pt.summary ? `<div class="sub-summary">${paras(pt.summary)}</div>` : ''}
           <div class="blocks">${blocks(pt.blocks, { dir: pt.assets ? s.assets + '/' + pt.assets : p._dir })}</div>
         </section>`).join('')}
@@ -2085,6 +2098,14 @@
       }
       closeIconMenus();
 
+      // Sidebar: hide it for a full-width page, or bring it back (remembered between visits)
+      if (t.closest('[data-menu-hide]') || t.closest('[data-menu-show]')) {
+        const hide = !!t.closest('[data-menu-hide]');
+        document.body.classList.toggle('menu-hidden', hide);
+        store.set('menuHidden', hide);
+        return;
+      }
+
       // Sidebar: expand or collapse every chapter (and nested page group) at once
       const navAll = t.closest('[data-nav-all]');
       if (navAll) {
@@ -2217,6 +2238,7 @@
     renderShell();
     buildIndex();
     bindEvents();
+    if (store.get('menuHidden', false)) document.body.classList.add('menu-hidden');
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; // the router places the scroll itself
     route(true);
     // after the first page is in place, so the footer (and its icon rain) starts below the content

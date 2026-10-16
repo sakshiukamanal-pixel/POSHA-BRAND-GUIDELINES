@@ -97,9 +97,9 @@ POSHA.section({
         {
           type: 'bullets',
           items: [
-            '**Pair colours that belong together** — neighbours (Kale Green → Avocado Green → Posha Yellow), warm and cool joined by a pale middle (Juniper Blue → Cornflower Blue → Grapefruit Pink), or deep lifting into bright (Blueberry Navy → Kale Green → Avocado Green).',
-            '**Never run opposites straight into each other** — Chili Red into Mint Green turns brown in the middle.',
-            '**Keep one end readable** — light enough for dark text, or dark enough for white.',
+            '**Pair colours that belong together:** neighbours (Kale Green → Avocado Green → Posha Yellow), warm and cool joined by a pale middle (Juniper Blue → Cornflower Blue → Grapefruit Pink), or deep lifting into bright (Blueberry Navy → Kale Green → Avocado Green).',
+            '**Never run opposites straight into each other.** Chili Red into Mint Green turns brown in the middle.',
+            '**Keep one end readable:** light enough for dark text, or dark enough for white.',
             '**Name it after food** and note its three colours, so anyone can rebuild it. On the web, Copy CSS gives a linear version of each gradient.',
           ],
         },

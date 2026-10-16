@@ -53,7 +53,7 @@ POSHA.section({
   title: 'Gallery',
   layout: 'pages',
   heroStyle: 'stacked',
-  summary: 'Approved photography, renders and video — ready to use.',
+  summary: 'Approved photography, renders and video, ready to use.',
 
   pages: [
     {
@@ -61,7 +61,7 @@ POSHA.section({
       id: 'faro-films',
       title: 'Faro Films',
       assets: '05-faro-films',
-      summary: 'Shoot 2 — lifestyle and testimonials. Our only fully owned, rights-cleared family footage.',
+      summary: 'Shoot 2: lifestyle and testimonials. Our only fully owned, rights-cleared family footage.',
       blocks: [
         {
           type: 'text',
@@ -81,13 +81,13 @@ POSHA.section({
         },
         {
           type: 'note', title: 'These are proxies',
-          body: 'Every file here is a proxy, not the original. Proxies are large enough for everyday use — social, web, decks and edits. The originals are RAW; request those only for print or a hero film.',
+          body: 'Every file here is a proxy, not the original. Proxies are large enough for everyday use: social, web, decks and edits. The originals are RAW; request those only for print or a hero film.',
         },
       ],
       parts: [
         {
           id: 'lifestyle-photos', title: 'Lifestyle Photos', navTitle: 'Lifestyle Photos',
-          summary: 'Every photo from the shoot — testimonial portraits and the family at home. Use this as the main photo source.',
+          summary: 'Every photo from the shoot: testimonial portraits and the family at home. Use this as the main photo source.',
           keywords: ['photos', 'lifestyle', 'family', 'portraits', 'full set'],
           blocks: [{
             type: 'collection', alt: 'Faro Films lifestyle photo',
@@ -120,7 +120,7 @@ POSHA.section({
         },
         {
           id: 'killian-selects', title: 'Killian Selects',
-          summary: 'The photographer’s preferred picks, unedited. Lower priority — look in the full Lifestyle Photos set first.',
+          summary: 'The photographer’s preferred picks, unedited. Lower priority. Look in the full Lifestyle Photos set first.',
           keywords: ['killian', 'selects', 'photographer', 'picks', 'unedited'],
           blocks: [{
             type: 'collection', alt: 'Killian Selects photo',
@@ -135,7 +135,7 @@ POSHA.section({
       id: 'essentials',
       title: 'Essentials',
       assets: '01-essentials', // folder names are pinned so reordering pages never breaks media paths
-      summary: 'Art direction — food, lifestyle, product and render photography: what we shoot and how it feels.\nTo access this file, [Click here](#)',
+      summary: 'Art direction for food, lifestyle, product and render photography: what we shoot and how it feels.\nTo access this file, [Click here](#)',
       blocks: [
         {
           type: 'text',
@@ -144,7 +144,7 @@ POSHA.section({
             'Every file has a code, such as **PSH-FS-07**. Quote the code when you share or request an image, and download the original from here rather than reusing screenshots. Click any image to view it full size.',
           ],
         },
-        { type: 'gallerysearch', placeholder: 'Search the gallery — try “renders”, “pad thai”, “spice pods” or a code like PSH-FS-07' },
+        { type: 'gallerysearch', placeholder: 'Search the gallery: try “renders”, “pad thai”, “spice pods” or a code like PSH-FS-07' },
       ],
       // Each part is a section on the page and a sub-item in the sidebar (#/gallery/essentials/<id>)
       parts: [
@@ -201,7 +201,7 @@ POSHA.section({
             },
             {
               id: 'product-components', title: 'Product Components',
-              summary: 'The parts that make Posha work — ingredient containers, pan, spice pods, touchscreen and app — in close-up and in real kitchens. Use them to explain how Posha cooks.',
+              summary: 'The parts that make Posha work (ingredient containers, pan, spice pods, touchscreen and app) in close-up and in real kitchens. Use them to explain how Posha cooks.',
               keywords: ['component', 'components', 'parts', 'accessories', 'product shoot', 'product photography'],
               blocks: [{
                 type: 'grid', folder: './03-product-components', columns: 4, ratio: '1.25', shape: 'cover',
@@ -230,12 +230,12 @@ POSHA.section({
       id: 'photoshoots',
       title: 'Photoshoots',
       assets: '02-photoshoots',
-      summary: 'Campaign and lifestyle shoots, newest first. Every photo shows its code and a short description — search by what’s in it (wine glass, chess, unboxing). Click to view full size.',
+      summary: 'Campaign and lifestyle shoots, newest first. Every photo shows its code and a short description. Search by what’s in it (wine glass, chess, unboxing). Click to view full size.',
       // Newest shoot goes first. Codes: PSH-PS<shoot>-<nn>  (PS1 = Shoot 01)
       blocks: [
         {
           type: 'shoot', number: '01', title: 'While Posha Cooks',
-          brief: 'Posha takes care of dinner, so people get their time back. This shoot shows people simply being human — relaxing, playing, catching up, unwinding — while Posha cooks in the background. The product is present but never the centre of attention: the moment belongs to the people.',
+          brief: 'Posha takes care of dinner, so people get their time back. This shoot shows people simply being human: relaxing, playing, catching up, unwinding, while Posha cooks in the background. The product is present but never the centre of attention: the moment belongs to the people.',
           meta: ['Lifestyle', 'Home kitchens', '12 photos'],
         },
         {
@@ -278,7 +278,7 @@ POSHA.section({
             },
             {
               src: './01-while-posha-cooks/psh-ps1-08-couple-on-the-sofa.jpg', code: 'PSH-PS1-08', title: 'Couple on the Sofa',
-              desc: 'A couple relax on the sofa — he eats noodles from a yellow plate, she holds a glass of red wine — with Posha behind them.',
+              desc: 'A couple relax on the sofa. He eats noodles from a yellow plate, she holds a glass of red wine, and Posha is behind them.',
               tags: ['lifestyle', 'couple', 'man', 'woman', 'sofa', 'couch', 'living room', 'relax', 'eating', 'noodles', 'pasta', 'yellow plate', 'wine', 'wine glass', 'red wine', 'wine rack', 'plants', 'cosy', 'posha in background'],
             },
             {
@@ -332,7 +332,7 @@ POSHA.section({
           type: 'text',
           body: 'Imagery that tells the bigger Posha story: how its features work, where the product came from and the people who built it. Use these for decks, press, hiring and story-led content, and quote the image code when you share one.',
         },
-        { type: 'gallerysearch', placeholder: 'Search — try “julia”, “2023”, “founders”, “team” or a code like PSH-OM-03' },
+        { type: 'gallerysearch', placeholder: 'Search: try “julia”, “2023”, “founders”, “team” or a code like PSH-OM-03' },
       ],
       parts: [
             {
@@ -351,7 +351,7 @@ POSHA.section({
             },
             {
               id: 'old-models', title: 'Old Models',
-              summary: 'From a $1,000 robotic arm to Posha — eight years of prototypes. Hover a model for its story; click to view or download.',
+              summary: 'From a $1,000 robotic arm to Posha: eight years of prototypes. Hover a model for its story; click to view or download.',
               keywords: ['old models', 'old model', 'history', 'prototypes', 'prototype', 'timeline', 'evolution', 'nymble'],
               blocks: [
                 {
@@ -360,11 +360,11 @@ POSHA.section({
                     { year: '2017', model: 'Model 01', name: 'Beginning', code: 'PSH-OM-01', src: './02-old-models/psh-om-01-2017-beginning.png', tags: ['robotic arm', 'acrylic', 'first prototype'],
                       story: ['We started Nymble (now Posha) with just $1,000 saved as engineering undergrads in India. Our first prototype was a 6-DOF robotic arm built to prove a simple but ambitious idea: autonomously pick up ingredients, dispense them into a pan, and stir.', 'On a shoestring budget, we approximated its complex 3D structure using laser-cut acrylic sheets.'] },
                     { year: '2018', model: 'Model 02', name: 'Nymble ver01', code: 'PSH-OM-02', src: './02-old-models/psh-om-02-2018-nymble-ver01.png', tags: ['coffee machine', 'version 1'],
-                      story: ['People loved the idea of a cooking robot, but a robotic arm in the kitchen felt intimidating — spills, burns and countertop chaos.', 'We replaced the industrial form with something familiar: a coffee machine. Add ingredients, tap a button, and let it do the rest.'] },
+                      story: ['People loved the idea of a cooking robot, but a robotic arm in the kitchen felt intimidating: spills, burns and countertop chaos.', 'We replaced the industrial form with something familiar: a coffee machine. Add ingredients, tap a button, and let it do the rest.'] },
                     { year: '2020', model: 'Model 03', name: 'Julia', code: 'PSH-OM-03', src: './02-old-models/psh-om-03-2020-julia.png', tags: ['white', 'c-form', 'larger capacity'],
                       story: ['Users loved the coffee-machine form, but wanted larger portions and leftovers, so we scaled up the ingredient containers and the oil and water reservoirs.', 'That extra capacity reshaped the design into an elongated C-form.'] },
                     { year: '2021', model: 'Model 04', name: 'Nymble-Alpha', code: 'PSH-OM-04', src: './02-old-models/psh-om-04-2021-nymble-alpha.png', tags: ['alpha', 'home testing', '3d printed', 'cream'],
-                      story: ['Codenamed Alpha, the first prototype to enter real homes for extended testing. A laser-cut metal chassis with 3D-printed enclosures.', 'Built for function over form — to prove the robot could reliably cook great food.'] },
+                      story: ['Codenamed Alpha, the first prototype to enter real homes for extended testing. A laser-cut metal chassis with 3D-printed enclosures.', 'Built for function over form, to prove the robot could reliably cook great food.'] },
                     { year: '2023', model: 'Model 05', name: 'Nymble-Beta', code: 'PSH-OM-05', src: './02-old-models/psh-om-05-2023-nymble-beta.png', tags: ['beta', 'sheet metal', '50 units', 'black'],
                       story: ['Codenamed Beta: 50 units deployed in homes for 18 months, at $50 a month with no upfront cost.', 'Made entirely from sheet metal, they gave us invaluable feedback on the hardware, the software and, most importantly, the food.'] },
                     { year: '2025', model: 'Model 06', name: 'Posha', code: 'PSH-OM-06', src: './02-old-models/psh-om-06-2025-posha.png', tags: ['posha', 'current', 'production', 'poshan'],

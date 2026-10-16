@@ -1,7 +1,7 @@
 POSHA.section({
   id: 'typography',
   title: 'Typography',
-  summary: 'Typefaces, a live type tester, the type scale and how to use them. This is our brand typography — for the website, marketing, packaging and other branded material. For the app and the device screen, use the [Culinary UI type scale](#/ui-system/typography).',
+  summary: 'Typefaces, a live type tester, the type scale and how to use them. This is our brand typography, for the website, marketing, packaging and other branded material. For the app and the device screen, use the [Culinary UI type scale](#/ui-system/typography).',
 
   pages: [
     {

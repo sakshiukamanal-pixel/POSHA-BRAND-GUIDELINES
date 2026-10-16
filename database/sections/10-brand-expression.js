@@ -1,7 +1,7 @@
 POSHA.section({
   id: 'brand-expression',
   title: 'Brand Expression',
-  summary: 'How the brand comes together — photography direction, graphics and real-world applications.',
+  summary: 'How the brand comes together: photography direction, graphics and real-world applications.',
 
   pages: [
     { id: 'photography-direction', title: 'Photography Direction', blocks: [] },

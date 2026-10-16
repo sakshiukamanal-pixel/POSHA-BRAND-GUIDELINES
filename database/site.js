@@ -14,7 +14,7 @@ POSHA.site = {
   logo: 'brand/posha-wordmark-black.svg',          // official wordmark (path inside /assets)
   logoOnDark: 'brand/posha-wordmark-off-white.svg', // used on the black sidebar
   homeTitle: 'Brand Guidelines',
-  intro: 'Everything the team needs to design, write and build for Posha — in one place. Pick a chapter on the left, or press Ctrl K to search.',
+  intro: 'Everything the team needs to design, write and build for Posha, in one place. Pick a chapter on the left, or press Ctrl K to search.',
   updated: 'Oct 2026',
   showAssetPaths: false,                // true shows each page's media folder under its title (handy while adding media)
 

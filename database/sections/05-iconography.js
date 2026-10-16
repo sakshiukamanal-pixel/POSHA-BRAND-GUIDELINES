@@ -23,14 +23,14 @@ POSHA.section({
         {
           type: 'text',
           body: [
-            'Icons are the shorthand of the Posha experience. They help people scan a recipe, understand a setting or spot a dietary need at a glance — often faster than words can. Across the app, the device screen, the website and marketing, they carry the same warm, rounded character as our food and our type.',
+            'Icons are the shorthand of the Posha experience. They help people scan a recipe, understand a setting or spot a dietary need at a glance, often faster than words can. Across the app, the device screen, the website and marketing, they carry the same warm, rounded character as our food and our type.',
             'Posha has four icon families, each with its own job. **Gradient icons** describe food and preferences. **Container icons** map ingredients to Posha’s four containers. **Line icons** handle navigation and everyday actions in the interface. **Illustrations** mark the bigger moments, such as confirmations and empty screens.',
           ],
         },
         {
           type: 'note', title: 'How to use icons',
           body: [
-            'Pair an icon with a short label wherever there is room — icons support words, they rarely replace them. Use one family per context, so gradient and line icons never sit side by side in the same row or component.',
+            'Pair an icon with a short label wherever there is room. Icons support words, they rarely replace them. Use one family per context, so gradient and line icons never sit side by side in the same row or component.',
             'Choose a size from the sizing scale below and use the files exactly as supplied: never stretch, crop, recolour, outline or redraw an icon. Download icons from their family pages rather than copying screenshots.',
           ],
         },
@@ -44,10 +44,10 @@ POSHA.section({
             {
               type: 'list', columns: 4,
               items: [
-                { title: 'Gradient Icons', icon: `${ICONS}/01-gradient-icons/02-collection-icons/08-pasta.png`, body: 'Food and preferences — allergens, collections, diets and recipe controls. [See all](#/iconography/gradient-icons)' },
+                { title: 'Gradient Icons', icon: `${ICONS}/01-gradient-icons/02-collection-icons/08-pasta.png`, body: 'Food and preferences: allergens, collections, diets and recipe controls. [See all](#/iconography/gradient-icons)' },
                 { title: 'Container Icons', icon: `${ICONS}/02-container-icons/01-container-icons/01-container-a.png`, body: 'Map ingredients to Posha’s four containers, A to D. [See all](#/iconography/container-icons)' },
                 { title: 'Line Icons', icon: `${ICONS}/03-line-icons/01-line-icons/10-home.png`, body: 'Navigation and everyday actions in the app, with filled and tiny versions. [See all](#/iconography/line-icons)' },
-                { title: 'Illustrations', icon: `${ICONS}/04-illustrations/01-large-icons-illustrations/05-completed.png`, body: 'The bigger moments — confirmations, status and empty screens — plus debug diagrams. [See all](#/iconography/illustrations)' },
+                { title: 'Illustrations', icon: `${ICONS}/04-illustrations/01-large-icons-illustrations/05-completed.png`, body: 'The bigger moments, like confirmations, status and empty screens, plus debug diagrams. [See all](#/iconography/illustrations)' },
               ],
             },
           ],
@@ -72,9 +72,9 @@ POSHA.section({
             {
               type: 'mosaic',
               items: [
-                { src: './in-use-pattern.png', span: 6, caption: 'Pattern — gradient icons as a repeat' },
-                { src: './in-use-type-poster.png', span: 6, caption: 'Poster — icons set within Epika type' },
-                { src: './in-use-ui-and-order-card.png', span: 5, caption: 'Product UI — collection chips and order card' },
+                { src: './in-use-pattern.png', span: 6, caption: 'Pattern: gradient icons as a repeat' },
+                { src: './in-use-type-poster.png', span: 6, caption: 'Poster: icons set within Epika type' },
+                { src: './in-use-ui-and-order-card.png', span: 5, caption: 'Product UI: collection chips and order card' },
                 { src: './line-icon-system.png', span: 7, caption: 'Line icon system' },
               ],
             },
@@ -116,16 +116,16 @@ POSHA.section({
       blocks: [
         {
           type: 'text',
-          body: 'Gradient icons are Posha’s most expressive icons. Full, rounded shapes with no outlines and one shared light source make them feel friendly and edible — the same warmth as our food photography. They label food and preferences: allergens, recipe collections, dietary choices and the ways a dish can be adjusted.',
+          body: 'Gradient icons are Posha’s most expressive icons. Full, rounded shapes with no outlines and one shared light source make them feel friendly and edible, with the same warmth as our food photography. They label food and preferences: allergens, recipe collections, dietary choices and the ways a dish can be adjusted.',
         },
         {
           type: 'note', title: 'How to use',
-          body: 'Use them at Small (32px) and above, on light, plain backgrounds, beside a short label. Keep the gradient exactly as supplied — never recolour it, flatten it or add an outline — and don’t place them on busy photography.',
+          body: 'Use them at Small (32px) and above, on light, plain backgrounds, beside a short label. Keep the gradient exactly as supplied. Never recolour it, flatten it or add an outline, and don’t place them on busy photography.',
         },
       ],
       parts: [
         { id: 'allergens', title: 'Allergens', summary: 'Flag the common allergens in a recipe. Always show them with their name, never on their own.', blocks: [{ type: 'iconset', folder: './01-gradient-icons/01-allergens', columns: 4 }] },
-        { id: 'collection-icons', title: 'Collection Icons', summary: 'Represent recipe collections — rice, noodles, soups, desserts and more — in browsing and filters.', blocks: [{ type: 'iconset', folder: './01-gradient-icons/02-collection-icons', columns: 4 }] },
+        { id: 'collection-icons', title: 'Collection Icons', summary: 'Represent recipe collections (rice, noodles, soups, desserts and more) in browsing and filters.', blocks: [{ type: 'iconset', folder: './01-gradient-icons/02-collection-icons', columns: 4 }] },
         { id: 'dietary-choices', title: 'Dietary Choices', summary: 'Show the eating preferences a person sets, such as vegan, vegetarian or pescatarian.', blocks: [{ type: 'iconset', folder: './01-gradient-icons/03-dietary-choices', columns: 4 }] },
         { id: 'modify-icons', title: 'Modify Icons', summary: 'Sit beside the controls that adjust a recipe: spice, salt, sweetness, oil, consistency and doneness.', blocks: [{ type: 'iconset', folder: './01-gradient-icons/04-modify-icons', columns: 4 }] },
         { id: 'website-icons', title: 'Website Icons', summary: 'Highlight recipe qualities on the website, such as high protein or quick to cook.', blocks: [{ type: 'iconset', folder: './01-gradient-icons/05-website-icons', columns: 4 }] },
@@ -139,7 +139,7 @@ POSHA.section({
       blocks: [
         {
           type: 'text',
-          body: 'Posha cooks from four ingredient containers, A to D. These icons show each container so people know exactly where every ingredient goes when they prep a recipe — in the app, on the device screen and on printed recipe cards.',
+          body: 'Posha cooks from four ingredient containers, A to D. These icons show each container so people know exactly where every ingredient goes when they prep a recipe: in the app, on the device screen and on printed recipe cards.',
         },
         {
           type: 'note', title: 'How to use',
@@ -186,7 +186,7 @@ POSHA.section({
             {
               type: 'columns',
               columns: [
-                [{ type: 'heading', text: 'Grid' }, { type: 'text', size: 'sm', body: 'A 24 × 24 artboard with a half-unit pixel grid. Keylines — the rounded square, two circles and diagonals — set the live area so square, round and tall icons feel the same size.' }],
+                [{ type: 'heading', text: 'Grid' }, { type: 'text', size: 'sm', body: 'A 24 × 24 artboard with a half-unit pixel grid. Keylines (the rounded square, two circles and diagonals) set the live area so square, round and tall icons feel the same size.' }],
                 [{ type: 'heading', text: 'Stroke' }, { type: 'text', size: 'sm', body: 'One stroke weight across the set, with rounded caps and joins. Corners are generously rounded for the soft, bulgy Posha character.' }],
               ],
             },

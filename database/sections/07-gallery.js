@@ -352,6 +352,131 @@ POSHA.section({
       ],
     },
     {
+      // Previews in assets/07-gallery/08-demo-events/<city>-<folder>/
+      id: 'demo-events',
+      title: 'Demo Events',
+      assets: '08-demo-events',
+      summary: 'Professionally filmed live demos — real guests meeting Posha for the first time.',
+      blocks: [
+        {
+          type: 'text',
+          body: [
+            'Five professionally filmed demo events: Seattle (two events), LA, Dallas and Houston. Guests gather round, watch Posha cook, try the screen and taste the food — and many tell us what they thought on camera.',
+            'Each event has photos, B-roll of the demo in progress, and interview clips the videographer has already cut and labelled by the question asked. It is one of our best-organised libraries, and the first place to look for real reactions and testimonials.',
+          ],
+        },
+        {
+          type: 'facts',
+          items: [
+            { k: 'Events', v: '5 demos · 4 cities' },
+            { k: 'Filmed by', v: 'Professional videographer' },
+            { k: 'Includes', v: 'Photos · B-roll · interviews' },
+            { k: 'Testimonials', v: 'Clipped + labelled by question' },
+          ],
+        },
+        {
+          type: 'note', title: 'Open with your Posha account',
+          body: 'Some of this material is shared from a Posha workspace, and it can’t be opened while you’re signed in with a personal Google or Notion account. If a link asks for access, switch to your Posha account first.',
+        },
+      ],
+      parts: [
+        {
+          id: 'seattle', title: 'Seattle',
+          summary: 'Two demo events in Seattle — photos, B-roll, guest interviews and demo photography.',
+          keywords: ['seattle', 'demo', 'event', 'guests'],
+          sections: [
+            {
+              id: 'photos', title: 'Photos',
+              summary: 'Professional photos of guests meeting Posha — watching it cook, trying the screen, and the families and kids who came along.',
+              blocks: [{
+                type: 'collection', alt: 'Seattle demo photo',
+                tags: ['Photos', 'Google Photos album', { label: 'Professional', tone: 'key' }],
+                link: { href: 'https://photos.google.com/share/AF1QipMMvLlYuu5zeWcY4-cMMdJw2e8mkvkqduwWPsVL_xet9t1crwOqSDsVXXwXSzTZcg?key=eFZ5Sm9UQ0pNMzJzZklBRlVEZ2x5NmI3eTlFcGRn', label: 'Open in Google Photos' },
+                items: [1, 2, 3, 4, 5, 6].map((n) => `./seattle-photos/frame-0${n}.jpg`),
+              }],
+            },
+            {
+              id: 'b-roll', title: 'B-roll',
+              summary: 'The demo in progress in a home kitchen — guests gathered round, Posha cooking, the host explaining.',
+              blocks: [{
+                type: 'collection', alt: 'Seattle demo B-roll frame',
+                tags: ['Video', 'MP4', 'B-roll'],
+                link: { href: 'https://drive.google.com/drive/folders/1uv2rdo0Vmk3NdbnkVsqck7-M23R0x919', label: 'Open in Google Drive' },
+                items: [1, 2, 3, 4, 5, 6].map((n) => `./seattle-b-roll/frame-0${n}.jpg`),
+              }],
+            },
+            {
+              id: 'interviews', title: 'Interviews',
+              summary: 'Guest testimonials, already clipped by the videographer. Each clip opens on a title card with the question asked, so you can find answers by question.',
+              blocks: [{
+                type: 'collection', alt: 'Interview title card',
+                tags: ['Video', 'MP4', 'Testimonials', { label: 'Labelled by question', tone: 'key' }],
+                link: { href: 'https://drive.google.com/drive/folders/1JC0aMnCI8v9yQxERI5sLsEHY6PApSYH5', label: 'Open in Google Drive' },
+                items: [1, 2].map((n) => `./seattle-interviews/frame-0${n}.jpg`),
+                footnote: 'Questions include **“Would you have guessed that this was made by a robot?”** and **“What’s your name and what brought you here?”**',
+              }],
+            },
+            {
+              id: 'demo-shots', title: 'Demo Shots',
+              summary: 'Photos taken during the demo — guests’ reactions, the host at work, and Posha on the counter.',
+              blocks: [{
+                type: 'collection', alt: 'Seattle demo shot',
+                tags: ['Photos', 'JPG', 'Reactions'],
+                link: { href: 'https://drive.google.com/drive/folders/16WVCDrhs3YC7BeVeiOHv5GH9CJ9wKPTE', label: 'Open in Google Drive' },
+                items: [1, 2, 3, 4, 5, 6].map((n) => `./seattle-demo-shots/frame-0${n}.jpg`),
+              }],
+            },
+          ],
+        },
+        {
+          id: 'la', title: 'LA',
+          summary: 'An outdoor demo in a garden — guests tasting, Posha set up outside, and short video reactions.',
+          keywords: ['la', 'demo', 'event', 'outdoor', 'garden', 'guests'],
+          sections: [
+            {
+              id: 'photos', title: 'Photos',
+              summary: 'Guests loading and tasting from Posha outdoors, plus product details — the pan, the spice pod rack and the POSHA flyer. The album also holds short phone clips.',
+              blocks: [{
+                type: 'collection', alt: 'LA demo photo',
+                tags: ['Photos', 'Short clips', 'Google Photos album'],
+                link: { href: 'https://photos.google.com/share/AF1QipNgCjqsBfeu26pzHHGh9JqxBUmxDyUQsUFsj9MQfqN6qQvwayr6bI_CCT3pqw7hwg?key=RTdzYXE5eXQ2aGRSMUpMY1hJVFUzb1RybGJES3dR', label: 'Open in Google Photos' },
+                items: [1, 2, 3, 4, 5, 6].map((n) => `./la-photos/frame-0${n}.jpg`),
+              }],
+            },
+            {
+              id: 'videos', title: 'Videos',
+              summary: 'Guests filmed face-to-camera after tasting — quick, natural reactions to use as testimonials.',
+              blocks: [{
+                type: 'collection', alt: 'LA guest video frame',
+                tags: ['Video', 'MOV', 'Reactions'],
+                link: { href: 'https://drive.google.com/drive/folders/1UwH20YZl9BA6yWAcSI4Cn6vPZJINX4_v', label: 'Open in Google Drive' },
+                items: [1, 2, 3, 4].map((n) => `./la-videos/frame-0${n}.jpg`),
+              }],
+            },
+          ],
+        },
+        {
+          id: 'dallas', title: 'Dallas',
+          summary: 'A home demo on a covered patio — the host walking guests through Posha, loading spice pods, and guests filming on their phones.',
+          keywords: ['dallas', 'demo', 'event', 'patio', 'guests'],
+          sections: [
+            {
+              id: 'photos-videos', title: 'Photos & Videos',
+              summary: 'Phone clips from the day: guests arriving, the host demonstrating at the counter, close-ups of the pan, and the house and pool around it.',
+              blocks: [{
+                type: 'collection', alt: 'Dallas demo frame',
+                tags: ['Video', 'MOV', 'Phone'],
+                link: { href: 'https://drive.google.com/drive/folders/1YgOrdke-vf_WBM8qnriQ6cSGnIp_e4_e', label: 'Open in Google Drive' },
+                items: [],
+                footnote: 'Preview frames coming soon — open the folder to browse the clips.',
+              }],
+            },
+          ],
+        },
+        { id: 'houston', title: 'Houston', keywords: ['houston', 'demo', 'event'], blocks: [{ type: 'placeholder', body: 'The Houston demo folders and previews are on their way.' }] },
+      ],
+    },
+    {
       id: 'essentials',
       title: 'Essentials',
       assets: '01-essentials', // folder names are pinned so reordering pages never breaks media paths

@@ -1792,3 +1792,7 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 /* Shoot headers: same type as the rest of the guide (Roobert, not Epika italic), number as a chip */
 .shoot-head .display-heading { font: 500 var(--fs-h5)/var(--lh-h5) var(--font-ui); letter-spacing: -0.01em; font-style: normal; }
 .shoot-num { justify-self: start; padding: 5px 10px; border-radius: var(--r-pill); background: var(--track); font-size: var(--fs-micro); line-height: 1; color: var(--ink-2); }
+
+/* Stacked heroes (Gallery pages): summary sits a clear step below the title, in the same size as every other page summary */
+.hero--stacked { row-gap: 0; }
+.hero--stacked .hero-summary { margin-top: 24px; max-width: 560px; color: var(--muted); font-size: var(--fs-base); line-height: var(--lh-base); }

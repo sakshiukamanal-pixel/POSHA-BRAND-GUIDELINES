@@ -50,6 +50,17 @@ Every page ends with the footer set in `database/site.js` → `footer`: the note
 copyright, and the playground (`logo` + `icons` list). Physics tuning (gravity, drag, bounce, cursor push) lives at the
 top of `mountPlayground` in `code/js/app.js`.
 
+## Poshword gate
+
+The live site is locked behind a password (the "Poshword"). Visitors see a black table with the wordmark, an entry field and
+the gradient icons rolling around like snooker balls (`code/gate/`). The right word unlocks the site for 30 days on that browser.
+
+- The check runs on Vercel's servers (`middleware.js` at the repo root), so pages, `code/` and `database/` files can't be read
+  without unlocking. Media on Cloudflare R2 is loaded straight from R2 and stays public to anyone with a file's link.
+- The word itself is not stored anywhere in the repo, only one-way values derived from it. To change it, run
+  `python3 code/tools/set-poshword.py "new word"`, paste the three lines it prints over the ones at the top of `middleware.js`, and deploy.
+- The local preview is never locked. Open http://localhost:8080/code/gate/ to see the gate; it checks the word locally too.
+
 ## Feedback form
 
 The **Feedback** button (top bar and footer) opens a form for name, email and feedback. Each one lands as a new row in a Google Sheet.

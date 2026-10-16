@@ -1,0 +1,40 @@
+/* Poshword gate: a black table, the wordmark, the entry and the gradient icons drifting like snooker balls */
+@font-face { font-family: 'Roobert'; src: url('/assets/fonts/Roobert-Regular.otf') format('opentype'); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: 'Roobert Mono'; src: url('/assets/fonts/RoobertMono-Medium.otf') format('opentype'); font-weight: 400 500; font-display: swap; }
+
+:root { --black: #232222; --off-white: #FFFCF8; --cream: #F1ECE4; --yellow: #FFBD00; --berry: #FFB1B4; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--black); color: var(--off-white); overflow: hidden; }
+body { font-family: 'Roobert', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+.table { position: fixed; inset: 0; overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; }
+.corner { position: absolute; margin: 0; font: 500 12px/1 'Roobert Mono', ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--off-white); opacity: .5; pointer-events: none; }
+.corner--tl { top: max(20px, env(safe-area-inset-top)); left: 24px; }
+.corner--bl { bottom: max(20px, env(safe-area-inset-bottom)); left: 24px; }
+
+/* everything on the table is placed by gate.js */
+.body { position: absolute; left: 0; top: 0; transform: translate3d(-9999px, 0, 0); will-change: transform; }
+.logo { height: auto; pointer-events: none; -webkit-user-drag: none; }
+.icon { cursor: grab; -webkit-user-drag: none; touch-action: none; }
+.is-grabbed { cursor: grabbing; z-index: 3; }
+
+.entry { margin: 0; z-index: 2; }
+.entry-box { display: flex; align-items: center; gap: 8px; padding: 6px 6px 6px 22px; border-radius: 999px; background: rgba(255, 252, 248, .08);
+  box-shadow: inset 0 0 0 1px rgba(255, 252, 248, .22); transition: box-shadow .2s, background .2s; cursor: text; }
+.entry-box:focus-within { background: rgba(255, 252, 248, .12); box-shadow: inset 0 0 0 1.5px var(--off-white); }
+.entry input { flex: 1; min-width: 0; padding: 12px 0; border: 0; outline: 0; background: none; font: 400 17px/1.2 'Roobert', system-ui, sans-serif; color: var(--off-white); user-select: text; -webkit-user-select: text; }
+.entry input::placeholder { color: rgba(255, 252, 248, .55); }
+.entry button { flex: none; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: var(--off-white); color: var(--black); cursor: pointer; transition: transform .15s; }
+.entry button:hover { transform: scale(1.06); }
+.arrow { width: 18px; height: 18px; background: currentColor;
+  -webkit-mask: url('/code/img/line-icons/back-right.png') center / contain no-repeat; mask: url('/code/img/line-icons/back-right.png') center / contain no-repeat; }
+.entry-msg { position: absolute; left: 22px; right: 0; top: calc(100% + 10px); margin: 0; font-size: 14px; line-height: 1.3; color: rgba(255, 252, 248, .7); pointer-events: none; }
+.entry-msg.is-error { color: var(--berry); }
+.entry.shake .entry-box { animation: shake .45s; }
+@keyframes shake { 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
+.entry.is-open .entry-box { box-shadow: inset 0 0 0 1.5px var(--yellow); }
+
+.table.is-leaving { transition: opacity .6s ease .5s; opacity: 0; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+:focus-visible { outline: 2px solid var(--off-white); outline-offset: 3px; }
+.entry input:focus-visible { outline: none; }

@@ -380,7 +380,7 @@
           ${link.href ? `<a class="coll-link" href="${esc(href(resolve(link.href, c)))}"${ext ? ' target="_blank" rel="noopener"' : ' download'}>
             <span>${esc(link.label || 'Open in Google Drive')}</span><span class="coll-arrow" aria-hidden="true">${licon('right')}</span></a>` : ''}
         </div>
-        <div class="coll-grid" data-gallery>${(b.items || []).map((it) => {
+        <div class="coll-grid" data-gallery style="--n:${Math.min((b.items || []).length, 6) || 6}">${(b.items || []).map((it) => {
           const src = resolve(typeof it === 'string' ? it : it.src, c);
           return `<figure class="tile coll-item" data-search="${esc((b.search || '') + ' ' + prettyName(src))}"><div class="tile-media">${mediaEl(src, { alt: it.alt || b.alt || '' })}</div></figure>`;
         }).join('')}</div>
@@ -1488,7 +1488,9 @@
       const kids = (p.parts || []).filter((pt) => pt.title);
       return `<li${kids.length ? ' class="has-kids"' : ''} data-pid="${p.id}"><a href="#/${s.id}/${p.id}" data-pid="${p.id}"${wip(p.navTitle || p.title) ? ' class="is-wip"' : ''}>${esc(p.navTitle || p.title)}</a>${kids.length
         ? `<div class="nav-sub2-wrap"><ul class="nav-sub2">${kids.map((pt) =>
-          `<li><a href="#/${s.id}/${p.id}/${pt.id}" data-part="${pt.id}">${esc(pt.navTitle || pt.title)}</a></li>`).join('')}</ul></div>` : ''}</li>`;
+          // a part's `sections` nest one level deeper (e.g. Photoshoot → Recipes / Renders / Lifestyle)
+          `<li><a href="#/${s.id}/${p.id}/${pt.id}" data-part="${pt.id}">${esc(pt.navTitle || pt.title)}</a>${(pt.sections || []).length
+            ? `<ul class="nav-sub3">${pt.sections.map((sec) => `<li><a href="#/${s.id}/${p.id}/${pt.id}--${sec.id}" data-part="${pt.id}--${sec.id}">${esc(sec.navTitle || sec.title)}</a></li>`).join('')}</ul>` : ''}</li>`).join('')}</ul></div>` : ''}</li>`;
     };
     const runs = [];
     s.pages.forEach((p) => {
@@ -1540,7 +1542,11 @@
 
   // Third-level link for the part you're reading (only inside the open page)
   function markPart(part) {
-    $$('.nav-sub2 a').forEach((a) => a.classList.toggle('active', !!part && a.dataset.part === part && !!a.closest('li.is-open')));
+    $$('.nav-sub2 a').forEach((a) => {
+      const open = !!part && !!a.closest('li.is-open');
+      a.classList.toggle('active', open && a.dataset.part === part);
+      a.classList.toggle('is-parent', open && part.startsWith(a.dataset.part + '--')); // part of the open sub-section
+    });
   }
 
   /* ---- Views ------------------------------------------------------------- */
@@ -1604,7 +1610,13 @@
         <section class="part" id="part-${pt.id}" data-part="${pt.id}" data-label="${esc(pt.title || p.title)}" data-keywords="${esc([pt.title, (pt.keywords || []).join(' ')].join(' ').toLowerCase())}">
           ${pt.title ? `<h2 class="sub-title"><span class="num">${p._num}.${i + 1}</span>${esc(pt.title)}</h2>` : ''}
           ${pt.summary ? `<div class="sub-summary">${paras(pt.summary)}</div>` : ''}
-          <div class="blocks">${blocks(pt.blocks, { dir: pt.assets ? s.assets + '/' + pt.assets : p._dir })}</div>
+          ${(pt.blocks || []).length ? `<div class="blocks">${blocks(pt.blocks, { dir: pt.assets ? s.assets + '/' + pt.assets : p._dir })}</div>` : ''}
+          ${(pt.sections || []).map((sec, j) => `
+            <section class="part-sec" id="part-${pt.id}--${sec.id}" data-part="${pt.id}--${sec.id}">
+              <h3 class="part-sec-title"><span class="num">${p._num}.${i + 1}.${j + 1}</span>${esc(sec.title)}</h3>
+              ${sec.summary ? `<div class="sub-summary">${paras(sec.summary)}</div>` : ''}
+              <div class="blocks">${blocks(sec.blocks, { dir: p._dir })}</div>
+            </section>`).join('')}
         </section>`).join('')}
       ${pager(`#/${s.id}/${p.id}`)}
     </article>`;
@@ -1877,7 +1889,7 @@
   function setupPartSpy(s, p) {
     if (partSpy) removeEventListener('scroll', partSpy);
     partSpy = null;
-    const parts = $$('.part[data-part]');
+    const parts = $$('.part[data-part], .part-sec[data-part]'); // document order, so a sub-section wins over its part
     if (!s || !parts.length) return;
     let last;
     const check = () => {
@@ -2105,6 +2117,7 @@
         (p.parts || []).forEach((pt) => {
           const tab = { id: pt.id, label: pt.title || p.title, heading: pt.title, blocks: pt.blocks, keywords: pt.keywords };
           if (pt.title) add({ kind: 'Tab', label: pt.title, crumb: `${s.title} · ${p.title}`, href: `${base}/${pt.id}`, text: [s.title, p.title, textOf([pt.summary, pt.blocks])].join(' ') });
+          (pt.sections || []).forEach((sec) => add({ kind: 'Tab', label: sec.title, crumb: `${s.title} · ${p.title} · ${pt.title}`, href: `${base}/${pt.id}--${sec.id}`, text: [s.title, p.title, pt.title, textOf([sec.summary, sec.blocks])].join(' ') }));
           walkBlocks(tab.blocks, tab);
         });
       });

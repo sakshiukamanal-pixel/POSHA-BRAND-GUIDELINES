@@ -26,5 +26,9 @@ POSHA.media = {
   "07-gallery/05-faro-films/b-cam": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg", "frame-06.jpg"],
   "07-gallery/05-faro-films/killian-selects": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg", "frame-06.jpg"],
   "07-gallery/05-faro-films/lifestyle-photos": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg", "frame-06.jpg"],
+  "07-gallery/06-4burner-shoot/lifestyle": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg"],
+  "07-gallery/06-4burner-shoot/product-renders": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg", "frame-06.jpg"],
+  "07-gallery/06-4burner-shoot/recipes-on-posha": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg", "frame-06.jpg"],
+  "07-gallery/06-4burner-shoot/videos": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg"],
   "brand": ["posha-wordmark-black.svg", "posha-wordmark-off-white.svg", "posha-wordmark-white.svg"],
 };

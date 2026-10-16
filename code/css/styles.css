@@ -237,6 +237,10 @@ p + p { margin-top: 1em; }
 .nav-sub2 a:hover { background: var(--hover); color: var(--ink); }
 .nav-sub2 a.active { color: var(--ink); font-weight: 500; background: var(--card); }
 .nav-sub2 a.active::before { background: var(--ink); width: 10px; }
+/* fourth level: a part's sub-sections, one more step in on the same guide line */
+.nav-sub3 { list-style: none; margin: 2px 0 4px 14px; padding: 0 0 0 10px; border-left: 1px solid var(--line); }
+.nav-sub3 a { padding: 5px 10px; font-size: calc(var(--fs-small) * .95); }
+.nav-sub2 a.is-parent { color: var(--ink); font-weight: 500; }
 
 .sidebar-foot { margin-top: auto; padding: 32px 8px 0; }
 .sidebar-foot .num { color: var(--warm-neutral); }
@@ -274,7 +278,7 @@ p + p { margin-top: 1em; }
 .toc li { border-bottom: 1px solid var(--line); }
 /* numbers sit on the optical centre of the title (a baseline match made the small mono numbers look dropped) */
 .toc a { display: flex; align-items: center; gap: 14px; padding: 14px 0; font-size: var(--fs-base); line-height: var(--lh-base); text-decoration: none; }
-.toc .num, .sub-title .num { flex: none; width: 22px; line-height: 1; position: relative; top: .08em; }
+.toc .num, .sub-title .num { flex: none; min-width: 22px; white-space: nowrap; line-height: 1; position: relative; top: .08em; }
 .toc a:hover { color: var(--muted); }
 
 /* Sub-sections — titles are H5 Roobert */
@@ -302,6 +306,13 @@ p + p { margin-top: 1em; }
 .part { margin-top: 88px; padding-top: 40px; border-top: 1px solid var(--line); scroll-margin-top: 96px; }
 .hero + .part, .asset-hint + .part { margin-top: 64px; }
 .part > .blocks { margin-top: 40px; padding-left: var(--indent); }
+/* sub-sections inside a part (e.g. Photoshoot → Recipes on Posha) */
+.part-sec { margin-top: 56px; padding-left: var(--indent); scroll-margin-top: 96px; }
+.part > .sub-summary + .part-sec, .part > .sub-title + .part-sec { margin-top: 40px; }
+.part-sec-title { display: flex; align-items: center; gap: 14px; margin: 0; font-size: var(--fs-lead); line-height: var(--lh-lead); font-weight: 500; }
+.part-sec-title .num { flex: none; line-height: 1; }
+.part-sec > .sub-summary { margin-left: 0; }
+.part-sec > .blocks { margin-top: 20px; }
 
 /* ---- Blocks -------------------------------------------------------------- */
 .text { font-family: var(--font-text); }
@@ -1027,6 +1038,7 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 .coll-tag { padding: 4px 9px; background: var(--track); border-radius: var(--r-tag); font: var(--fs-micro)/var(--lh-micro) var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--mid-grey); }
 .coll-tag--key { background: var(--tip); color: var(--dark-olive); box-shadow: inset 0 0 0 1px var(--tip-line); }
 .coll-tag--low { background: transparent; box-shadow: inset 0 0 0 1px var(--line-strong); opacity: .7; }
+.coll-tag--warn { background: var(--alert); color: var(--ink); box-shadow: inset 0 0 0 1px var(--alert-line); }
 .coll-link {
   display: inline-flex; align-items: center; gap: 10px; padding: 6px 6px 6px 16px;
   background: var(--ink); color: var(--posha-white); border-radius: var(--r-pill);
@@ -1034,7 +1046,7 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 }
 .coll-link:hover { background: var(--mid-grey); }
 .coll-arrow { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: var(--posha-white); color: var(--ink); font-size: 13px; }
-.coll-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+.coll-grid { display: grid; grid-template-columns: repeat(var(--n, 6), minmax(0, 1fr)); gap: 8px; max-width: calc(var(--n, 6) * 190px); } /* fewer previews stay thumbnail-sized */
 .coll-item { margin: 0; border-radius: var(--r-inner); overflow: hidden; background: var(--surface); }
 .coll-item .tile-media { aspect-ratio: 5 / 4; }
 .coll-item .tile-media img { object-fit: cover; }
@@ -1207,6 +1219,7 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
   .toc { margin-top: 40px; }
   .sub { scroll-margin-top: 116px; margin-top: 64px; }
   .part { scroll-margin-top: 140px; margin-top: 64px; }
+  .part-sec { scroll-margin-top: 140px; }
   .specimen { grid-template-columns: 1fr; gap: 16px; }
   .columns { grid-template-columns: 1fr; }
   .tab-bar { gap: 24px; }

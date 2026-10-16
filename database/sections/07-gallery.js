@@ -132,6 +132,107 @@ POSHA.section({
       ],
     },
     {
+      // Previews in assets/07-gallery/06-4burner-shoot/<folder>/. Drive links use the account-neutral
+      // /drive/folders/<id> form so they open for anyone with access, whichever Google account they're on.
+      id: '4burner-shoot',
+      title: '4Burner Shoot',
+      assets: '06-4burner-shoot',
+      summary: 'Food + product. Top-down cooking footage of 10 recipes, product set-up, and the photoshoot from the same days.',
+      blocks: [
+        {
+          type: 'text',
+          body: [
+            'The 4Burner shoot is our food and product library. The cameras sit directly above the pan to film 10 recipes from raw ingredients to finished dish, with close-ups of the moments that make food look good — onions softening, sauces thickening, the stirrer working through the pan. It also covers setting Posha up and cooking with it: navigating the screen, attaching the fan, filling the oil and water containers.',
+            'The website homepage footage comes from this shoot, and the stills from the same days are in the Photoshoot folders below.',
+          ],
+        },
+        {
+          type: 'facts',
+          items: [
+            { k: 'Content', v: 'Food + product' },
+            { k: 'Recipes', v: '10 · filmed top-down' },
+            { k: 'Device', v: 'Pre-rebrand · “Nimble”' },
+            { k: 'Used on', v: 'Website homepage' },
+          ],
+        },
+        {
+          type: 'note', tone: 'warn', title: 'Videos still show the old Nimble logo',
+          body: 'The device was called Nimble when this was shot. The logo has been retouched out of every photo, but it is still visible in the video wherever the front of the device is in frame. Use the top-down pan and ingredient shots freely; for any shot that shows the device, crop, reframe or cover the logo so “Nimble” never appears. If that isn’t possible, don’t use the shot.',
+        },
+      ],
+      parts: [
+        {
+          id: 'videos', title: 'Videos',
+          summary: 'Top-down cooking footage of all 10 recipes, ingredient close-ups, and product set-up clips.',
+          keywords: ['videos', 'footage', 'top-down', 'cooking', 'recipes', 'b-roll', 'homepage'],
+          blocks: [
+            {
+              type: 'collection', alt: '4Burner top-down cooking frame',
+              tags: ['Video', 'MP4', 'Top-down', { label: 'Nimble logo in some shots', tone: 'warn' }],
+              link: { href: 'https://drive.google.com/drive/folders/1ubWP4KXEUkj9-A37i8f-g-9GUYhnYJLR', label: 'Open in Google Drive' },
+              items: [1, 2, 3, 4, 5].map((n) => `./videos/frame-0${n}.jpg`),
+              footnote: 'Each clip comes with a matching **.XML** file — camera metadata, not footage. Use the **.MP4** files only.',
+            },
+            {
+              type: 'rules',
+              do: [
+                'Use the top-down pan shots for recipe content, social and ads — they never show the logo',
+                'Use the short ingredient close-ups (onions reducing, sauce thickening) as cutaways and texture B-roll',
+                'Use the set-up clips for how-to, onboarding and support content, once the logo is handled',
+                'Check the homepage cut first — it may already be cropped to what you need',
+              ],
+              dont: [
+                'Don’t use any shot where the Nimble logo is readable',
+                'Don’t present Nimble-era screens as the current Posha interface without checking them',
+                'Don’t import the .XML sidecar files into edits',
+              ],
+            },
+            {
+              type: 'note', title: 'Website homepage cut',
+              body: 'The homepage footage was cut from this shoot. Kawal has a cropped version ready to reuse — link to be added here.',
+            },
+          ],
+        },
+        {
+          id: 'photoshoot', title: 'Photoshoot',
+          summary: 'Stills from the same shoot. The Nimble logo has been retouched out of every photo, so these are safe to use as they are.',
+          keywords: ['photos', 'photoshoot', 'stills'],
+          sections: [
+            {
+              id: 'recipes-on-posha', title: 'Recipes on Posha',
+              summary: 'Finished Posha dishes on a clean backdrop — plated from above, plus close-up crops. Use for menus, recipe cards and the app.',
+              blocks: [{
+                type: 'collection', alt: 'Recipe cooked on Posha',
+                tags: ['Photos', 'Top-down', 'Plated + close-ups'],
+                link: { href: 'https://drive.google.com/drive/folders/1QDIpuw-mrHTAgpxAUuF03DLk-6O1sEMY', label: 'Open in Google Drive' },
+                items: [1, 2, 3, 4, 5, 6].map((n) => `./recipes-on-posha/frame-0${n}.jpg`),
+              }],
+            },
+            {
+              id: 'product-renders', title: 'Product Renders',
+              summary: 'Posha the product: device and screen details, ingredient containers, spice pods, the app, and the device in a kitchen.',
+              blocks: [{
+                type: 'collection', alt: 'Posha product image',
+                tags: ['Photos', 'Renders', 'Product'],
+                link: { href: 'https://drive.google.com/drive/folders/1UTgzv0Q6Sbn6O9SkL2aLdRXfGJhkL5Qw', label: 'Open in Google Drive' },
+                items: [1, 2, 3, 4, 5, 6].map((n) => `./product-renders/frame-0${n}.jpg`),
+              }],
+            },
+            {
+              id: 'lifestyle', title: 'Lifestyle',
+              summary: 'Posha dishes being eaten — hands, tables and real moments. Use when the food should feel shared and lived-in.',
+              blocks: [{
+                type: 'collection', alt: '4Burner lifestyle photo',
+                tags: ['Photos', 'Lifestyle', 'Food + people'],
+                link: { href: 'https://drive.google.com/drive/folders/1GxwHxkChXe3aagn3_kDqXOB1I4ErRZ1O', label: 'Open in Google Drive' },
+                items: [1, 2, 3, 4].map((n) => `./lifestyle/frame-0${n}.jpg`),
+              }],
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: 'essentials',
       title: 'Essentials',
       assets: '01-essentials', // folder names are pinned so reordering pages never breaks media paths

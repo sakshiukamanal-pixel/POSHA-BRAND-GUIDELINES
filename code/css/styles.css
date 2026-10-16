@@ -1472,3 +1472,28 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
   opacity: 1; transform: none; pointer-events: auto;
 }
 .pshoot-desc { margin-top: 4px; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--muted); }
+
+/* ==========================================================================
+   Section grid (wide screens): section number + title in the left third,
+   all of the section's content in the right two-thirds — one left edge,
+   one measure, generous breaks between sections. Stacks on narrow screens.
+   Not used in the Culinary UI chapter.
+   ========================================================================== */
+.view { container-type: inline-size; container-name: view; }
+@container view (min-width: 820px) {
+  .view:not(.view--ui-system) .sub {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); column-gap: clamp(32px, 4cqi, 64px);
+    margin-top: 80px; padding-top: 40px;
+  }
+  .view:not(.view--ui-system) .sub > .sub-title {
+    grid-column: 1; grid-row: 1 / span 3; align-self: start; position: sticky; top: 96px;
+    flex-direction: column; align-items: flex-start; gap: 14px;
+  }
+  .view:not(.view--ui-system) .sub > .sub-title .num {
+    width: auto; top: 0; padding: 5px 10px; border-radius: var(--r-pill); background: var(--track); font-size: var(--fs-micro); color: var(--ink-2);
+  }
+  .view:not(.view--ui-system) .sub > :not(.sub-title) { grid-column: 2; margin-left: 0; padding-left: 0; }
+  .view:not(.view--ui-system) .sub > .sub-summary { margin-top: 0; }
+  .view:not(.view--ui-system) .sub > .blocks { margin-top: 0; }
+  .view:not(.view--ui-system) .sub > .sub-summary + .blocks { margin-top: 24px; }
+}

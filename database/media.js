@@ -35,6 +35,8 @@ POSHA.media = {
   "07-gallery/07-china-assembly/timelapse": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg", "frame-06.jpg"],
   "07-gallery/07-china-assembly/travel-1": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg", "frame-06.jpg", "frame-07.jpg", "frame-08.jpg"],
   "07-gallery/07-china-assembly/travel-2": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg", "frame-06.jpg", "frame-07.jpg", "frame-08.jpg"],
+  "07-gallery/08-demo-events/houston-photos": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg", "frame-06.jpg"],
+  "07-gallery/08-demo-events/houston-videos": ["frame-01.jpg", "frame-02.jpg"],
   "07-gallery/08-demo-events/la-photos": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg", "frame-06.jpg"],
   "07-gallery/08-demo-events/la-videos": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg"],
   "07-gallery/08-demo-events/seattle-b-roll": ["frame-01.jpg", "frame-02.jpg", "frame-03.jpg", "frame-04.jpg", "frame-05.jpg", "frame-06.jpg"],

@@ -473,7 +473,34 @@ POSHA.section({
             },
           ],
         },
-        { id: 'houston', title: 'Houston', keywords: ['houston', 'demo', 'event'], blocks: [{ type: 'placeholder', body: 'The Houston demo folders and previews are on their way.' }] },
+        {
+          id: 'houston', title: 'Houston',
+          summary: 'A home demo in Houston, Texas, on 21 June 2025 — guests trying Posha in the kitchen, with the team in Posha aprons and tees.',
+          keywords: ['houston', 'texas', 'demo', 'event', 'guests', 'testimonials'],
+          sections: [
+            {
+              id: 'photos', title: 'Photos',
+              summary: 'The photographer’s gallery: guests tapping the screen and watching Posha cook, and the team in “Sous-Chef” aprons and “Relief Cook” tees.',
+              blocks: [{
+                type: 'collection', alt: 'Houston demo photo',
+                tags: ['Photos', 'Photographer’s gallery', { label: 'Professional', tone: 'key' }],
+                link: { href: 'https://eduardoverastegui.pixieset.com/poshademoinhouston/', label: 'Open the gallery' },
+                items: [1, 2, 3, 4, 5, 6].map((n) => `./houston-photos/frame-0${n}.jpg`),
+                footnote: 'Hosted on the photographer’s Pixieset site — download originals from there.',
+              }],
+            },
+            {
+              id: 'videos', title: 'Videos',
+              summary: 'Two edited files from the videographer. **B Roll** covers the setting and scenery, the product demo and guests engaging. **Testimonials** covers four key questions.',
+              blocks: [{
+                type: 'collection', alt: 'Houston video title card',
+                tags: ['Video', 'MP4', 'B-roll', { label: 'Testimonials · 4 questions', tone: 'key' }],
+                link: { href: 'https://drive.google.com/drive/folders/1WevFPFvT52mftK1_ikfIW1XB_542yPN1', label: 'Open in Google Drive' },
+                items: [1, 2].map((n) => `./houston-videos/frame-0${n}.jpg`),
+              }],
+            },
+          ],
+        },
       ],
     },
     {

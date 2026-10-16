@@ -98,7 +98,7 @@ POSHA.section({
         },
         {
           id: 'a-cam', title: 'A Cam',
-          summary: 'The main footage, shot straight on. Includes 3–4 user testimonials and the family scenes — homework with Posha in the background and dinner together.',
+          summary: 'The main footage, shot straight on. Includes 3–4 user testimonials and the family scenes — homework with Posha robot in the background and dinner together.',
           keywords: ['a cam', 'video', 'footage', 'testimonials', 'main'],
           blocks: [{
             type: 'collection', alt: 'Faro Films A Cam frame',
@@ -150,7 +150,7 @@ POSHA.section({
       parts: [
             {
               id: 'food-shots', title: 'Food Shots',
-              summary: 'Dishes cooked by Posha, shot from above. Use cut-outs for layouts and menus, round plates for recipe tiles, and macro close-ups when texture should lead.',
+              summary: 'Dishes cooked by Posha robot, shot from above. Use cut-outs for layouts and menus, round plates for recipe tiles, and macro close-ups when texture should lead.',
               keywords: ['food', 'foods', 'food shot', 'dish', 'dishes', 'meal', 'recipe', 'recipes', 'cuisine', 'plated'],
               blocks: [{
                 type: 'grid', folder: './01-food-shots', columns: 4,
@@ -182,7 +182,7 @@ POSHA.section({
             },
             {
               id: 'product-renders', title: 'Product Renders',
-              summary: 'Studio renders of Posha from four angles on black, white and transparent backgrounds. Use the transparent PNGs to place Posha on your own backgrounds without a halo.',
+              summary: 'Studio renders of Posha robot from four angles on black, white and transparent backgrounds. Use the transparent PNGs to place Posha robot on your own backgrounds without a halo.',
               keywords: ['render', 'renders', '3d', 'cgi', 'device render', 'machine', 'studio render'],
               blocks: [{
                 type: 'grid', folder: './02-product-renders', columns: 4, shape: 'cover',
@@ -201,7 +201,7 @@ POSHA.section({
             },
             {
               id: 'product-components', title: 'Product Components',
-              summary: 'The parts that make Posha work (ingredient containers, pan, spice pods, touchscreen and app) in close-up and in real kitchens. Use them to explain how Posha cooks.',
+              summary: 'The parts that make Posha robot work (ingredient containers, pan, spice pods, touchscreen and app) in close-up and in real kitchens. Use them to explain how Posha robot cooks.',
               keywords: ['component', 'components', 'parts', 'accessories', 'product shoot', 'product photography'],
               blocks: [{
                 type: 'grid', folder: './03-product-components', columns: 4, ratio: '1.25', shape: 'cover',
@@ -235,7 +235,7 @@ POSHA.section({
       blocks: [
         {
           type: 'shoot', number: '01', title: 'While Posha Cooks',
-          brief: 'Posha takes care of dinner, so people get their time back. This shoot shows people simply being human: relaxing, playing, catching up, unwinding, while Posha cooks in the background. The product is present but never the centre of attention: the moment belongs to the people.',
+          brief: 'Posha robot takes care of dinner, so people get their time back. This shoot shows people simply being human: relaxing, playing, catching up, unwinding, while Posha robot cooks in the background. The product is present but never the centre of attention: the moment belongs to the people.',
           meta: ['Lifestyle', 'Home kitchens', '12 photos'],
         },
         {
@@ -243,62 +243,62 @@ POSHA.section({
           items: [
             {
               src: './01-while-posha-cooks/psh-ps1-01-father-and-daughter-drawing.jpg', code: 'PSH-PS1-01', title: 'Father & Daughter Drawing',
-              desc: 'A dad and his laughing daughter paint and colour together at the kitchen counter while Posha cooks behind them.',
+              desc: 'A dad and his laughing daughter paint and colour together at the kitchen counter while Posha robot cooks behind them.',
               tags: ['lifestyle', 'family', 'dad', 'father', 'daughter', 'child', 'kid', 'girl', 'drawing', 'painting', 'colouring', 'coloring', 'crayons', 'art', 'laughing', 'play', 'kitchen counter', 'warm light', 'golden hour', 'posha cooking'],
             },
             {
               src: './01-while-posha-cooks/psh-ps1-02-couple-at-posha.jpg', code: 'PSH-PS1-02', title: 'Couple at Posha',
-              desc: 'A smiling couple take a first close look at Posha on a bright marble counter, the ingredient containers in view.',
+              desc: 'A smiling couple take a first close look at Posha robot on a bright marble counter, the ingredient containers in view.',
               tags: ['lifestyle', 'couple', 'man', 'woman', 'device', 'robot', 'first look', 'exploring', 'ingredient containers', 'handle', 'marble counter', 'smiling', 'bright', 'white kitchen'],
             },
             {
               src: './01-while-posha-cooks/psh-ps1-03-friends-sharing-dinner.jpg', code: 'PSH-PS1-03', title: 'Friends Sharing Dinner',
-              desc: 'Three friends pass plates of food across a long wooden dining table, with Posha on the counter behind them.',
+              desc: 'Three friends pass plates of food across a long wooden dining table, with Posha robot on the counter behind them.',
               tags: ['lifestyle', 'friends', 'group', 'dinner', 'dining table', 'wooden table', 'sharing', 'passing plates', 'food', 'meal', 'social', 'laughing', 'portrait', 'posha in background'],
             },
             {
               src: './01-while-posha-cooks/psh-ps1-04-woman-with-bowl.jpg', code: 'PSH-PS1-04', title: 'Woman with Her Bowl',
-              desc: 'A woman in a blue cardigan holds a bowl of food and smiles, a glass of red wine on the counter beside Posha.',
+              desc: 'A woman in a blue cardigan holds a bowl of food and smiles, a glass of red wine on the counter beside Posha robot.',
               tags: ['lifestyle', 'woman', 'portrait', 'eating', 'bowl', 'food', 'wine', 'wine glass', 'red wine', 'cardigan', 'kitchen', 'relaxed', 'smiling', 'warm light', 'posha screen'],
             },
             {
               src: './01-while-posha-cooks/psh-ps1-05-unwinding-on-the-counter.jpg', code: 'PSH-PS1-05', title: 'Unwinding on the Counter',
-              desc: 'A woman sits barefoot on the kitchen island with a glass of red wine while Posha cooks dinner beside her.',
+              desc: 'A woman sits barefoot on the kitchen island with a glass of red wine while Posha robot cooks dinner beside her.',
               tags: ['lifestyle', 'hero', 'woman', 'relax', 'unwind', 'me time', 'sitting on counter', 'kitchen island', 'barefoot', 'wine', 'wine glass', 'red wine', 'wine bottle', 'cardigan', 'wide', 'warm light', 'posha cooking'],
             },
             {
               src: './01-while-posha-cooks/psh-ps1-06-tasting-dinner.jpg', code: 'PSH-PS1-06', title: 'Tasting Dinner',
-              desc: 'A man tastes a bowl of grain salad in a bright white kitchen, Posha on the counter next to fresh oranges.',
+              desc: 'A man tastes a bowl of grain salad in a bright white kitchen, Posha robot on the counter next to fresh oranges.',
               tags: ['lifestyle', 'man', 'eating', 'tasting', 'bowl', 'grain bowl', 'salad', 'healthy', 'oranges', 'water bottle', 'coffee', 'french press', 'white kitchen', 'marble', 'bright', 'posha'],
             },
             {
               src: './01-while-posha-cooks/psh-ps1-07-video-call-while-cooking.jpg', code: 'PSH-PS1-07', title: 'Video Call While Posha Cooks',
-              desc: 'A woman smiles on a video call from her phone while Posha cooks, a spice pod rack and chopping board beside it.',
+              desc: 'A woman smiles on a video call from her phone while Posha robot cooks, a spice pod rack and chopping board beside it.',
               tags: ['lifestyle', 'woman', 'phone', 'video call', 'facetime', 'smartphone', 'selfie', 'mug', 'spice pod rack', 'spice pods', 'chopping board', 'oranges', 'limes', 'kitchen', 'warm light', 'posha cooking'],
             },
             {
               src: './01-while-posha-cooks/psh-ps1-08-couple-on-the-sofa.jpg', code: 'PSH-PS1-08', title: 'Couple on the Sofa',
-              desc: 'A couple relax on the sofa. He eats noodles from a yellow plate, she holds a glass of red wine, and Posha is behind them.',
+              desc: 'A couple relax on the sofa. He eats noodles from a yellow plate, she holds a glass of red wine, and Posha robot is behind them.',
               tags: ['lifestyle', 'couple', 'man', 'woman', 'sofa', 'couch', 'living room', 'relax', 'eating', 'noodles', 'pasta', 'yellow plate', 'wine', 'wine glass', 'red wine', 'wine rack', 'plants', 'cosy', 'posha in background'],
             },
             {
               src: './01-while-posha-cooks/psh-ps1-09-friends-at-the-table.jpg', code: 'PSH-PS1-09', title: 'Friends at the Table',
-              desc: 'Three friends eat and laugh around a wooden table, Posha and a spice pod rack on the counter behind.',
+              desc: 'Three friends eat and laugh around a wooden table, Posha robot and a spice pod rack on the counter behind.',
               tags: ['lifestyle', 'friends', 'group', 'dinner', 'dining table', 'wooden table', 'eating', 'laughing', 'food', 'meal', 'social', 'spice pod rack', 'spice pods', 'wide', 'posha in background'],
             },
             {
               src: './01-while-posha-cooks/psh-ps1-10-lunch-at-the-laptop.jpg', code: 'PSH-PS1-10', title: 'Lunch at the Laptop',
-              desc: 'A woman eats lunch from a pink plate at her laptop, working from home while Posha sits on the counter behind her.',
+              desc: 'A woman eats lunch from a pink plate at her laptop, working from home while Posha robot sits on the counter behind her.',
               tags: ['lifestyle', 'woman', 'work from home', 'wfh', 'laptop', 'macbook', 'notebook', 'lunch', 'eating', 'salad', 'pink plate', 'plates', 'wooden table', 'plants', 'bananas', 'posha'],
             },
             {
               src: './01-while-posha-cooks/psh-ps1-11-couple-playing-chess.jpg', code: 'PSH-PS1-11', title: 'Couple Playing Chess',
-              desc: 'A couple sit on poufs with wine and popcorn, playing games on the floor while Posha cooks in the kitchen.',
+              desc: 'A couple sit on poufs with wine and popcorn, playing games on the floor while Posha robot cooks in the kitchen.',
               tags: ['lifestyle', 'couple', 'man', 'woman', 'chess', 'board game', 'games', 'connect four', 'jenga', 'play', 'fun', 'wine', 'wine glass', 'popcorn', 'snacks', 'poufs', 'rug', 'blanket', 'living room', 'posha cooking'],
             },
             {
               src: './01-while-posha-cooks/psh-ps1-12-unboxing-posha.jpg', code: 'PSH-PS1-12', title: 'Unboxing Posha',
-              desc: 'A couple set up their new Posha on the kitchen counter, following along on a phone, the cardboard box open beside them.',
+              desc: 'A couple set up their new Posha robot on the kitchen counter, following along on a phone, the cardboard box open beside them.',
               tags: ['lifestyle', 'couple', 'man', 'woman', 'unboxing', 'setup', 'set up', 'new', 'first use', 'cardboard box', 'box', 'packaging', 'phone', 'app', 'device', 'kitchen counter', 'white kitchen'],
             },
           ],
@@ -337,7 +337,7 @@ POSHA.section({
       parts: [
             {
               id: 'feature-infographics', title: 'Feature Infographics',
-              summary: 'Ready-made explainers for Posha’s key features, for decks, the website and social. The “no copy” videos let you add your own on-screen text.',
+              summary: 'Ready-made explainers for Posha robot’s key features, for decks, the website and social. The “no copy” videos let you add your own on-screen text.',
               keywords: ['infographic', 'infographics', 'features', 'key features', 'explainer', 'feature'],
               blocks: [{
                 type: 'grid', folder: './01-feature-infographics', columns: 3, shape: 'cover',
@@ -351,7 +351,7 @@ POSHA.section({
             },
             {
               id: 'old-models', title: 'Old Models',
-              summary: 'From a $1,000 robotic arm to Posha: eight years of prototypes. Hover a model for its story; click to view or download.',
+              summary: 'From a $1,000 robotic arm to Posha robot: eight years of prototypes. Hover a model for its story; click to view or download.',
               keywords: ['old models', 'old model', 'history', 'prototypes', 'prototype', 'timeline', 'evolution', 'nymble'],
               blocks: [
                 {

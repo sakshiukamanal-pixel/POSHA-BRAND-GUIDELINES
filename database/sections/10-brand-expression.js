@@ -1,6 +1,6 @@
 POSHA.section({
   id: 'brand-expression',
-  title: 'Brand Expression',
+  title: 'Brand Expression (WIP)',
   summary: 'How the brand comes together: photography direction, graphics and real-world applications.',
 
   pages: [

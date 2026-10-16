@@ -1,6 +1,6 @@
 POSHA.section({
   id: 'motion',
-  title: 'Motion',
+  title: 'Motion (WIP)',
   summary: 'How Posha moves: principles, easing and timing, and reference animations.',
 
   pages: [

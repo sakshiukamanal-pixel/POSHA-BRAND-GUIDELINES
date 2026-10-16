@@ -70,7 +70,7 @@ POSHA.section({
             { role: 'H5 Epika', font: 'Epika', rem: 1.75, lh: 1.3 },
             { group: 'Body' },
             { role: 'Lead', font: 'Roobert', rem: 1.38, lh: 1.3, sample: 'Good food, shared moments.' },
-            { role: 'Base', font: 'Roobert', rem: 1.1, lh: 1.4, sample: 'Posha cooks dinner while you get on with your evening.' },
+            { role: 'Base', font: 'Roobert', rem: 1.1, lh: 1.4, sample: 'Posha robot cooks dinner while you get on with your evening.' },
             { role: 'Small', font: 'Roobert', rem: 0.88, lh: 1.4, sample: 'Soak the rice noodles before cooking. Weigh them while they’re still dry.' },
             { group: 'Mono / Caption' },
             { role: 'Mono', font: 'Roobert Mono', rem: 0.88, lh: 1.4, sample: 'Per serving nutrients' },

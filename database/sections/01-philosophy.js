@@ -3,7 +3,7 @@
    and the earlier brand deck (only where it still matches how we describe Posha today). */
 POSHA.section({
   id: 'philosophy',
-  title: 'Philosophy',
+  title: 'Brand Philosophy',
   summary: 'The future we’re building, who we are, and how we talk about Posha. The starting point for everything we make.',
   // shown between the contents and the first section
   afterToc: [
@@ -33,9 +33,8 @@ POSHA.section({
       title: 'Who We Are',
       blocks: [
         {
-          type: 'statement',
-          text: 'Making dinner cook itself.',
-          sub: 'We are an AI and robotics company building the future of autonomous cooking and setting the foundation for modern culinary artificial intelligence.',
+          type: 'text', size: 'lg',
+          body: 'We are an AI and robotics company building the future of autonomous cooking and setting the foundation for modern culinary artificial intelligence.',
         },
         {
           type: 'facts',
@@ -43,12 +42,12 @@ POSHA.section({
             { k: 'Started', v: '2017, as Nymble' },
             { k: 'Became Posha', v: '2025' },
             { k: 'Name', v: 'From the Sanskrit Poshan, “to nourish”' },
-            { k: 'First product', v: 'Posha, the robot chef' },
+            { k: 'First product', v: 'Posha robot, a robot chef' },
           ],
         },
         {
           type: 'note', title: 'One name, two meanings',
-          body: 'Posha is our company and the name of our first product, the robot. As we make new products the company name stays the same. Where it could be unclear, say “Posha the robot” or “the team at Posha”.',
+          body: 'Posha is our company. Our first product is Posha robot. Say **Posha robot** whenever you mean the device, and **Posha** for the company. As we make new products, the company name stays the same.',
         },
       ],
     },
@@ -77,21 +76,22 @@ POSHA.section({
       ],
     },
 
-    /* ------------------------------------------------------------ What Posha is */
+    /* ------------------------------------------------------ What Posha robot is */
     {
       id: 'what-posha-is',
-      title: 'What Posha Is',
+      title: 'What Posha Robot Is',
       blocks: [
         {
           type: 'text', size: 'lg',
-          body: 'Posha is an intelligent robot chef. It sees, stirs, times and adjusts as it cooks. Fresh meals from real ingredients, made at home, while you do something else.',
+          body: 'Posha robot is an intelligent robot chef. It sees, stirs, times and adjusts as it cooks. Fresh meals from real ingredients, made at home, while you do something else.',
         },
+        { type: 'image', src: '07-gallery/04-others/02-old-models/psh-om-06-2025-posha.png', alt: 'Posha robot, 2025', bg: 'var(--card)', maxWidth: '560px' },
         {
           type: 'list', columns: 3,
           items: [
             { title: 'Pick a recipe', body: 'Choose from 1,000+ recipes from around the world, from cozy favourites to showstoppers and vegan to high-protein, and tune spice and doneness to taste.' },
             { title: 'Add ingredients', body: 'Load fresh produce and spices. The Posha app and the screen guide every prep step, down to what “diced” looks like.' },
-            { title: 'Let Posha cook', body: 'Walk away. Posha adds each ingredient at the right moment, stirs, controls the heat and tells you when dinner’s ready.' },
+            { title: 'Let Posha robot cook', body: 'Walk away. Posha robot adds each ingredient at the right moment, stirs, controls the heat and tells you when dinner’s ready.' },
           ],
         },
         {
@@ -136,7 +136,7 @@ POSHA.section({
         {
           type: 'list', columns: 2,
           items: [
-            { title: 'With kids', body: 'Weeknights pulled between work, school runs and activities. Posha puts a fresh, home-cooked family dinner on the table without someone stuck at the stove.' },
+            { title: 'With kids', body: 'Weeknights pulled between work, school runs and activities. Posha robot puts a fresh, home-cooked family dinner on the table without someone stuck at the stove.' },
             { title: 'Without kids', body: 'Couples who care about good food and want to eat better at home without giving up their evenings to cook it.' },
           ],
         },
@@ -147,6 +147,7 @@ POSHA.section({
     {
       id: 'culinary-ai',
       title: 'Culinary AI',
+      // Source: posha.com/culinaryai (“To Cook is to See”)
       blocks: [
         {
           type: 'statement', label: 'Culinary AI',
@@ -154,16 +155,55 @@ POSHA.section({
           sub: 'Culinary AI (cAI) is a new class of AI that doesn’t just read recipes, but sees, understands and reasons about food as it cooks.',
         },
         {
+          type: 'text',
+          body: 'Language models changed desk work. Physical AI is next: robots that do real work in the real world, and to act they first have to see. A self-driving car reads lanes, signs and people. A great chef reads food. Posha robot is built on the same idea, so it can cook a great meal every time, at scale.',
+        },
+        { type: 'heading', text: 'What it reads before cooking' },
+        {
           type: 'list', columns: 3,
           items: [
-            { title: 'It knows the ingredients', body: 'What each ingredient is, how it’s been prepped, how big it’s cut, how much there is and which variant it is: penne or spaghetti, thigh or breast.' },
-            { title: 'It watches food change', body: 'Colour, texture and size shift as food heats. Posha tracks them in real time to know when onions are golden or chicken is cooked through.' },
-            { title: 'It catches the moments', body: 'Water coming to a boil, rice absorbing its water, noodles softening. The cues a chef watches for, every time.' },
+            { title: 'Ingredient', body: 'Tells one ingredient from another: broccoli from cabbage, shiitake from potato, penne from rice.' },
+            { title: 'Prep style', body: 'Beef in strips, mince or chunks. The cut changes how much heat it needs and what “done” looks like.' },
+            { title: 'Size', body: 'A large broccoli floret cooks longer than a small one. Size sets the timing.' },
+            { title: 'Volume', body: 'How much there is shapes the rest of the recipe: the amount of tomato balances sweet and sour, the amount of rice sets the water.' },
+            { title: 'Variant', body: 'Glass noodles, rice noodles or a noodle cake. Thigh or breast. Each needs different water, heat and stirring.' },
+          ],
+        },
+        { type: 'heading', text: 'What it watches while cooking' },
+        {
+          type: 'list', columns: 3,
+          items: [
+            { title: 'Colour', body: 'Raw to cooked, pale to golden, golden to brown. Posha robot knows lightly sautéed onions from caramelised ones, and when chicken has turned from pink to white.' },
+            { title: 'Texture', body: 'A potato starts firm, softens, then breaks down into a mash. Structure changes as much as colour.' },
+            { title: 'Size', body: 'Food shrinks, wilts and breaks apart as it heats. Tracking it in real time shows how far along it is.' },
+          ],
+        },
+        { type: 'heading', text: 'Moments it catches' },
+        {
+          type: 'bullets',
+          items: [
+            'Still water turning to a rolling boil.',
+            'Rice or pasta soaking up the last free water, leaving the pan dry.',
+            'Frozen or clumped meat breaking up into even pieces.',
+            'A noodle cake or dry spaghetti softening and sinking into the liquid.',
+          ],
+        },
+        { type: 'heading', text: 'Built on real cooking data' },
+        {
+          type: 'text',
+          body: 'There’s very little research on how food changes as it cooks, because there’s never been enough fine-grained data. So we’re building it: the **Culinary Vision Dataset**, the world’s largest collection of real-world cooking data, tracking colour, size, texture and structure.',
+        },
+        {
+          type: 'facts',
+          items: [
+            { k: 'Datapoints', v: '5 million' },
+            { k: 'Cooking sessions', v: 'Thousands' },
+            { k: 'Tracks', v: 'Colour, size, texture, structure' },
           ],
         },
         {
-          type: 'text',
-          body: 'It’s built on the Culinary Vision Dataset, the world’s largest collection of real-world cooking data, with 5 million datapoints from thousands of cooking sessions.',
+          type: 'note', tone: 'info', title: 'How to talk about it',
+          body: 'Say **Culinary AI**, with **(cAI)** the first time. In customer copy, explain it through what a chef does: “Built to cook like a human, Posha has a chef’s eyes.” Keep the bigger picture (Physical AI, datasets, self-driving cars) for press, investors and careers.',
         },
       ],
     },
@@ -181,7 +221,7 @@ POSHA.section({
             { title: '2020 · Julia', image: '07-gallery/04-others/02-old-models/psh-om-03-2020-julia.png', alt: 'Julia, 2020', body: 'People wanted bigger portions and leftovers. Larger containers and reservoirs reshaped it into an elongated C-form.' },
             { title: '2021 · Alpha', image: '07-gallery/04-others/02-old-models/psh-om-04-2021-nymble-alpha.png', alt: 'Nymble Alpha, 2021', body: 'The first prototype to live in real homes for extended testing, built to prove it could reliably cook great food.' },
             { title: '2023 · Beta', image: '07-gallery/04-others/02-old-models/psh-om-05-2023-nymble-beta.png', alt: 'Nymble Beta, 2023', body: '50 units in real homes for 18 months, shaping the hardware, the software and, above all, the food.' },
-            { title: '2025 · Posha', image: '07-gallery/04-others/02-old-models/psh-om-06-2025-posha.png', alt: 'Posha, 2025', body: 'Named after the Sanskrit Poshan, “to nourish.” Built on years of trials, now made on a large-scale assembly line with premium materials.' },
+            { title: '2025 · Posha robot', image: '07-gallery/04-others/02-old-models/psh-om-06-2025-posha.png', alt: 'Posha robot, 2025', body: 'Named after the Sanskrit Poshan, “to nourish.” Built on years of trials, now made on a large-scale assembly line with premium materials.' },
           ],
         },
       ],
@@ -218,7 +258,7 @@ POSHA.section({
             { title: 'Warm', body: 'We love food and want you to eat well. We talk about the part that matters: the meal, the table, the people. **Not** sugary or salesy.' },
             { title: 'Confident', body: 'Short, sure sentences. We say what Posha does and let it land. **Not** hype, superlatives or jargon.' },
             { title: 'Playful', body: 'A wink and a food pun where it fits. **Not** jokes that get in the way when someone needs help.' },
-            { title: 'Honest', body: 'Plain English about real life and how Posha really works. **Not** overpromising or dodging the details. “Working at Posha is extremely hard. And incredibly fun.”' },
+            { title: 'Honest', body: 'Plain English about real life and how Posha robot really works. **Not** overpromising or dodging the details. “Working at Posha is extremely hard. And incredibly fun.”' },
           ],
         },
         { type: 'heading', text: 'Tone by moment' },
@@ -226,9 +266,9 @@ POSHA.section({
           type: 'list', columns: 3,
           items: [
             { title: 'Headlines & ads', body: 'Most confident, most playful. One idea, short rhythm, often a full stop. “Your dish is my command.”' },
-            { title: 'App & device', body: 'Calm, clear, step by step. Tell people exactly what to do next. “Load it into Posha.”' },
+            { title: 'App & device', body: 'Calm, clear, step by step. Tell people exactly what to do next. “Load it into Posha robot.”' },
             { title: 'Help & orders', body: 'Reassuring and plain; a light touch at most. “It’s fully refundable, so there’s nothing to lose and lots of great meals ahead.”' },
-            { title: 'Culinary AI & press', body: 'Precise and expert, still in plain words. Explain how Posha sees and adjusts, without the jargon.' },
+            { title: 'Culinary AI & press', body: 'Precise and expert, still in plain words. Explain how Posha robot sees and adjusts, without the jargon.' },
             { title: 'Stories & social', body: 'Relatable and real: weeknights, school runs, holidays. “The first week of school is undefeated. Dinner doesn’t have to be.”' },
             { title: 'Careers', body: 'Candid and ambitious. We say it’s hard and why it’s worth it. “Let us do hard work together.”' },
           ],
@@ -237,7 +277,7 @@ POSHA.section({
         {
           type: 'rewrites',
           items: [
-            { not: 'Posha is a self-cooking stove with advanced AI-powered features.', say: 'Meet Posha, your private robot chef.', why: 'An intelligent robot, not an appliance. Introduce Posha like a name.' },
+            { not: 'Posha robot is a self-cooking stove with advanced AI-powered features.', say: 'Meet Posha, your private robot chef.', why: 'An intelligent robot, not an appliance. Introduce Posha like a name.' },
             { not: 'Select any recipe and the device will prepare it automatically.', say: 'Your dish is my command.', why: 'Let Posha speak as a character, with a wink.' },
             { not: 'Our computer vision system monitors the cooking process in real time.', say: 'Built to cook like a human, Posha has a chef’s eyes.', why: 'Explain Culinary AI (cAI) through what a chef does.' },
             { not: 'Installation is quick and requires minimal effort.', say: 'Setup: Easy-peasy, lemon squeezy.', why: 'A light touch, where it doesn’t get in the way.' },
@@ -262,8 +302,8 @@ POSHA.section({
         {
           type: 'rules',
           do: [
-            'Call Posha an **intelligent robot** or a **robot chef**: “your private robot chef”',
-            'Say **Posha**, like a name, not “the Posha”. It’s both the company and the robot',
+            'Call Posha robot an **intelligent robot** or a **robot chef**: “your private robot chef”',
+            'Say **Posha robot** for the device and **Posha** for the company. Use it like a name, not “the Posha”',
             'Talk about **fresh, home-made meals** and **real ingredients**',
             'Say **Culinary AI (cAI)** for the intelligence behind it',
             'Show what people get back: time, better food, “while you do something else”',

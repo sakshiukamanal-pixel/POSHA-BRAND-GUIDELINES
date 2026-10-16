@@ -24,7 +24,7 @@ POSHA.section({
           type: 'text',
           body: [
             'Icons are the shorthand of the Posha experience. They help people scan a recipe, understand a setting or spot a dietary need at a glance, often faster than words can. Across the app, the device screen, the website and marketing, they carry the same warm, rounded character as our food and our type.',
-            'Posha has four icon families, each with its own job. **Gradient icons** describe food and preferences. **Container icons** map ingredients to Posha’s four containers. **Line icons** handle navigation and everyday actions in the interface. **Illustrations** mark the bigger moments, such as confirmations and empty screens.',
+            'Posha has four icon families, each with its own job. **Gradient icons** describe food and preferences. **Container icons** map ingredients to Posha robot’s four containers. **Line icons** handle navigation and everyday actions in the interface. **Illustrations** mark the bigger moments, such as confirmations and empty screens.',
           ],
         },
         {
@@ -45,7 +45,7 @@ POSHA.section({
               type: 'list', columns: 4,
               items: [
                 { title: 'Gradient Icons', icon: `${ICONS}/01-gradient-icons/02-collection-icons/08-pasta.png`, body: 'Food and preferences: allergens, collections, diets and recipe controls. [See all](#/iconography/gradient-icons)' },
-                { title: 'Container Icons', icon: `${ICONS}/02-container-icons/01-container-icons/01-container-a.png`, body: 'Map ingredients to Posha’s four containers, A to D. [See all](#/iconography/container-icons)' },
+                { title: 'Container Icons', icon: `${ICONS}/02-container-icons/01-container-icons/01-container-a.png`, body: 'Map ingredients to Posha robot’s four containers, A to D. [See all](#/iconography/container-icons)' },
                 { title: 'Line Icons', icon: `${ICONS}/03-line-icons/01-line-icons/10-home.png`, body: 'Navigation and everyday actions in the app, with filled and tiny versions. [See all](#/iconography/line-icons)' },
                 { title: 'Illustrations', icon: `${ICONS}/04-illustrations/01-large-icons-illustrations/05-completed.png`, body: 'The bigger moments, like confirmations, status and empty screens, plus debug diagrams. [See all](#/iconography/illustrations)' },
               ],
@@ -135,11 +135,11 @@ POSHA.section({
       id: 'container-icons',
       title: 'Container Icons',
       assets: '01-icons',
-      summary: 'The four Posha containers, as used in recipes and the app. Click any icon to download it as PNG or SVG.',
+      summary: 'The four Posha robot containers, as used in recipes and the app. Click any icon to download it as PNG or SVG.',
       blocks: [
         {
           type: 'text',
-          body: 'Posha cooks from four ingredient containers, A to D. These icons show each container so people know exactly where every ingredient goes when they prep a recipe: in the app, on the device screen and on printed recipe cards.',
+          body: 'Posha robot cooks from four ingredient containers, A to D. These icons show each container so people know exactly where every ingredient goes when they prep a recipe: in the app, on the device screen and on printed recipe cards.',
         },
         {
           type: 'note', title: 'How to use',

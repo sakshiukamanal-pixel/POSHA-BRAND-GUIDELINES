@@ -1,6 +1,6 @@
 POSHA.section({
   id: 'data-visualization',
-  title: 'Data Visualization',
+  title: 'Data Visualization (WIP)',
   summary: 'Chart colours and chart types for reports, dashboards and the app.',
 
   pages: [

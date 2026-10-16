@@ -1784,3 +1784,7 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 .fb-hint ul { margin: 6px 0 0; padding-left: 18px; }
 .fb-hint li + li { margin-top: 4px; }
 .fb-hint li::marker { color: var(--mid-grey); }
+
+/* Colour's tint slider is fixed to the side of the screen, so its wrapper takes no room: the gap above the
+   contents pills then matches every other section */
+.view > .section-intro:has(> .trail:only-child) { display: contents; }

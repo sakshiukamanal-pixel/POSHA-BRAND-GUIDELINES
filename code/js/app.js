@@ -1719,11 +1719,73 @@
     return { sid, pid, tab, q };
   }
 
+  // Full results for a query: media first, then icons, logos, colours, fonts, then sections and pages
+  const SEARCH_GROUPS = [
+    ['Images & video', ['Image', 'Video']],
+    ['Icons', ['Icon']],
+    ['Logos', ['Logo']],
+    ['Colours', ['Colour']],
+    ['Fonts', ['Font']],
+    ['Sections & pages', ['Section', 'Page', 'Tab']],
+  ];
+  function renderSearch(q) {
+    const { list } = scoreAll(q);
+    const secs = sections.map((s) => ({ s, n: list.filter((r) => r.sid === s.id).length })).filter((x) => x.n);
+    const item = (r) => {
+      const at = `data-ssec="${esc(r.sid)}"`;
+      const where = `<span class="srp-crumb">${esc(r.code ? r.code + ' · ' + r.crumb : r.crumb)}</span>`;
+      if (r.kind === 'Image' || r.kind === 'Video') return `<a class="srp-media" href="${r.href}" ${at}><span class="srp-thumb">${r.thumb ? `<img src="${asset(r.thumb)}" alt="" loading="lazy">` : ''}${r.kind === 'Video' ? '<span class="srp-tag">Video</span>' : ''}</span><strong>${esc(r.label)}</strong>${where}</a>`;
+      if (r.kind === 'Icon' || r.kind === 'Logo') return `<a class="srp-icon" href="${r.href}" ${at}><span class="srp-thumb">${r.thumb ? `<img src="${asset(r.thumb)}" alt="" loading="lazy">` : ''}</span><strong>${esc(r.label)}</strong>${where}</a>`;
+      if (r.kind === 'Colour') return `<a class="srp-colour" href="${r.href}" ${at}><i style="background:${esc(r.swatch)}"></i><span><strong>${esc(r.label)}</strong><span class="srp-crumb">${esc(r.swatch)} · ${esc(r.sec)}</span></span></a>`;
+      if (r.kind === 'Font') return `<a class="srp-font" href="${r.href}" ${at}><span class="srp-sample" style="font-family:${esc(r.family)}">Aa</span><span><strong>${esc(r.label)}</strong>${where}</span></a>`;
+      return `<a class="srp-page" href="${r.href}" ${at}><span class="srp-kind">${esc(r.kind)}</span><span><strong>${esc(r.label)}</strong>${where}${r.snippet ? `<em>${esc(r.snippet)}</em>` : ''}</span>${licon('right')}</a>`;
+    };
+    const groups = SEARCH_GROUPS.map(([title, kinds]) => {
+      const rs = list.filter((r) => kinds.includes(r.kind));
+      return rs.length ? `<section class="srp-group" data-sgroup>
+        <h2 class="srp-head">${esc(title)} <span class="num">${rs.length}</span></h2>
+        <div class="srp-list srp-list--${kinds[0].toLowerCase()}">${rs.map(item).join('')}</div>
+      </section>` : '';
+    }).join('');
+    const summary = !q.trim() ? 'Type in the search bar above to search every section.'
+      : list.length ? `${list.length} result${list.length === 1 ? '' : 's'} across ${secs.length} section${secs.length === 1 ? '' : 's'}.`
+      : `Nothing found for “${q.trim()}”. Try a section name like “logo” or “color”.`;
+    return `<article class="view view--search">
+      ${hero('Search', '', q.trim() ? `“${q.trim()}”` : 'Search', summary, 'split')}
+      ${secs.length > 1 ? `<div class="srp-filter" role="group" aria-label="Filter by section">
+        <button type="button" class="is-on" data-sfilter="">All <span>${list.length}</span></button>
+        ${secs.map(({ s, n }) => `<button type="button" data-sfilter="${esc(s.id)}">${esc(s.title)} <span>${n}</span></button>`).join('')}
+      </div>` : ''}
+      <div class="srp" data-srp>${groups}</div>
+    </article>`;
+  }
+  function filterSearch(sid) {
+    $$('[data-sfilter]').forEach((b) => b.classList.toggle('is-on', b.dataset.sfilter === sid));
+    $$('[data-srp] [data-ssec]').forEach((el) => { el.hidden = !!sid && el.dataset.ssec !== sid; });
+    $$('[data-sgroup]').forEach((g) => {
+      const vis = $$('[data-ssec]', g).filter((el) => !el.hidden).length;
+      g.hidden = !vis;
+      $('.srp-head .num', g).textContent = vis;
+    });
+  }
+
   function route(force) {
     const { sid, pid, tab, q } = parseHash();
     const main = $('#main');
     const s = sections.find((x) => x.id === sid);
     closeMenu();
+
+    if (sid === 'search') {
+      main.innerHTML = renderSearch(q || '');
+      current = { view: 'search' };
+      scrollTo(0, 0);
+      setupSpy(null);
+      setupPartSpy();
+      markNav(null, null);
+      $('#searchInput').value = q || '';
+      document.title = `${q ? `“${q}” · ` : ''}Search — ${POSHA.site.name}`;
+      return;
+    }
 
     if (!s) {
       if (current.view !== 'home' || force) {
@@ -1925,9 +1987,11 @@
 
   function buildIndex() {
     index = [];
-    const add = (e) => index.push({ text: '', ...e, hay: [e.label, e.crumb, e.text || ''].join(' ').toLowerCase() });
-    const seenCodes = new Set();
+    let cur = null;
+    const add = (e) => index.push({ text: '', sid: cur.id, sec: cur.title, ...e, hay: [e.label, e.crumb, e.text || ''].join(' ').toLowerCase() });
+    const seenCodes = new Set(), seenFonts = new Set();
     sections.forEach((s) => {
+      cur = s;
       add({ kind: 'Section', label: s.title, crumb: s.number, href: `#/${s.id}`, text: textOf(s.summary) });
       s.pages.forEach((p) => {
         const base = `#/${s.id}/${p.id}`;
@@ -1948,6 +2012,11 @@
             });
             if (b.type === 'logoset') b.items.forEach((it) => {
               add({ kind: 'Logo', label: `${b.label || 'Wordmark'} — ${it.name}`, crumb: `${s.title} · ${p.title}`, href: `${base}?q=${encodeURIComponent((b.label || 'wordmark').toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + it.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}`, text: 'logo wordmark download png svg ' + (it.note || ''), thumb: resolve(it.png || it.svg, { dir: p._dir }) });
+            });
+            if (b.type === 'type') b.items.forEach((t) => {
+              if (seenFonts.has(t.name)) return;
+              seenFonts.add(t.name);
+              add({ kind: 'Font', label: t.name, crumb: `${s.title} · ${p.title}`, href: base, text: ['font typeface type', t.role, t.weights].join(' '), family: t.family });
             });
             if (b.type === 'palette') b.items.forEach((c) => {
               add({ kind: 'Colour', label: c.name, crumb: `${s.title} · ${p.title}${c.alias ? ' · ' + c.alias : ''}`, href: base, text: ['colour color', c.alias, c.hex, c.rgb, c.cmyk].join(' '), swatch: c.hex });
@@ -1975,13 +2044,14 @@
     });
   }
 
-  const KIND_RANK = { Section: 4, Tab: 3, Page: 3, Logo: 2, Colour: 2, Video: 1, Image: 1, Icon: 1 };
+  const KIND_RANK = { Section: 4, Tab: 3, Page: 3, Logo: 2, Colour: 2, Font: 2, Video: 1, Image: 1, Icon: 1 };
+  const searchHref = (q) => `#/search?q=${encodeURIComponent(q.trim())}`;
 
-  function runSearch(raw) {
+  // Every entry matching all the words, best first
+  function scoreAll(raw) {
     const words = raw.toLowerCase().split(/[\s\-–—,/]+/).filter((w) => w.length > 0);
-    if (!words.length) {
-      results = index.filter((r) => r.kind === 'Section');
-    } else {
+    if (!words.length) return { words, list: [] };
+    {
       // Each word: what was typed (full weight) + its synonym (counts a little less)
       const alts = words.map((w) => [[w, 1], [w.replace(/s$/, ''), 1], ...(SYNONYMS[w] ? [[SYNONYMS[w], 0.6]] : [])].filter((x) => x[0]));
       const full = raw.trim().toLowerCase();
@@ -2002,21 +2072,28 @@
         if (label === full || (r.code && r.code.toLowerCase() === full) || (r.swatch && r.swatch.toLowerCase() === full)) score += 20;
         score += KIND_RANK[r.kind] || 0;
         let snippet = '';
-        if (r.kind === 'Page' && score < 8 && r.text) {
+        if (/Page|Tab|Section/.test(r.kind) && score < 8 && r.text) {
           const t = r.text.toLowerCase(), at = t.indexOf(words[0]);
           if (at > -1) snippet = (at > 30 ? '…' : '') + r.text.slice(Math.max(0, at - 30), at + 60).trim() + '…';
         }
         return { ...r, score, snippet };
-      }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, 10);
+      }).filter(Boolean).sort((a, b) => b.score - a.score);
+      return { words, list: results };
     }
-    sel = 0;
+  }
+
+  function runSearch(raw) {
+    const { words, list: all } = scoreAll(raw);
+    results = words.length ? all.slice(0, 10) : index.filter((r) => r.kind === 'Section');
+    sel = -1; // nothing picked yet: Enter opens the full results page
     const list = $('#searchResults');
     list.innerHTML = results.length
       ? (!words.length ? '<li class="search-hint">Jump to a section — or type “icons”, “posha yellow”, “renders”, “pad thai”…</li>' : '') +
-        results.map((r, i) => `<li role="option"><a href="${r.href}" class="${i === sel ? 'is-sel' : ''}">
+        results.map((r) => `<li role="option"><a href="${r.href}">
           <span class="sr-thumb">${r.thumb ? `<img src="${asset(r.thumb)}" alt="" loading="lazy">` : r.swatch ? `<i style="background:${esc(r.swatch)}"></i>` : `<b>${esc(r.kind === 'Section' ? r.crumb : r.label.charAt(0))}</b>`}</span>
           <span class="sr-text"><strong>${esc(r.label)}</strong><span class="sr-crumb">${esc(r.code ? r.code + ' · ' + r.crumb : r.crumb)}</span>${r.snippet ? `<em>${esc(r.snippet)}</em>` : ''}</span>
-          <span class="sr-kind">${esc(r.kind)}</span></a></li>`).join('')
+          <span class="sr-kind">${esc(r.kind)}</span></a></li>`).join('') +
+        (words.length ? `<li class="sr-all"><a href="${searchHref(raw)}"><span>See all ${all.length} result${all.length === 1 ? '' : 's'} for “${esc(raw.trim())}”</span>${licon('right')}</a></li>` : '')
       : `<li class="search-empty">Nothing found for “${esc(raw.trim())}”. Try a section name like “logo” or “color”.</li>`;
     list.hidden = false;
     $('#searchInput').setAttribute('aria-expanded', 'true');
@@ -2024,7 +2101,7 @@
   function moveSel(d) {
     const links = $$('#searchResults a');
     if (!links.length) return;
-    sel = (sel + d + links.length) % links.length;
+    sel = sel < 0 ? (d > 0 ? 0 : links.length - 1) : (sel + d + links.length) % links.length;
     links.forEach((a, i) => a.classList.toggle('is-sel', i === sel));
     links[sel].scrollIntoView({ block: 'nearest' });
   }
@@ -2039,9 +2116,9 @@
     $('#searchResults').hidden = true;
     $('#searchInput').setAttribute('aria-expanded', 'false');
   }
-  function goToResult(href) {
+  function goToResult(href, keep) {
     const inp = $('#searchInput');
-    inp.value = '';
+    inp.value = keep || '';
     closeSearch();
     inp.blur();
     if (href === location.hash) route();
@@ -2164,6 +2241,10 @@
         return;
       }
 
+      const sf = t.closest('[data-sfilter]');
+      if (sf) { filterSearch(sf.dataset.sfilter); return; }
+      if (t.closest('[data-search-go]')) { const v = $('#searchInput').value; if (v.trim()) goToResult(searchHref(v), v); return; }
+
       const lbBtn = t.closest('[data-lb]');
       if (lbBtn) { const k = lbBtn.dataset.lb; k === 'close' ? closeLightbox() : stepLightbox(k === 'next' ? 1 : -1); return; }
       if (t.id === 'lightbox' || t.id === 'lbStage') closeLightbox();
@@ -2188,7 +2269,12 @@
     sInput.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowDown') { e.preventDefault(); moveSel(1); }
       else if (e.key === 'ArrowUp') { e.preventDefault(); moveSel(-1); }
-      else if (e.key === 'Enter') { e.preventDefault(); const a = $$('#searchResults a')[sel]; if (a) goToResult(a.getAttribute('href')); }
+      else if (e.key === 'Enter') {
+        e.preventDefault();
+        const a = sel >= 0 && $$('#searchResults a')[sel];
+        if (a) goToResult(a.getAttribute('href'));
+        else if (sInput.value.trim()) goToResult(searchHref(sInput.value), sInput.value);
+      }
       else if (e.key === 'Escape') { closeSearch(); sInput.blur(); }
     });
     // Tabbing away from the bar closes the results

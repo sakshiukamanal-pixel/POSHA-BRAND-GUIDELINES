@@ -181,21 +181,37 @@ POSHA.section({
               }],
             },
             {
-              id: 'product-renders', title: 'Product Renders',
-              summary: 'Studio renders of Posha robot from four angles on black, white and transparent backgrounds. Use the transparent PNGs to place Posha robot on your own backgrounds without a halo.',
-              keywords: ['render', 'renders', '3d', 'cgi', 'device render', 'machine', 'studio render'],
+              id: 'product-renders', title: 'Product Imagery',
+              summary: 'Photos and studio renders of Posha robot. Lead with the hero photo; use the studio renders for four angles on black, white and transparent backgrounds. The transparent PNGs place Posha robot on your own backgrounds without a halo.',
+              keywords: ['product imagery', 'product photo', 'hero', 'hero image', 'render', 'renders', '3d', 'cgi', 'device render', 'machine', 'studio render'],
               blocks: [{
-                type: 'grid', folder: './02-product-renders', columns: 4, shape: 'cover',
+                type: 'heading', text: 'Hero image',
+              }, {
+                type: 'image', src: PR + 'psh-pr-16-posha-in-kitchen-render.jpg', alt: 'Posha robot on a wooden kitchen counter',
+                caption: 'PSH-PR-16 · Our best product image so far. A real photo, not a render: use it as the hero.',
+              }, {
+                type: 'heading', text: 'All product images',
+              }, {
+                type: 'grid', columns: 4, shape: 'cover',
                 items: [
+                  { src: PR + 'psh-pr-16-posha-in-kitchen-render.jpg', code: 'PSH-PR-16', title: 'Posha Robot in a Kitchen · Hero', tags: ['posha', 'device', 'hero', 'hero image', 'photo', 'front view', 'kitchen', 'counter', 'lifestyle', 'interior'] },
                   // 4 camera angles × black / white / transparent backgrounds (New Resources/Product Shots)
                   rnd('04', 'front-three-quarter', 'black'), rnd('05', 'front-elevation', 'black'), rnd('06', 'high-three-quarter', 'black'), rnd('07', 'spice-drawer-open', 'black'),
                   rnd('08', 'front-three-quarter', 'white'), rnd('09', 'front-elevation', 'white'), rnd('10', 'high-three-quarter', 'white'), rnd('11', 'spice-drawer-open', 'white'),
                   rnd('12', 'front-three-quarter', 'transparent'), rnd('13', 'front-elevation', 'transparent'), rnd('14', 'high-three-quarter', 'transparent'), rnd('15', 'spice-drawer-open', 'transparent'),
-                  { src: PR + 'psh-pr-16-posha-in-kitchen-render.jpg', code: 'PSH-PR-16', title: 'Posha in a Kitchen — Render', tags: ['posha', 'device', 'render', 'front view', 'kitchen', 'counter', 'lifestyle', 'interior'] },
-                  { src: PR + 'psh-pr-01-posha-render-dark.png', code: 'PSH-PR-01', title: 'Posha — Dark Studio', tags: ['posha', 'device', 'side view', 'three-quarter', 'dark background', 'studio', 'render'] },
-                  { src: PR + 'psh-pr-02-posha-render-grey.png', code: 'PSH-PR-02', title: 'Posha — Grey Studio', tags: ['posha', 'device', 'front view', 'three-quarter', 'grey background', 'studio', 'render', 'screen'] },
-                  { src: PR + 'psh-pr-03-posha-render-plinth.png', code: 'PSH-PR-03', title: 'Posha on Plinth', tags: ['posha', 'device', 'front view', 'three-quarter', 'warm background', 'plinth', 'studio', 'render'] },
                   VIDEOS.touchscreen,
+                ],
+              }, {
+                type: 'heading', text: 'Old renders (deprecated)',
+              }, {
+                type: 'note', tone: 'warn', title: 'Don’t use unless you really have to',
+                body: 'These are older renders and are deprecated. Use the studio renders above instead, and only reach for these when nothing else works.',
+              }, {
+                type: 'grid', columns: 4, shape: 'cover',
+                items: [
+                  { src: PR + 'psh-pr-01-posha-render-dark.png', code: 'PSH-PR-01', title: 'Posha — Dark Studio', tags: ['posha', 'device', 'side view', 'three-quarter', 'dark background', 'studio', 'render', 'deprecated', 'old'] },
+                  { src: PR + 'psh-pr-02-posha-render-grey.png', code: 'PSH-PR-02', title: 'Posha — Grey Studio', tags: ['posha', 'device', 'front view', 'three-quarter', 'grey background', 'studio', 'render', 'deprecated', 'old', 'screen'] },
+                  { src: PR + 'psh-pr-03-posha-render-plinth.png', code: 'PSH-PR-03', title: 'Posha on Plinth', tags: ['posha', 'device', 'front view', 'three-quarter', 'warm background', 'plinth', 'studio', 'render', 'deprecated', 'old'] },
                 ],
               }],
             },

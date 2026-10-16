@@ -1205,7 +1205,7 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
   .search-trigger { display: flex; }
   .hero > .hero-head, .hero > .hero-summary { flex-basis: 100%; }
   .toc { margin-top: 40px; }
-  .sub { scroll-margin-top: 72px; margin-top: 64px; }
+  .sub { scroll-margin-top: 116px; margin-top: 64px; }
   .part { scroll-margin-top: 140px; margin-top: 64px; }
   .specimen { grid-template-columns: 1fr; gap: 16px; }
   .columns { grid-template-columns: 1fr; }
@@ -1553,3 +1553,76 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 .view--philosophy .section-lead .figure-media img { width: 142.86%; max-width: none; height: auto; margin: -3.97% 0 0 -20.24%; border-radius: 0; }
 /* The lead photo sits straight above section 01: no rule, less gap */
 .section-lead + .sub { border-top: 0; margin-top: 48px; padding-top: 0; }
+
+/* Jumping to a section: land its first line where the sticky title sits (96px), clear of the top bar */
+@media (min-width: 901px) { .sub { scroll-margin-top: 56px; } }
+/* Photos inside Brand Philosophy sections get the card corners */
+.view--philosophy .sub .figure:not(.figure--bg) .figure-media img { display: block; border-radius: var(--r-card); }
+.view--gallery .part .figure:not(.figure--bg) .figure-media img { display: block; border-radius: var(--r-card); }
+
+/* Search dropdown: no dividers (they curved into the rounded rows and vanished next to the hovered one) */
+.search-results li + li a, .search-results a.is-sel, .search-results a:hover { box-shadow: none; }
+.search-results li + li { margin-top: 2px; }
+.sr-all a { justify-content: space-between; margin-top: 4px; padding: 12px; font-size: var(--fs-small); color: var(--ink); background: var(--card); }
+.sr-all a:hover, .sr-all a.is-sel { background: var(--track); }
+.search-go { display: grid; place-items: center; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; }
+
+/* Search results page */
+.srp-filter { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+.srp-filter button { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 0; border-radius: var(--r-pill); background: var(--card); font: var(--fs-small)/1 var(--font-ui); color: var(--ink-2); cursor: pointer; }
+.srp-filter button span { font: var(--fs-micro)/1 var(--font-mono); color: var(--mid-grey); }
+.srp-filter button.is-on { background: var(--ink); color: var(--paper); }
+.srp-filter button.is-on span { color: var(--paper); opacity: .7; }
+.srp-group { margin-top: 56px; }
+.srp-group[hidden], .srp [data-ssec][hidden] { display: none; }
+.srp-head { display: flex; align-items: center; gap: 10px; margin: 0 0 20px; font: 500 1.35rem/1.2 var(--font-ui); }
+.srp-crumb { display: block; font: var(--fs-micro)/1.4 var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--mid-grey); }
+.srp a { text-decoration: none; color: var(--ink); }
+.srp a strong { display: block; font-weight: 500; font-size: var(--fs-small); line-height: 1.3; }
+.srp-list--image { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 28px 20px; }
+.srp-media .srp-thumb { position: relative; display: block; aspect-ratio: 4 / 3; margin-bottom: 10px; overflow: hidden; border-radius: var(--r-card); background: var(--card); }
+.srp-media .srp-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+.srp-media:hover .srp-thumb img { transform: scale(1.03); }
+.srp-tag { position: absolute; left: 10px; top: 10px; padding: 4px 8px; border-radius: var(--r-pill); background: var(--paper); font: var(--fs-micro)/1 var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; }
+.srp-list--icon, .srp-list--logo { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 20px 16px; }
+.srp-icon .srp-thumb { display: grid; place-items: center; aspect-ratio: 1; margin-bottom: 8px; padding: 22%; border-radius: var(--r-card); background: var(--card); }
+.srp-icon .srp-thumb img { width: 100%; height: 100%; object-fit: contain; }
+.srp-list--colour, .srp-list--font { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.srp-colour, .srp-font { display: flex; align-items: center; gap: 14px; padding: 12px; border-radius: var(--r-card); background: var(--card); }
+.srp-colour i { flex: none; width: 48px; height: 48px; border-radius: var(--r-inner); box-shadow: inset 0 0 0 1px rgba(35, 31, 32, .08); }
+.srp-sample { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: var(--r-inner); background: var(--paper); font-size: 1.6rem; line-height: 1; }
+.srp-list--section { display: flex; flex-direction: column; }
+.srp-page { display: flex; align-items: center; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); }
+.srp-page:last-child { border-bottom: 1px solid var(--line); }
+.srp-page > span:nth-child(2) { flex: 1; min-width: 0; }
+.srp-page em { display: block; margin-top: 4px; font-style: normal; font-size: var(--fs-small); color: var(--muted); }
+.srp-kind { flex: none; width: 76px; font: var(--fs-micro)/1 var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--mid-grey); }
+.srp-page .licon { flex: none; opacity: .5; }
+.srp-page:hover .licon { opacity: 1; }
+@media (max-width: 600px) {
+  .srp-list--image { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; }
+  .srp-list--icon, .srp-list--logo { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .srp-kind { display: none; }
+}
+
+/* Keyboard focus in the sidebar: the menu list clips anything outside it, so draw the ring inside the pill */
+.nav :focus-visible, .nav-tools :focus-visible { outline-offset: -2px; }
+
+/* Footer: Black, running straight into the playground, so the end of the page is unmistakable
+   and it never blends into the Cream sidebar */
+.site-footer { background: var(--black); border-top: 0; color: var(--posha-white); }
+.site-footer :focus-visible { outline-color: var(--posha-white); }
+.sf-label { color: var(--posha-white); }
+.sf-brand p { color: rgba(255, 252, 248, .62); }
+.sf-links a, .sf-todo, .sf-top-btn { background: rgba(255, 252, 248, .08); box-shadow: inset 0 0 0 1px rgba(255, 252, 248, .14); color: var(--posha-white); }
+.sf-links a:hover, .sf-top-btn:hover { background: var(--posha-white); color: var(--ink); box-shadow: none; }
+.sf-todo { opacity: .5; }
+.sf-meta { color: rgba(255, 252, 248, .5); }
+.pg-stage { border-top: 1px solid rgba(255, 252, 248, .1); }
+
+/* Previous / Next: bigger tiles, label on top and the chapter name at the bottom; same space above the footer as above the page */
+.main { padding-bottom: 72px; }
+.pager { margin-top: 96px; gap: 16px; }
+.pager a { min-height: 168px; justify-content: space-between; gap: 24px; padding: 28px 32px; }
+.pager a > span:last-child { font: 500 clamp(1.4rem, 2.2vw, 1.9rem)/1.15 var(--font-ui); letter-spacing: -.01em; text-wrap: balance; }
+@media (max-width: 900px) { .pager a { min-height: 128px; padding: 22px 24px; } }

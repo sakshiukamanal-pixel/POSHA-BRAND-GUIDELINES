@@ -85,7 +85,7 @@ POSHA.section({
           type: 'text', size: 'lg',
           body: 'Posha robot is an intelligent robot chef. It sees, stirs, times and adjusts as it cooks. Fresh meals from real ingredients, made at home, while you do something else.',
         },
-        { type: 'image', src: '07-gallery/04-others/02-old-models/psh-om-06-2025-posha.png', alt: 'Posha robot, 2025', bg: 'var(--card)', maxWidth: '560px' },
+        { type: 'image', src: '07-gallery/01-essentials/02-product-renders/psh-pr-16-posha-in-kitchen-render.jpg', alt: 'Posha robot on a wooden kitchen counter' },
         {
           type: 'list', columns: 3,
           items: [

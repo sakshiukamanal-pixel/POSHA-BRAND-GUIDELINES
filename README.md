@@ -59,7 +59,9 @@ the gradient icons rolling around like snooker balls (`code/gate/`). The right w
   without unlocking. Media on Cloudflare R2 is loaded straight from R2 and stays public to anyone with a file's link.
 - The word itself is not stored anywhere in the repo, only one-way values derived from it. To change it, run
   `python3 code/tools/set-poshword.py "new word"`, paste the three lines it prints over the ones at the top of `middleware.js`, and deploy.
-- The local preview is never locked. Open http://localhost:8080/code/gate/ to see the gate; it checks the word locally too.
+- The local preview is never locked, and the gate page sends you straight through on localhost. To see the gate itself,
+  open http://localhost:8080/code/gate/?preview (it checks the word locally too).
+- On the live site, let your browser or password manager save the Poshword: when it fills it in, the gate enters by itself.
 
 ## Feedback form
 

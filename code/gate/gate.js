@@ -2,6 +2,10 @@
 // The wordmark and the entry sit still in the centre, like cushions the icons bounce off.
 // Icons can be flicked like a cue ball. The Poshword is checked on the server (middleware.js).
 (function () {
+  // Working locally (serve.py / serve.ps1)? The site is never locked there, so go straight in.
+  // To look at the gate itself locally, open /code/gate/?preview
+  if (/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) && !/[?&]preview\b/.test(location.search)) { location.replace('/code/index.html' + location.hash); return; }
+
   const R2 = 'https://pub-61f336f5041247d4bd3e51e5fd3a1ffb.r2.dev/05-iconography/01-icons/01-gradient-icons/';
   const ICONS = [
     '01-allergens/10-eggs', '04-modify-icons/06-spicy-heat', '02-collection-icons/09-dessert', '02-collection-icons/08-pasta',
@@ -31,7 +35,7 @@
     const el = document.createElement('img');
     el.src = R2 + p + '.png'; el.alt = ''; el.className = 'body icon'; el.draggable = false;
     table.appendChild(el);
-    add(el, 'circle', 1).base = 0.85 + ((i * 37) % 10) / 24;
+    add(el, 'circle', 1).base = 1; // every icon the same size
   });
 
   let W = 0, H = 0, small = false;
@@ -197,10 +201,12 @@
       if (r.ok) {
         form.classList.add('is-open'); say('You’re in. Dinner is served.');
         live().forEach((b) => { if (!b.fixed) { const d = Math.hypot(b.x - entry.x, b.y - entry.y) || 1; b.vx += ((b.x - entry.x) / d) * 1200; b.vy += ((b.y - entry.y) / d) * 1200; } });
-        setTimeout(() => table.classList.add('is-leaving'), 200);
-        setTimeout(() => { location.pathname.startsWith('/code/gate/') ? location.replace('/' + location.hash) : location.reload(); }, 1300);
+        const quick = sent; // filled in by the browser: skip the show and go straight in
+        if (!quick) setTimeout(() => table.classList.add('is-leaving'), 200);
+        setTimeout(() => { location.pathname.startsWith('/code/gate/') ? location.replace('/' + location.hash) : location.reload(); }, quick ? 150 : 1300);
       } else if (r.status === 401) {
         say('That’s not the Poshword. Try again.', 'error');
+        sent = false; typed = true;
         form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake');
         input.select();
       } else {
@@ -210,6 +216,15 @@
       say('Couldn’t reach the site. Check your connection and try again.', 'error');
     }
   });
+
+  // A Poshword saved in the browser (Safari / Chrome / 1Password…) is filled in without typing: send it straight away
+  let typed = false;
+  input.addEventListener('keydown', () => { typed = true; });
+  input.addEventListener('input', (e) => { if (!typed || e.inputType === 'insertReplacementText' || !e.inputType) autoSend(); });
+  input.addEventListener('animationstart', (e) => { if (e.animationName === 'autofilled') autoSend(); }); // Chrome's autofill hook
+  let sent = false;
+  function autoSend() { if (sent || !input.value || typed) return; sent = true; form.requestSubmit(); }
+  let polls = 0; const poll = setInterval(() => { if (input.value && !typed) autoSend(); if (++polls > 20 || sent) clearInterval(poll); }, 150);
 
   addEventListener('resize', layout);
   const start = () => {

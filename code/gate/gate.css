@@ -38,3 +38,7 @@ body { font-family: 'Roobert', system-ui, sans-serif; -webkit-font-smoothing: an
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 :focus-visible { outline: 2px solid var(--off-white); outline-offset: 3px; }
 .entry input:focus-visible { outline: none; }
+
+/* lets gate.js notice when the browser autofills a saved Poshword */
+@keyframes autofilled { from { opacity: 1; } to { opacity: 1; } }
+.entry input:-webkit-autofill { animation: autofilled .01s; -webkit-text-fill-color: var(--off-white); transition: background-color 9999s; }

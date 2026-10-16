@@ -1536,7 +1536,7 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 .rewrites { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
 .rewrite { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 16px 32px; padding: 20px 0; border-bottom: 1px solid var(--line); }
 .rw-label { display: inline-flex; margin-bottom: 8px; padding: 4px 9px; border-radius: var(--r-pill); font: var(--fs-micro)/1 var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; }
-.rw-not .rw-label { background: var(--alert); color: var(--ink-2); }
+.rw-not .rw-label { background: rgba(255, 177, 180, .55); color: #8C003A; } /* Grapefruit Pink tint, Cranberry Red text */
 .rw-say .rw-label { background: var(--tip); color: var(--dark-olive); }
 .rw-not p { margin: 0; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(35, 31, 32, .3); }
 .rw-say p { margin: 0; font-size: var(--fs-base); line-height: var(--lh-base); color: var(--ink); font-weight: 500; }
@@ -1626,3 +1626,10 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 .pager a { min-height: 168px; justify-content: space-between; gap: 24px; padding: 28px 32px; }
 .pager a > span:last-child { font: 500 clamp(1.4rem, 2.2vw, 1.9rem)/1.15 var(--font-ui); letter-spacing: -.01em; text-wrap: balance; }
 @media (max-width: 900px) { .pager a { min-height: 128px; padding: 22px 24px; } }
+
+/* Bullets: tighter lines inside an item, clear space between items */
+.bullets { line-height: 1.45; }
+.bullets li + li { margin-top: 12px; }
+.bullets li { padding-left: 4px; }
+.rule-box li { line-height: 1.45; }
+.rule-box ul { gap: 12px; }

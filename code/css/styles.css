@@ -1449,3 +1449,26 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
   padding-left: 12px; border-left: 1px solid rgba(35, 31, 32, .25);
   font: 500 var(--fs-small)/1.1 var(--font-ui); color: var(--ink-2); white-space: nowrap;
 }
+
+/* A lead image between a chapter's contents and its first section */
+.section-lead { margin-top: 40px; }
+.section-lead .figure-media img { display: block; width: 100%; height: auto; border-radius: var(--r-card); }
+
+/* Logo lock-up: wordmark with "BRAND GUIDELINES" stacked underneath, both flush left */
+.brand { flex-direction: column; align-items: flex-start; gap: 7px; }
+.brand-sub {
+  padding-left: 0; border-left: 0;
+  font: 500 var(--fs-micro)/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mid-grey);
+}
+.topbar .brand { gap: 5px; }
+
+/* Photoshoots: masonry columns so every photo keeps its original proportions; caption underneath */
+.pshoot { display: block; columns: 3 240px; column-gap: 16px; }
+.pshoot-item { display: block; break-inside: avoid; margin: 0 0 24px; overflow: visible; border-radius: 0; background: none; }
+.pshoot-item .tile-media { position: static; aspect-ratio: auto; border-radius: var(--r-card); overflow: hidden; background: var(--surface); }
+.pshoot-item .tile-media img { display: block; width: 100%; height: auto; object-fit: initial; }
+.pshoot-cap {
+  position: static; margin: 0; padding: 12px 4px 0; background: none; box-shadow: none; border-radius: 0;
+  opacity: 1; transform: none; pointer-events: auto;
+}
+.pshoot-desc { margin-top: 4px; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--muted); }

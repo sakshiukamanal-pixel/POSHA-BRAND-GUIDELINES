@@ -5,6 +5,10 @@ POSHA.section({
   id: 'philosophy',
   title: 'Philosophy',
   summary: 'The future we’re building, who we are, and how we talk about Posha — the starting point for everything we make.',
+  // shown between the contents and the first section
+  afterToc: [
+    { type: 'image', src: '07-gallery/02-photoshoots/01-while-posha-cooks/psh-ps1-05-unwinding-on-the-counter.jpg', alt: 'Posha cooking on a kitchen counter while a woman relaxes beside it with a glass of wine' },
+  ],
 
   pages: [
     /* ------------------------------------------------------------ The future */

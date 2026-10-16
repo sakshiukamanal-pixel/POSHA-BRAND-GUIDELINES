@@ -450,10 +450,11 @@
     // Photoshoot grid: 3 columns, tiles can be wide (cols: 2) and/or tall (rows: 2).
     // items [{ src, code, title, tags, cols, rows }] — hover shows the code, click opens full size.
     photoshoot: (b, c) => `<div class="pshoot" data-gallery>${b.items.map((it) => {
-        const search = [it.code, it.title, (it.tags || []).join(' ')].join(' ').toLowerCase();
-        return `<figure class="tile pshoot-item" style="grid-column:span ${it.cols || 1};grid-row:span ${it.rows || 1}" data-search="${esc(search)}"${it.code ? ` data-code="${esc(it.code)}"` : ''}>
-          <div class="tile-media">${mediaEl(resolve(it.src, c), { alt: it.title })}</div>
-          <figcaption class="tile-cap pshoot-cap"><span class="tile-code">${esc(it.code || '')}</span><span class="tile-title">${esc(it.title || '')}</span></figcaption>
+        const search = [it.code, it.title, it.desc, (it.tags || []).join(' ')].join(' ').toLowerCase();
+        // photos keep their own proportions (masonry columns); the caption sits underneath with a short description
+        return `<figure class="tile pshoot-item" data-search="${esc(search)}"${it.code ? ` data-code="${esc(it.code)}"` : ''}>
+          <div class="tile-media">${mediaEl(resolve(it.src, c), { alt: it.desc || it.title })}</div>
+          <figcaption class="tile-cap pshoot-cap"><span class="tile-code">${esc(it.code || '')}</span><span class="tile-title">${esc(it.title || '')}</span>${it.desc ? `<span class="pshoot-desc">${esc(it.desc)}</span>` : ''}</figcaption>
         </figure>`;
       }).join('')}</div>`,
 
@@ -1566,6 +1567,7 @@
       ${hero(s.number, '', s.title, s.summary, s.heroStyle)}
       ${s.blocks ? `<div class="blocks section-intro">${blocks(s.blocks, { dir: s.assets })}</div>` : ''}
       ${toc}
+      ${s.afterToc ? `<div class="blocks section-lead">${blocks(s.afterToc, { dir: s.assets })}</div>` : ''}
       ${s.pages.map((p) => `
         <section class="sub" id="${s.id}--${p.id}" data-pid="${p.id}">
           <h2 class="sub-title"><span class="num">${p._num}</span>${esc(p.title)}</h2>
@@ -1929,7 +1931,7 @@
               if (!it.code || seenCodes.has(it.code)) return; // an item shown on two pages is listed once
               seenCodes.add(it.code);
               const isVideo = VIDEO_EXT.includes(extOf(it.src));
-              add({ kind: isVideo ? 'Video' : 'Image', label: `${it.title || prettyName(it.src)}`, code: it.code, crumb: `${s.title} · ${tab ? tab.label : p.title}`, href: `${where}?q=${encodeURIComponent(it.code)}`, text: [it.code, isVideo ? 'video film clip' : 'image photo', (it.tags || []).join(' ')].join(' '), thumb: resolve(isVideo ? it.poster || '' : it.src, { dir: p._dir }) || null });
+              add({ kind: isVideo ? 'Video' : 'Image', label: `${it.title || prettyName(it.src)}`, code: it.code, crumb: `${s.title} · ${tab ? tab.label : p.title}`, href: `${where}?q=${encodeURIComponent(it.code)}`, text: [it.code, isVideo ? 'video film clip' : 'image photo', it.desc || '', (it.tags || []).join(' ')].join(' '), thumb: resolve(isVideo ? it.poster || '' : it.src, { dir: p._dir }) || null });
             });
             if (b.type === 'logoset') b.items.forEach((it) => {
               add({ kind: 'Logo', label: `${b.label || 'Wordmark'} — ${it.name}`, crumb: `${s.title} · ${p.title}`, href: `${base}?q=${encodeURIComponent((b.label || 'wordmark').toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + it.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}`, text: 'logo wordmark download png svg ' + (it.note || ''), thumb: resolve(it.png || it.svg, { dir: p._dir }) });
@@ -1978,7 +1980,8 @@
           for (const [a, wgt] of opts) {
             if (label.includes(a)) best = Math.max(best, (label.startsWith(a) ? 8 : 6) * wgt);
             else if (crumb.includes(a)) best = Math.max(best, 3 * wgt);
-            else if (r.hay.includes(a)) best = Math.max(best, 1 * wgt);
+            // a coded asset's own tags/description are curated, so they beat a word buried in a page's text
+            else if (r.hay.includes(a)) best = Math.max(best, (r.code ? 3 : 1) * wgt);
           }
           if (!best) return null; // every word has to match somewhere
           score += best;

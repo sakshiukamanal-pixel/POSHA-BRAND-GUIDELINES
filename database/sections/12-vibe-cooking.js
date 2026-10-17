@@ -3,7 +3,7 @@
 // The live prototype is copied to code/vibe-cook/mascot.html.
 POSHA.section({
   id: 'vibe-cooking',
-  title: 'Vibe Cooking (WIP)',
+  title: 'Vibe Cooking',
   summary: 'Change any recipe in your own words, and watch Posha’s Vibe Cook mascot make it yours. A first draft of how the prototype looks, behaves and talks.',
 
   pages: [

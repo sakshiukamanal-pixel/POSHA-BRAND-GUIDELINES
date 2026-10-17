@@ -82,6 +82,7 @@
   --alert-line: color-mix(in srgb, var(--paprika) 60%, var(--posha-white));
   /* Raised pills & buttons, from the Posha UI buttons (Framer): two drop shadows plus a 0.5px inside stroke of #525252 at 10% */
   --lift: 0 2px 8px 1px rgba(0, 0, 0, .15), 0 1px 2px 0 rgba(149, 149, 149, .3), inset 0 0 0 .5px rgba(82, 82, 82, .1);
+  --lift-hover: 0 4px 14px 1px rgba(0, 0, 0, .16), 0 1px 2px 0 rgba(149, 149, 149, .3), inset 0 0 0 .5px rgba(82, 82, 82, .12); /* same shadow, lifted a little */
 
   /* Shapes */
   --r-card: 18px;
@@ -1932,3 +1933,8 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 .nav-sub2 { padding-left: 12px; }
 .nav-sub2 li:last-child { margin-bottom: 12px; }
 [data-theme="dark"] .nav-sub2 a:hover { background: rgba(255, 252, 248, .06); }
+
+/* Hover on raised pills keeps their own stroke and shadows and just lifts a little (no swap to a flat, borderless blur) */
+.toc a:hover, .nav-all:hover, .menu-show:hover, .view:not(.view--ui-system) .link-card:hover { box-shadow: var(--lift-hover); }
+.toc a:hover { transform: translateY(-1px); }
+[data-theme="dark"] { --lift-hover: 0 4px 14px rgba(0, 0, 0, .45), 0 1px 2px rgba(0, 0, 0, .35); }

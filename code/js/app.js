@@ -695,6 +695,22 @@
     divider: () => '<hr class="divider">',
 
     html: (b) => b.html || '',
+
+    // Vibe Cook prototype: just the phone, with a recipe picker and the current ingredients beside it.
+    // { type: 'vibeproto', src: '/code/vibe-cook/mascot.html' } — wired up by mountVibe()
+    vibeproto: (b) => `<div class="vc-demo" data-vibeproto>
+        <div class="vc-proto"><iframe src="${esc(b.src)}" title="Vibe Cook mascot prototype" loading="lazy"></iframe></div>
+        <aside class="vc-panel">
+          <label class="vc-field"><span class="vc-k">Recipe</span><select data-vc-recipe disabled><option>Loading…</option></select></label>
+          <div class="vc-dish">
+            <span class="vc-k">Your dish now</span>
+            <strong data-vc-name>…</strong>
+            <ul class="vc-ings" data-vc-ings></ul>
+            <span class="vc-times" data-vc-times></span>
+          </div>
+          <p class="vc-hint">Try typing “make it spicier”, “swap the onion” or tap a suggestion in the phone. <a href="${esc(b.src)}" target="_blank" rel="noopener">Open the full prototype ↗</a></p>
+        </aside>
+      </div>`,
   };
 
   const sentence = (s) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -1247,6 +1263,41 @@
     $$('[data-tester]:not([data-mounted])').forEach(mountTester);
     $$('[data-tintbar]:not([data-mounted])').forEach(mountTintBar);
     $$('[data-sizeslider]:not([data-mounted])').forEach(mountSizeSlider);
+    $$('[data-vibeproto]:not([data-mounted])').forEach(mountVibe);
+  }
+
+  // Shows the prototype as just its phone (Chat-Mobile 2X, its default) and mirrors its recipe picker and
+  // ingredient strip into the panel beside it. Same-origin iframe, so it reads the prototype's own DOM.
+  function mountVibe(root) {
+    root.dataset.mounted = '1';
+    const frame = $('iframe', root), pick = $('[data-vc-recipe]', root);
+    const ready = () => {
+      let d;
+      try { d = frame.contentDocument; } catch (e) { return; }
+      const sel = d && d.getElementById('recipeSel');
+      if (!sel || root.dataset.wired) return;
+      root.dataset.wired = '1';
+      const st = d.createElement('style');
+      st.textContent = '#topbar,#ctl,#ctlBtn,#restartBtn,#bgc{display:none!important}html,body,#app{background:transparent!important}';
+      d.head.appendChild(st);
+      frame.contentWindow.dispatchEvent(new Event('resize'));
+      pick.innerHTML = [...sel.options].map((o) => `<option value="${esc(o.value)}">${esc(o.text)}</option>`).join('');
+      pick.disabled = false;
+      const sync = () => {
+        pick.value = sel.value;
+        const name = d.getElementById('rname'), ings = $$('#ings .ing', d), times = d.getElementById('times');
+        $('[data-vc-name]', root).textContent = name ? name.innerText.replace(/^\s*your dish now\s*/i, '').trim() : '';
+        $('[data-vc-ings]', root).innerHTML = ings.map((i) => `<li class="${i.classList.contains('sea') ? 'is-spice' : ''}">${esc(i.textContent)}</li>`).join('');
+        $('[data-vc-times]', root).textContent = times ? times.innerText.trim() : '';
+      };
+      pick.addEventListener('change', () => { sel.value = pick.value; sel.dispatchEvent(new Event('change', { bubbles: true })); setTimeout(sync, 60); });
+      const strip = d.getElementById('recipe') || d.body;
+      new MutationObserver(sync).observe(strip, { subtree: true, childList: true, characterData: true });
+      sel.addEventListener('change', sync);
+      sync();
+    };
+    frame.addEventListener('load', () => setTimeout(ready, 50));
+    ready();
   }
 
   function closeIconMenus(except) {

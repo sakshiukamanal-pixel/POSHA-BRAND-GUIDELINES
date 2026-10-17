@@ -65,6 +65,7 @@ POSHA.site = {
     '05-iconography',
     '07-gallery',
     '06-ui-system',
+    '12-vibe-cooking',      // shows as 08, right after Culinary UI
     '08-motion',
     '09-data-visualization',
     '10-brand-expression',

@@ -1553,7 +1553,7 @@
     });
     $('#sidebarFoot').innerHTML = site.updated ? `<span class="num">Updated ${esc(site.updated)}</span>` : '';
 
-    openSet = new Set(store.get('open', []));
+    openSet = new Set(); // the menu starts collapsed on every visit; the chapter you're in opens by itself
     $('#nav').innerHTML = sections.map((s) => `
       <div class="nav-group${openSet.has(s.id) ? ' open' : ''}" data-sid="${s.id}">
         <div class="nav-head">
@@ -1651,6 +1651,19 @@
     return POSHA.site.showAssetPaths ? `<div class="asset-hint" title="Media folder for this page">assets/${esc(dir)}/</div>` : '';
   }
 
+  // Home card contents, kept short: the sub-section names as small chips that never break mid-name, under a small
+  // "8 sections" label. Grouped chapters (Culinary UI) list their groups instead of every page.
+  function homeSubs(s) {
+    const names = [];
+    s.pages.forEach((p) => {
+      const name = p.group || p.navTitle || p.title;
+      if (names[names.length - 1] !== name) names.push(name);
+    });
+    if (!names.length) return '';
+    const n = s.pages.length;
+    return `<span class="home-subs"><span class="home-subs-k">${n} ${n === 1 ? 'section' : 'sections'}</span><span class="home-subs-list">${names.map((x) => `<span>${esc(x)}</span>`).join('')}</span></span>`;
+  }
+
   function renderHome() {
     const site = POSHA.site;
     return `<article class="view view--home">
@@ -1660,7 +1673,7 @@
           <span class="home-head"><span class="num">${esc(s.number)}</span></span>
           <span class="home-title">${esc(s.title)}</span>
           ${s.summary ? `<span class="home-summary">${esc(plain(s.summary).split(/\n/)[0].replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/\*\*|`/g, ''))}</span>` : ''}
-          <span class="num home-meta">${s.pages.length} ${s.pages.length === 1 ? 'page' : 'pages'}${s.status ? ' · ' + esc(s.status) : ''}</span>
+          ${homeSubs(s)}
         </a>`).join('')}</div>
     </article>`;
   }

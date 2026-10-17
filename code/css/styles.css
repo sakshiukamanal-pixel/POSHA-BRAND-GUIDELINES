@@ -1898,3 +1898,9 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 .vc-times { display: block; margin-top: 12px; font-size: var(--fs-small); color: var(--muted); }
 .vc-hint { margin: 0; font-size: var(--fs-small); line-height: 1.45; color: var(--muted); }
 @container view (max-width: 819px) { .vc-demo { grid-template-columns: 1fr; } .vc-panel { position: static; } }
+
+/* Home cards: a compact run-in list of sub-sections under a small count label */
+.home-subs { display: block; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.home-subs-k { display: block; margin-bottom: 6px; font: var(--fs-micro)/1 var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--mid-grey); }
+.home-subs-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.home-subs-list > span { padding: 5px 10px; border-radius: var(--r-pill); background: var(--track); font-size: .78rem; line-height: 1.2; white-space: nowrap; color: var(--ink-2); }

@@ -1380,32 +1380,41 @@
     </svg>`;
   }
 
+  // Lockup, drawn in the same language as the clearspace diagram: Cream card, Off-White zone with a dashed edge,
+  // thin ink dimension lines with end ticks and Posha Yellow markers
   function lockupSvg() {
     const W = 1920, H = 373.3, x = H / 2, D = H + x, gap = 2 * x;
     const px = W + gap, cx = px + D / 2, cy = H / 2;
-    // bottom leaves room under the "2x" label so it never gets cropped
-    const left = -x * 2.2, right = px + D + x * 0.9, top = -x * 1.5, bottom = H + x * 2.9;
-    const dash = `stroke="${C.grey}" stroke-width="1.2" stroke-dasharray="5 5" vector-effect="non-scaling-stroke"`;
-    const solid = `stroke="${C.ink}" stroke-width="1.5" vector-effect="non-scaling-stroke"`;
-    const hl = (y) => `<line x1="${left + x * 0.4}" y1="${y}" x2="${right - x * 0.2}" y2="${y}" ${dash}/>`;
-    const vl = (vx) => `<line x1="${vx}" y1="${top + x * 0.2}" x2="${vx}" y2="${H + x * 1.5}" ${dash}/>`;
-    const bx = -x * 1.25, by = H + x * 1.75, plus = x * 0.55, t = x * 0.12;
-    return `<svg class="diagram" viewBox="${left} ${top} ${right - left} ${bottom - top}" role="img" aria-label="Lockup: wordmark, plus sign and partner logo separated by 2x">
-      <rect x="${left}" y="${top}" width="${right - left}" height="${bottom - top}" fill="${C.paper}"/>
-      ${hl(-x)}${hl(0)}${hl(H / 2)}${hl(H)}${hl(H + x)}
-      ${vl(0)}${vl(W)}${vl(px)}${vl(px + D)}
-      <path d="M${bx + x * 0.2} 0 H${bx} V${H} H${bx + x * 0.2}" fill="none" ${solid}/>
-      <line x1="${bx - x * 0.08}" y1="${H / 2}" x2="${bx + x * 0.08}" y2="${H / 2}" ${solid}/>
-      <text x="${bx - x * 0.35}" y="${H / 4}" class="dg-label">x</text>
-      <text x="${bx - x * 0.35}" y="${(H * 3) / 4}" class="dg-label">x</text>
-      <path d="M${W} ${by - x * 0.2} V${by} H${px} V${by - x * 0.2}" fill="none" ${solid}/>
-      <text x="${W + x}" y="${by + x * 0.45}" class="dg-label">2x</text>
+    const L = -x, T = -x / 2 - x, R = px + D + x, B = H + x / 2 + x;   // the lockup's clearspace zone
+    const m = x * 0.9;
+    const vx = L - m * 1.3, vy = T - m, vw = R + m - vx, vh = B + m * 1.6 - vy;
+    const nss = 'vector-effect="non-scaling-stroke"';
+    const r = x * 0.3;                                     // markers a bit larger: this diagram is wider
+    const dim = (x1, y1, x2, y2, label, wide) => {
+      const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, v = x1 === x2, t = x * 0.09, rw = wide ? r * 1.6 : r;
+      const ticks = v
+        ? `<line x1="${x1 - t}" y1="${y1}" x2="${x1 + t}" y2="${y1}" ${nss}/><line x1="${x2 - t}" y1="${y2}" x2="${x2 + t}" y2="${y2}" ${nss}/>`
+        : `<line x1="${x1}" y1="${y1 - t}" x2="${x1}" y2="${y1 + t}" ${nss}/><line x1="${x2}" y1="${y2 - t}" x2="${x2}" y2="${y2 + t}" ${nss}/>`;
+      return `<g stroke="${C.ink}" stroke-width="1.2"><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" ${nss}/>${ticks}</g>
+        <rect x="${mx - rw}" y="${my - r}" width="${rw * 2}" height="${r * 2}" rx="${r}" fill="${C.yellow}"/>
+        <text x="${mx}" y="${my}" class="dg-x" style="text-transform:none;font-size:${r * 1.15}px" fill="${C.ink}">${label}</text>`;
+    };
+    const plus = x * 0.55, t = x * 0.1, dy = H + x * 0.75;
+    return `<svg class="diagram" viewBox="${vx} ${vy} ${vw} ${vh}" role="img" aria-label="Lockup: the wordmark, a plus sign and a partner logo, 2x apart; the partner logo may extend half x above and below; the lockup keeps x clearspace">
+      <rect x="${vx}" y="${vy}" width="${vw}" height="${vh}" rx="${x * 0.1}" fill="#F1ECE4"/>
+      <rect x="${L}" y="${T}" width="${R - L}" height="${B - T}" fill="${C.paper}" stroke="${C.ink}" stroke-width="1" stroke-dasharray="6 5" ${nss}/>
+      <rect x="0" y="0" width="${W}" height="${H}" fill="none" stroke="${C.ink}" stroke-opacity=".22" stroke-width="1" ${nss}/>
       ${wm(`fill="${C.ink}"`)}
-      <rect x="${W + x - plus / 2}" y="${cy - t / 2}" width="${plus}" height="${t}" fill="${C.ink}"/>
-      <rect x="${W + x - t / 2}" y="${cy - plus / 2}" width="${t}" height="${plus}" fill="${C.ink}"/>
-      <circle cx="${cx}" cy="${cy}" r="${D / 2}" fill="${C.grey}"/>
-      <text x="${cx}" y="${cy - x * 0.12}" class="dg-label dg-small" fill="${C.paper}" style="fill:${C.paper}">Partner</text>
-      <text x="${cx}" y="${cy + x * 0.32}" class="dg-label dg-small" style="fill:${C.paper}">logo</text>
+      <rect x="${W + x - plus / 2}" y="${cy - t / 2}" width="${plus}" height="${t}" rx="${t / 2}" fill="${C.ink}"/>
+      <rect x="${W + x - t / 2}" y="${cy - plus / 2}" width="${t}" height="${plus}" rx="${t / 2}" fill="${C.ink}"/>
+      <circle cx="${cx}" cy="${cy}" r="${D / 2}" fill="none" stroke="${C.ink}" stroke-opacity=".45" stroke-width="1.2" stroke-dasharray="6 5" ${nss}/>
+      <text x="${cx}" y="${cy - x * 0.12}" class="dg-label dg-small" style="text-transform:uppercase;letter-spacing:4px;font-size:${x * 0.2}px;fill:${C.grey}">Partner</text>
+      <text x="${cx}" y="${cy + x * 0.2}" class="dg-label dg-small" style="text-transform:uppercase;letter-spacing:4px;font-size:${x * 0.2}px;fill:${C.grey}">logo</text>
+      ${dim(L * 0.5 - x * 0.05, 0, L * 0.5 - x * 0.05, H, '2x', true)}
+      ${dim(W, dy, px, dy, '2x', true)}
+      ${dim(px + D + x * 0.45, -x / 2, px + D + x * 0.45, 0, '½x', true)}
+      ${dim(px + D + x * 0.45, H, px + D + x * 0.45, H + x / 2, '½x', true)}
+      ${dim(cx, B, cx, H + x / 2, 'x')}
     </svg>`;
   }
 

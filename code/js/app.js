@@ -1280,6 +1280,16 @@
       const st = d.createElement('style');
       st.textContent = '#topbar,#ctl,#ctlBtn,#restartBtn,#bgc{display:none!important}html,body,#app{background:transparent!important}';
       d.head.appendChild(st);
+      // the frame's own backdrop follows the site's light / dark mode (a page with a different colour scheme
+      // would otherwise paint an opaque white box behind the phone)
+      const bg = d.createElement('style');
+      d.head.appendChild(bg);
+      const paint = () => {
+        const dark = document.documentElement.dataset.theme === 'dark';
+        bg.textContent = `:root{color-scheme:${dark ? 'dark' : 'light'}}html,body{background:${dark ? '#232222' : 'transparent'}!important}`;
+      };
+      paint();
+      document.addEventListener('posha:theme', paint);
       frame.contentWindow.dispatchEvent(new Event('resize'));
       pick.innerHTML = [...sel.options].map((o) => `<option value="${esc(o.value)}">${esc(o.text)}</option>`).join('');
       pick.disabled = false;
@@ -1977,6 +1987,7 @@
     const dark = theme === 'dark';
     if (dark) document.documentElement.dataset.theme = 'dark'; else delete document.documentElement.dataset.theme;
     store.set('theme', theme);
+    document.dispatchEvent(new Event('posha:theme'));
     $$('[data-theme-toggle]').forEach((b) => { b.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode'); b.title = dark ? 'Light mode' : 'Dark mode'; });
     const site = POSHA.site;
     $$('[data-brand] .logo-img').forEach((img) => {

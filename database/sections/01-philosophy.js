@@ -89,9 +89,9 @@ POSHA.section({
         {
           type: 'list', columns: 3,
           items: [
-            { title: 'Pick a recipe', body: 'Choose from 1,000+ recipes from around the world, from cozy favourites to showstoppers and vegan to high-protein, and tune spice and doneness to taste.' },
-            { title: 'Add ingredients', body: 'Load fresh produce and spices. The Posha app and the screen guide every prep step, down to what “diced” looks like.' },
-            { title: 'Let Posha robot cook', body: 'Walk away. Posha robot adds each ingredient at the right moment, stirs, controls the heat and tells you when dinner’s ready.' },
+            { title: 'Pick a recipe', body: 'Choose from 1,000+ recipes from around the world, then tune the spice and doneness to your taste.' },
+            { title: 'Add ingredients', body: 'Load fresh produce and spices. The Posha app and screen guide every prep step, down to “diced”.' },
+            { title: 'Let it cook', body: 'Walk away. Posha robot adds each ingredient, stirs and controls the heat, then tells you when dinner’s ready.' },
           ],
         },
         {

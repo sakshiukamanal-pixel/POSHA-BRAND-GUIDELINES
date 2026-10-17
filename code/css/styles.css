@@ -1693,7 +1693,7 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 .fb-field input, .fb-field textarea { background: var(--cream); border-color: transparent; }
 .fb-field textarea { min-height: 132px; line-height: 1.5; }
 .fb-field textarea::placeholder { color: rgba(35, 34, 34, .45); }
-.fb-hint { margin: -8px 0 0; font-size: var(--fs-small); line-height: 1.45; color: var(--mid-grey); }
+.fb-hint { margin: 0; font-size: var(--fs-small); line-height: 1.45; color: var(--mid-grey); }
 .fb-hint b { font-weight: 500; color: var(--ink); }
 .fb-send { display: inline-flex; align-items: center; gap: 8px; }
 .fb-send .licon { font-size: 1.1em; }
@@ -1913,3 +1913,22 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 .nav-group > .nav-sub-wrap > .nav-sub > li:last-child { margin-bottom: 14px; }
 /* Optical alignment: pull "Brand Guidelines" left by the B's side bearing so its stem lines up with the P's */
 .sidebar > .brand .brand-sub { margin-left: -0.07em; }
+
+/* Feedback form type in one system: Roobert Mono caps labels; field text, hints and intro in Roobert at two sizes */
+.fb-field span { margin-bottom: 2px; }
+.fb .fb-hint { margin: 0 0 6px; padding: 0; list-style: none; font-size: var(--fs-small); line-height: 1.45; color: var(--muted); }
+.fb .fb-hint li { position: relative; padding-left: 14px; }
+.fb .fb-hint li::before { content: '–'; position: absolute; left: 0; color: color-mix(in srgb, var(--ink) 35%, transparent); }
+.fb .fb-hint li + li { margin-top: 2px; }
+.fb-intro { font-size: var(--fs-base); }
+.fb-field input, .fb-field textarea { font-size: var(--fs-small); }
+
+/* Third-level menu items behave like the level above: pill shape, soft light hover, raised white pill when active,
+   no dash marker on the line */
+.nav-sub2 a { border-radius: var(--r-pill); padding: 8px 14px; }
+.nav-sub2 a::before { display: none; }
+.nav-sub2 a:hover { background: rgba(255, 252, 248, .6); }
+.nav-sub2 a.active, .nav-sub2 a.active:hover { background: var(--raised); box-shadow: var(--lift); font-weight: 600; }
+.nav-sub2 { padding-left: 12px; }
+.nav-sub2 li:last-child { margin-bottom: 12px; }
+[data-theme="dark"] .nav-sub2 a:hover { background: rgba(255, 252, 248, .06); }

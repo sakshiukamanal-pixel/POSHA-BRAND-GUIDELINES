@@ -84,13 +84,12 @@
         <label class="fb-field"><span>Name</span><input name="name" autocomplete="name" required maxlength="120"></label>
         <label class="fb-field"><span>Email</span><input name="email" type="email" autocomplete="email" required maxlength="200"></label>
       </div>
-      <label class="fb-field"><span>Your note</span><textarea name="feedback" rows="5" required maxlength="5000" aria-describedby="fbHint"></textarea></label>
-      <div class="fb-hint" id="fbHint">Suggested inputs:
-        <ul>
-          <li><b>I want to ____,</b> and <b>____ will help me do it.</b></li>
-          <li><b>I want you to include ____,</b> and <b>here’s the link: ____</b></li>
+      <label class="fb-field"><span>What would help you?</span>
+        <ul class="fb-hint" id="fbHint" aria-label="Suggested inputs">
+          <li>I want to ____, and ____ will help me do it.</li>
+          <li>I want you to include ____, and here’s the link: ____</li>
         </ul>
-      </div>
+        <textarea name="feedback" rows="5" required maxlength="5000" aria-describedby="fbHint"></textarea></label>
       <label class="fb-hp" aria-hidden="true">Website <input name="website" tabindex="-1" autocomplete="off"></label>
       <p class="fb-status" role="status" aria-live="polite"></p>
       <div class="fb-actions">

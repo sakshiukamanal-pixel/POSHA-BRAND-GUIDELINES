@@ -1685,7 +1685,7 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
    Off-White paper, Cream fields, Black pill to send, line-icon arrow */
 .fb { width: min(560px, calc(100vw - 32px)); }
 .fb-form { gap: 18px; padding: 28px 32px 32px; }
-.fb-chip { display: inline-flex; padding: 6px 12px; border-radius: var(--r-pill); background: var(--posha-yellow); font: var(--fs-micro)/1 var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--black); }
+.fb-chip { display: inline-flex; padding: 6px 12px; border-radius: var(--r-pill); background: var(--mint); font: var(--fs-micro)/1 var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--black); }
 .fb-title { margin: 4px 0 0; font: 400 clamp(2.4rem, 6vw, 3.2rem)/1 var(--font-display); color: var(--ink); text-wrap: balance; }
 .fb-intro { margin: 0; font-size: var(--fs-base); line-height: 1.45; color: var(--ink-2); text-wrap: pretty; }
 .fb-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -1798,7 +1798,7 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 .hero--stacked .hero-summary { margin-top: 24px; max-width: 560px; color: var(--muted); font-size: var(--fs-base); line-height: var(--lh-base); }
 
 /* Search pill: the icon sits as close to the left edge as it is to the top and bottom */
-.site-search-box { padding-left: 12px; gap: 10px; }
+.site-search-box { padding-left: 12px; gap: 6px; }
 /* Phones: the results list spans the whole bar, not just the narrow search pill, so names aren't cut off */
 @media (max-width: 600px) {
   .appbar .site-search { position: static; }
@@ -1865,3 +1865,10 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 /* statement size 'h1': the biggest size in the type scale (H1, Epika, 6rem), scaling down only when the column is narrow */
 .view .statement--h1 .statement-text,
 .view:not(.view--ui-system) .statement--display.statement--h1 .statement-text { font: 400 min(var(--fs-h1), 15cqi)/var(--lh-h1) var(--font-display); letter-spacing: -0.005em; }
+
+/* Numbered cards: the number is part of the heading line ("01  Pick a recipe"), so it shares its baseline even when the title wraps */
+.view:not(.view--ui-system) .principles strong > .num { display: inline-block; padding: 4px 7px; margin-right: .6em; border-radius: var(--r-pill); background: var(--track); font: 400 var(--fs-micro)/1 var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--ink-2); position: relative; top: -.12em; }
+/* the heading now opens the card (its number is inside it), so no extra space above it */
+.view:not(.view--ui-system) .principles li > strong:first-child { margin-top: 0; }
+/* Cards a little tighter: 18px above the heading, 20px at the sides and bottom */
+.view:not(.view--ui-system) .principles li { padding: 18px 20px 20px; }

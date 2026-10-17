@@ -1866,8 +1866,9 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 .view .statement--h1 .statement-text,
 .view:not(.view--ui-system) .statement--display.statement--h1 .statement-text { font: 400 min(var(--fs-h1), 15cqi)/var(--lh-h1) var(--font-display); letter-spacing: -0.005em; }
 
-/* Numbered cards: the number is part of the heading line ("01  Pick a recipe"), so it shares its baseline even when the title wraps */
-.view:not(.view--ui-system) .principles strong > .num { display: inline-block; padding: 4px 7px; margin-right: .6em; border-radius: var(--r-pill); background: var(--track); font: 400 var(--fs-micro)/1 var(--font-mono); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--ink-2); position: relative; top: -.12em; }
+/* Numbered cards: a small Warm Neutral number pill above the heading */
+.view:not(.view--ui-system) .principles li > .num { padding: 4px 8px; background: var(--track); font-size: var(--fs-micro); color: var(--ink-2); }
+.view:not(.view--ui-system) .principles li > .num + strong { margin-top: 12px; }
 /* the heading now opens the card (its number is inside it), so no extra space above it */
 .view:not(.view--ui-system) .principles li > strong:first-child { margin-top: 0; }
 /* Cards a little tighter: 18px above the heading, 20px at the sides and bottom */

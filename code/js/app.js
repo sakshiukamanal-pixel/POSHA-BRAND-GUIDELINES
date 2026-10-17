@@ -677,7 +677,7 @@
     // Numbered cards. Optional `icon`: a path inside /assets (e.g. one of the gradient icons), shown beside the number.
     // Optional `image`: a path inside /assets, shown at the top of the card (best for cut-out product shots).
     list: (b) => `<ol class="principles" style="--cols:${b.columns || 3}">${b.items.map((it, i) => `
-        <li>${it.image ? `<span class="p-media"><img src="${asset(it.image)}" alt="${esc(it.alt || '')}" loading="lazy"></span>` : ''}${it.icon ? `<span class="p-head"><img class="p-icon" src="${asset(it.icon)}" alt="" loading="lazy"><span class="num">${pad(i + 1)}</span></span>` : ''}<strong>${it.icon ? '' : `<span class="num">${pad(i + 1)}</span>`}${inline(it.title)}</strong>${it.body ? `<p>${inline(it.body)}</p>` : ''}</li>`).join('')}</ol>`,
+        <li>${it.image ? `<span class="p-media"><img src="${asset(it.image)}" alt="${esc(it.alt || '')}" loading="lazy"></span>` : ''}${it.icon ? `<span class="p-head"><img class="p-icon" src="${asset(it.icon)}" alt="" loading="lazy"><span class="num">${pad(i + 1)}</span></span>` : `<span class="num">${pad(i + 1)}</span>`}<strong>${inline(it.title)}</strong>${it.body ? `<p>${inline(it.body)}</p>` : ''}</li>`).join('')}</ol>`,
 
     links: (b, c) => `<div class="links">${b.items.map((l) => {
         const u = href(resolve(l.href, c));

@@ -34,7 +34,7 @@ POSHA.section({
       blocks: [
         {
           type: 'text', size: 'lg',
-          body: 'We are an AI and robotics company building the future of autonomous cooking and setting the foundation for modern culinary artificial intelligence.',
+          body: 'We are a robotics company building the future of autonomous cooking, powered by AI that is setting the foundation for modern culinary intelligence.',
         },
         {
           type: 'facts',

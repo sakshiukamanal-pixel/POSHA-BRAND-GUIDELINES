@@ -1460,13 +1460,25 @@
 
   const wip = (t) => /\(WIP\)/i.test(t || '') ? ' is-wip' : '';
 
+  // Sidebar lockup: "Brand Guidelines" is sized so it runs exactly as wide as the wordmark above it
+  function fitSidebarBrand() {
+    const el = $('.sidebar > .brand'), img = el && $('.logo-img', el), sub = el && $('.brand-sub', el);
+    if (!img || !sub) return;
+    sub.style.fontSize = '16px';
+    const w = img.getBoundingClientRect().width, t = sub.getBoundingClientRect().width;
+    if (w && t) sub.style.fontSize = (16 * w / t).toFixed(2) + 'px';
+  }
+  window.fitSidebarBrand = fitSidebarBrand;
+  // Roobert SemiBold only downloads once something uses it, so wait for it before measuring
+  if (document.fonts) document.fonts.load('600 16px Roobert').then(fitSidebarBrand, fitSidebarBrand);
+
   function renderShell() {
     const site = POSHA.site;
     $$('[data-brand]').forEach((el) => {
       const dark = el.dataset.brand === 'on-dark' || document.documentElement.dataset.theme === 'dark';
       const logo = dark && site.logoOnDark ? site.logoOnDark : site.logo;
       el.innerHTML = `<span class="logo-text">${esc(site.logoText || site.shortName || 'Brand')}</span>` +
-        (logo ? `<img class="logo-img" src="${asset(logo)}" alt="${esc(site.logoText || '')}" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()">` : '') +
+        (logo ? `<img class="logo-img" src="${asset(logo)}" alt="${esc(site.logoText || '')}" onload="this.parentNode.classList.add('has-logo'); window.fitSidebarBrand && fitSidebarBrand()" onerror="this.remove()">` : '') +
         `<span class="brand-sub">${esc(site.homeTitle || 'Brand Guidelines')}</span>`;
     });
     $('#sidebarFoot').innerHTML = site.updated ? `<span class="num">Updated ${esc(site.updated)}</span>` : '';
@@ -2435,6 +2447,10 @@
     bindEvents();
     if (store.get('menuHidden', false)) document.body.classList.add('menu-hidden');
     if (store.get('theme', 'light') === 'dark') setTheme('dark');
+    // Phones get a short search placeholder so it isn't cut off mid-sentence
+    const sIn = $('#searchInput'), longPh = sIn.placeholder, narrow = matchMedia('(max-width: 600px)');
+    const fitPh = () => { sIn.placeholder = narrow.matches ? sIn.dataset.placeholderShort : longPh; };
+    fitPh(); narrow.addEventListener('change', fitPh);
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; // the router places the scroll itself
     route(true);
     // after the first page is in place, so the footer (and its icon rain) starts below the content

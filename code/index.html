@@ -27,10 +27,11 @@
 <body>
   <!-- Mobile top bar -->
   <header class="topbar">
-    <a class="brand" href="#/" data-brand></a>
+    <!-- menu: three lines sized to the wordmark beside it (same height, a little wider), in the wordmark's black -->
     <button class="icon-btn" id="menuBtn" aria-label="Open navigation">
-      <svg viewBox="0 0 24 24" width="22" height="22"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+      <svg class="menu-lines" viewBox="0 0 27 24" width="27" height="24" aria-hidden="true"><path d="M0 4h27M0 12h27M0 20h27" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
     </button>
+    <a class="brand" href="#/" data-brand></a>
   </header>
 
   <!-- Sidebar -->
@@ -42,9 +43,9 @@
       <kbd>Ctrl K</kbd>
     </button>
     <div class="nav-tools" role="group" aria-label="Menu">
-      <button type="button" class="nav-all" data-nav-all="open" title="Expand all" aria-label="Expand all"><span class="licon licon--down" aria-hidden="true"></span><span class="licon licon--down" aria-hidden="true"></span></button>
-      <button type="button" class="nav-all" data-nav-all="close" title="Collapse all" aria-label="Collapse all"><span class="licon licon--up" aria-hidden="true"></span><span class="licon licon--up" aria-hidden="true"></span></button>
-      <button type="button" class="nav-all nav-hide" data-menu-hide title="Hide menu" aria-label="Hide menu"><span class="licon licon--left" aria-hidden="true"></span><span class="licon licon--left" aria-hidden="true"></span></button>
+      <button type="button" class="nav-all" data-nav-all="open" aria-label="Expand menu"><span class="nav-all-ic"><span class="licon licon--down" aria-hidden="true"></span><span class="licon licon--down" aria-hidden="true"></span></span><span class="nav-all-label">Expand menu</span></button>
+      <button type="button" class="nav-all" data-nav-all="close" aria-label="Collapse menu"><span class="nav-all-ic"><span class="licon licon--up" aria-hidden="true"></span><span class="licon licon--up" aria-hidden="true"></span></span><span class="nav-all-label">Collapse menu</span></button>
+      <button type="button" class="nav-all nav-hide" data-menu-hide aria-label="Hide menu"><span class="nav-all-ic"><span class="licon licon--left" aria-hidden="true"></span><span class="licon licon--left" aria-hidden="true"></span></span><span class="nav-all-label">Hide menu</span></button>
     </div>
     <nav class="nav" id="nav" aria-label="Guidelines"></nav>
     <div class="sidebar-foot" id="sidebarFoot"></div>
@@ -57,7 +58,7 @@
     <div class="site-search" id="siteSearch">
       <label class="site-search-box">
         <button type="button" class="search-go" data-search-go aria-label="Show all results"><span class="licon licon--search" aria-hidden="true"></span></button>
-        <input id="searchInput" type="search" placeholder="Search the guidelines — try “icons”, “posha yellow”, “renders”, “logo misuse”" autocomplete="off"
+        <input id="searchInput" type="search" placeholder="Search the guidelines: try “icons”, “posha yellow”, “renders”" data-placeholder-short="Search the guidelines" autocomplete="off"
           role="combobox" aria-expanded="false" aria-controls="searchResults" aria-label="Search the guidelines">
         <kbd>Ctrl K</kbd>
       </label>

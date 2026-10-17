@@ -1851,3 +1851,17 @@ p, li, dd, figcaption, .hero-summary, .sub-summary, .note, .tk-note { text-wrap:
 @container view (max-width: 819px) {
   .view:not(.view--ui-system) .sub > :not(.sub-title) { margin-left: 0; padding-left: 0; }
 }
+
+/* Markers by level, the same everywhere (menu, contents pills, page headers):
+   1. Chapter number (01): solid Black pill, like the current chapter in the menu
+   2. Section number (01.3): Warm Neutral pill, like the contents pills
+   3. Block labels (TAGLINE · USE EVERYWHERE): outlined pill
+   4. Item numbers inside cards (01, 02): plain grey mono */
+.hero-head > .num:not(.num--sub) { background: var(--ink); color: var(--paper); }
+.hero-head > .num:not(.num--sub) .crumb { color: color-mix(in srgb, var(--paper) 65%, transparent); }
+.view:not(.view--ui-system) .statement-label { background: transparent; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 28%, transparent); color: var(--ink-2); }
+.view:not(.view--ui-system) .principles .num { padding: 0; background: none; color: var(--mid-grey); }
+
+/* statement size 'h1': the biggest size in the type scale (H1, Epika, 6rem), scaling down only when the column is narrow */
+.view .statement--h1 .statement-text,
+.view:not(.view--ui-system) .statement--display.statement--h1 .statement-text { font: 400 min(var(--fs-h1), 15cqi)/var(--lh-h1) var(--font-display); letter-spacing: -0.005em; }

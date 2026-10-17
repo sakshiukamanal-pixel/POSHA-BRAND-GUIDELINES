@@ -635,7 +635,7 @@
 
     // A big brand line set straight on the page: { type: 'statement', label, text, sub, font: 'display' | 'ui', align: 'center' | 'left' }
     // text supports **bold** (use with font: 'ui'); an array of lines sets one line each.
-    statement: (b) => `<figure class="statement statement--${b.font || 'display'} statement--${b.align || 'left'} statement--${b.tone || 'cream'}">
+    statement: (b) => `<figure class="statement statement--${b.font || 'display'} statement--${b.align || 'left'} statement--${b.tone || 'cream'}${b.size ? ' statement--' + b.size : ''}">
         ${b.label ? `<figcaption class="statement-label">${esc(b.label)}</figcaption>` : ''}
         <p class="statement-text">${[].concat(b.text).map(inline).join('<br>')}</p>
         ${b.sub ? `<p class="statement-sub">${inline(b.sub)}</p>` : ''}
@@ -1565,7 +1565,7 @@
   /* ---- Views ------------------------------------------------------------- */
   function hero(num, crumb, title, summary, style) {
     return `<header class="hero hero--${style || 'split'}">
-      <div class="hero-head"><div class="num">${esc(num)}${crumb ? ` <span class="crumb">/ ${esc(crumb)}</span>` : ''}</div><h1 class="display">${esc(title)}</h1></div>
+      <div class="hero-head"><div class="num${String(num).includes('.') ? ' num--sub' : ''}">${esc(num)}${crumb ? ` <span class="crumb">/ ${esc(crumb)}</span>` : ''}</div><h1 class="display">${esc(title)}</h1></div>
       ${summary ? `<div class="hero-summary">${paras(summary)}</div>` : ''}
     </header>`;
   }

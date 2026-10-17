@@ -58,7 +58,7 @@ POSHA.section({
       title: 'Tagline & Introductions',
       blocks: [
         {
-          type: 'statement', label: 'Tagline · use everywhere',
+          type: 'statement', label: 'Tagline · use everywhere', size: 'h1', // the biggest size in our type scale
           text: 'See dinner cook itself.',
           sub: 'Our most-used line. Lead with it to start the conversation: on the website, in ads, on packaging and on social.',
         },
